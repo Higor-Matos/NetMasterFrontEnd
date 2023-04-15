@@ -11,6 +11,7 @@ import Sidebar from "./components/Sidebar";
 import Presentation from "./pages/Presentation";
 import ControlPanel from "./pages/ControlPanel";
 import Dashboard from "./pages/Dashboard";
+import Topbar from "./components/Topbar";
 
 const App = () => {
   const { colorMode } = useColorMode();
@@ -86,6 +87,7 @@ const App = () => {
 
   return (
     <Container maxW="container.xl">
+      <Topbar />
       <Flex>
         <Sidebar
           currentPage={currentPage}
@@ -99,11 +101,10 @@ const App = () => {
   );
 };
 
-
 const Main = ({ sidebarBg, children }) => (
   <Box
     mt="8"
-    w={{ base: "100%", md: "calc(100% - 220px)" }} // Modifique esta linha
+    w={{ base: "100%", md: "calc(100% - 220px)" }}
     minHeight="calc(100vh - 2rem)"
     pl={{ base: 0, md: 4 }}
     ml={{ base: 0, md: "220px" }}
@@ -111,6 +112,5 @@ const Main = ({ sidebarBg, children }) => (
     {children}
   </Box>
 );
-
 
 export default App;

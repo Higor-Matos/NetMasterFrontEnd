@@ -10,15 +10,16 @@ import {
   Text,
   Divider,
   useMediaQuery,
-  IconButton,
   Drawer,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import { SunIcon, MoonIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { RiBarChartBoxLine } from "react-icons/ri";
 import { AiOutlineHome, AiFillLayout } from "react-icons/ai";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { IconButton } from "@chakra-ui/react";
+
 
 const Sidebar = ({
   onPresentationClick,
@@ -56,15 +57,36 @@ const Sidebar = ({
       width="100%"
       justifyContent="space-between"
       alignItems="center"
+      borderRadius="md"
     >
       <Text flex="1">{text}</Text>
       {renderIndicator(page)}
     </Button>
   );
 
+  const renderMenuButton = () => (
+    !isLargerThan768 ? (
+      <IconButton
+        aria-label="Open Menu"
+        icon={<HamburgerIcon />}
+        onClick={toggleMenu}
+        position="fixed"
+        zIndex="2"
+        left="8"
+        top="8"
+        size="sm"
+        borderRadius="md"
+      />
+    ) : null
+  );
+  
+  
+  
+
   return (
     <>
-      {isLargerThan768 ? (
+        {renderMenuButton()}
+        {isLargerThan768 ? (
         <Box
           position="fixed"
           left="0"
@@ -75,6 +97,7 @@ const Sidebar = ({
           padding="4"
           boxShadow="md"
           zIndex="1"
+          borderRadius="md"
         >
           <VStack spacing="4" alignItems="stretch">
             <Heading size="lg" mb="2" textAlign="center" fontSize="md">
@@ -100,29 +123,13 @@ const Sidebar = ({
               "dashboard"
             )}
             <Spacer />
-            <Button
-              aria-label="Toggle Dark Mode"
-              variant="ghost"
-              leftIcon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
-              onClick={toggleColorMode}
-            >
-              {colorMode === "dark" ? "Light Mode" : "Dark Mode"}
-            </Button>
           </VStack>
         </Box>
       ) : (
         <>
-          <IconButton
-            icon={<HamburgerIcon />}
-            onClick={toggleMenu}
-            position="fixed"
-            zIndex="2"
-            bg={colorMode === "dark" ? "#111C44" : "white"}
-            boxShadow="md"
-          />
           <Drawer isOpen={isMenuOpen} onClose={toggleMenu} placement="left" size="xs">
             <DrawerOverlay />
-            <DrawerContent bg={colorMode === "dark" ? "#111C44" : "white"}>
+            <DrawerContent bg={colorMode === "dark" ? "#111C44" : "white"} borderRadius="md">
               <DrawerCloseButton />
               <VStack spacing="4" alignItems="stretch" padding="4">
                 <Heading size="lg" mb="2" textAlign="center" fontSize="md">
@@ -131,37 +138,29 @@ const Sidebar = ({
                 <Divider borderColor="gray.300" my={2} />
                 {renderButton(
                   "Presentation",
-                  AiOutlineHome,
-                  onPresentationClick,
+                  AiOutlineHome, onPresentationClick,
                   "presentation"
-                )}
-                {renderButton(
+                  )}
+                  {renderButton(
                   "Control Panel",
                   AiFillLayout,
                   onControlPanelClick,
                   "control-panel"
-                )}
-                {renderButton(
+                  )}
+                  {renderButton(
                   "Dashboard",
                   RiBarChartBoxLine,
                   onDashboardClick,
                   "dashboard"
-                )}
-                <Spacer />
-                <Button
-                  aria-label="Toggle Dark Mode"
-                  variant="ghost"
-                  leftIcon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
-                  onClick={toggleColorMode}
-                >
-                  {colorMode === "dark" ? "Light Mode" : "Dark Mode"}
-                </Button>
-              </VStack>
-            </DrawerContent>
-          </Drawer>
-        </>
-      )}
-    </>
-  );
-};
-export default Sidebar;
+                  )}
+                  <Spacer />
+                  </VStack>
+                  </DrawerContent>
+                  </Drawer>
+                  </>
+                  )}
+                  </>
+                  );
+                  };
+                  
+                  export default Sidebar;
