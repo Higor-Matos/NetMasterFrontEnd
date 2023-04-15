@@ -19,50 +19,60 @@ import { RiBarChartBoxLine } from "react-icons/ri";
 import { AiOutlineHome, AiFillLayout } from "react-icons/ai";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { IconButton } from "@chakra-ui/react";
+import { IconBaseProps } from "react-icons/lib";
 
+
+type SidebarProps = {
+  onPresentationClick: () => void;
+  onControlPanelClick: () => void;
+  onDashboardClick: () => void;
+  currentPage: string;
+};
 
 const Sidebar = ({
   onPresentationClick,
   onControlPanelClick,
   onDashboardClick,
   currentPage,
-}) => {
-  const { colorMode, toggleColorMode } = useColorMode();
+}: SidebarProps) => {
+  const { colorMode } = useColorMode();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  
+const renderIndicator = (page: string): JSX.Element | null =>
+  currentPage === page ? (
+    <Box
+      w="4px"
+      h="20px"
+      bg="purple.500"
+      ml={2}
+      borderRadius="25px"
+      transform="rotate(0deg)"
+    />
+  ) : null;
 
-  const renderIndicator = (page) =>
-    currentPage === page ? (
-      <Box
-        w="4px"
-        h="20px"
-        bg="#7551FF"
-        ml={2}
-        borderRadius="25px"
-        transform="rotate(0deg)"
-      />
-    ) : null;
 
-  const renderButton = (text, icon, onClick, page) => (
-    <Button
-      key={text}
-      leftIcon={<Icon as={icon} boxSize="16px" />}
-      variant="ghost"
-      fontSize="sm"
-      fontWeight="semibold"
-      textAlign="left"
-      onClick={onClick}
-      width="100%"
-      justifyContent="space-between"
-      alignItems="center"
-      borderRadius="md"
-    >
-      <Text flex="1">{text}</Text>
-      {renderIndicator(page)}
-    </Button>
-  );
+const renderButton = (text: string | React.Key | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | null | undefined, icon: { (props: IconBaseProps): JSX.Element; (props: IconBaseProps): JSX.Element; (props: IconBaseProps): JSX.Element; (props: IconBaseProps): JSX.Element; (props: IconBaseProps): JSX.Element; (props: IconBaseProps): JSX.Element; }, onClick: React.MouseEventHandler<HTMLButtonElement> | undefined, page: string) => (
+  <Button
+    key={text}
+    leftIcon={<Icon as={icon} boxSize="16px" />}
+    variant="ghost"
+    fontSize="sm"
+    fontWeight="semibold"
+    textAlign="left"
+    onClick={onClick}
+    width="100%"
+    justifyContent="space-between"
+    alignItems="center"
+    borderRadius="md"
+    mb={2} // Adiciona um espaçamento uniforme entre os cards
+  >
+    <Text flex="1">{text}</Text>
+    {renderIndicator(page)}
+  </Button>
+);
 
   const renderMenuButton = () => (
     !isLargerThan768 ? (
@@ -79,8 +89,6 @@ const Sidebar = ({
       />
     ) : null
   );
-  
-  
   
 
   return (
@@ -99,9 +107,9 @@ const Sidebar = ({
           zIndex="1"
           borderRadius="md"
         >
-          <VStack spacing="4" alignItems="stretch">
-            <Heading size="lg" mb="2" textAlign="center" fontSize="md">
-              NETMASTER
+          <VStack spacing="5" alignItems="stretch">
+            <Heading size="sm" mb="1" textAlign="center" fontSize="lg">
+              NET MASTER
             </Heading>
             <Divider borderColor="gray.300" my={2} />
             {renderButton(

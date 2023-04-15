@@ -21,7 +21,7 @@ const Presentation: React.FC = () => {
           NetMaster
         </Text>
         <Text fontSize="2xl" fontWeight="medium" mb="8">
-          O painel de administraração para gerenciar sua rede
+          O painel de administração para gerenciar sua rede
         </Text>
         <Button
           size="lg"

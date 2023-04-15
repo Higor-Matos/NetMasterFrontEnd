@@ -4,7 +4,7 @@ import {
   Box,
   Flex,
   useColorMode,
-  useColorModeValue,
+  extendTheme
 } from "@chakra-ui/react";
 import axios from "axios";
 import Sidebar from "./components/Sidebar";
@@ -12,6 +12,13 @@ import Presentation from "./pages/Presentation";
 import ControlPanel from "./pages/ControlPanel";
 import Dashboard from "./pages/Dashboard";
 import Topbar from "./components/Topbar";
+const theme = extendTheme({
+  fonts: {
+    heading: "Poppins, sans-serif",
+    body: "system-ui, sans-serif",
+  },
+});
+
 
 const App = () => {
   const { colorMode } = useColorMode();
@@ -45,25 +52,26 @@ const App = () => {
     }
   };
 
-  const handleButtonClick = async (endpoint) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:5018/powershell/${endpoint}`,
-        { ip }
-      );
-      console.log(response);
-      alert(response.data);
-    } catch (error) {
-      console.error(error);
-      let message = "An error occurred. Please try again later.";
-      if (error.response) {
-        message = `Error ${error.response.status}: ${error.response.statusText}`;
-      } else if (error.request) {
-        message = "The request was made but no response was received.";
-      }
-      alert(message);
+const handleButtonClick = async (endpoint: any) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:5018/powershell/${endpoint}`,
+      { ip }
+    );
+    console.log(response);
+    alert(response.data);
+  } catch (error: any) {
+    console.error(error);
+    let message = "An error occurred. Please try again later.";
+    if (error.response) {
+      message = `Error ${error.response.status}: ${error.response.statusText}`;
+    } else if (error.request) {
+      message = "The request was made but no response was received.";
     }
-  };
+    alert(message);
+  }
+};
+
 
   const handlePageChange = (page) => setCurrentPage(page);
 
@@ -84,6 +92,7 @@ const App = () => {
         return <Presentation />;
     }
   };
+   
 
   return (
     <Container maxW="container.xl">

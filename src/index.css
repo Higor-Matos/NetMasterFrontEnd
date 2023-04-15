@@ -19,6 +19,7 @@ a {
   color: #7A7ECD;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #5E62C5;
 }
@@ -47,9 +48,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #7A7ECD;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
