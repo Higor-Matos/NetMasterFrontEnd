@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Text, Button, Image } from "@chakra-ui/react";
+import React from 'react';
+import { Box, Text, Button } from '@chakra-ui/react';
 
 const Presentation: React.FC = () => {
   return (
@@ -11,16 +11,25 @@ const Presentation: React.FC = () => {
       justifyContent="center"
       flexDirection="column"
       textAlign="center"
+      px="4"
     >
-      <Text fontSize="6xl" fontWeight="bold" mb="4">
-        NetMaster
-      </Text>
-      <Text fontSize="xl" fontWeight="medium" mb="8">
-        O painel de administração para gerenciar sua rede
-      </Text>
-      <Button colorScheme="purple" size="lg" onClick={() => {}}>
-        Acessar Controle e Dashboard
-      </Button>
+      <Box
+        p="6"
+        borderRadius="lg"
+      >
+        <Text fontSize="2xl" fontWeight="medium" mb="8">
+          NetMaster
+        </Text>
+        <Text fontSize="2xl" fontWeight="medium" mb="8">
+          O painel de administraração para gerenciar sua rede
+        </Text>
+        <Button
+          size="lg"
+          onClick={() => {}}
+        >
+          Acessar Controle e Dashboard
+        </Button>
+      </Box>
     </Box>
   );
 };

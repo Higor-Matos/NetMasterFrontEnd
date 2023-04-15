@@ -13,11 +13,18 @@ import ControlPanel from "./pages/ControlPanel";
 import Dashboard from "./pages/Dashboard";
 
 const App = () => {
+  const { colorMode } = useColorMode();
+  const [sidebarBg, setSidebarBg] = useState(
+    colorMode === "light" ? "white" : "#111C44"
+  );
+
+  useEffect(() => {
+    setSidebarBg(colorMode === "light" ? "white" : "#111C44");
+  }, [colorMode]);
+
   const [ip, setIp] = useState("");
   const [computers, setComputers] = useState([]);
   const [currentPage, setCurrentPage] = useState("presentation");
-  const { colorMode } = useColorMode();
-  const sidebarBg = useColorModeValue("white", "#111C44");
 
   useEffect(() => {
     fetchComputers();
@@ -57,10 +64,10 @@ const App = () => {
     }
   };
 
+  const handlePageChange = (page) => setCurrentPage(page);
+
   const renderCurrentPage = () => {
     switch (currentPage) {
-      case "presentation":
-        return <Presentation />;
       case "control-panel":
         return (
           <ControlPanel
@@ -77,10 +84,8 @@ const App = () => {
     }
   };
 
-  const handlePageChange = (page) => setCurrentPage(page);
-
   return (
-    <Container maxW="container.xl" centerContent>
+    <Container maxW="container.xl">
       <Flex>
         <Sidebar
           currentPage={currentPage}
@@ -88,18 +93,24 @@ const App = () => {
           onControlPanelClick={() => handlePageChange("control-panel")}
           onDashboardClick={() => handlePageChange("dashboard")}
         />
-        <Box
-          mt="8"
-          w="100%"
-          minHeight="calc(100vh - 2rem)"
-          pl={{ base: 0, md: 4 }}
-          bg={sidebarBg}
-        >
-          {renderCurrentPage()}
-        </Box>
+        <Main sidebarBg={sidebarBg}>{renderCurrentPage()}</Main>
       </Flex>
     </Container>
   );
 };
+
+
+const Main = ({ sidebarBg, children }) => (
+  <Box
+    mt="8"
+    w={{ base: "100%", md: "calc(100% - 220px)" }} // Modifique esta linha
+    minHeight="calc(100vh - 2rem)"
+    pl={{ base: 0, md: 4 }}
+    ml={{ base: 0, md: "220px" }}
+  >
+    {children}
+  </Box>
+);
+
 
 export default App;
