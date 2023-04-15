@@ -7,9 +7,14 @@ import {
   Spacer,
   useColorMode,
   Icon,
+  Text,
+  Divider,
+  useMediaQuery,
+  Flex,
 } from "@chakra-ui/react";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { RiBarChartBoxLine } from "react-icons/ri";
+import { AiOutlineHome, AiFillLayout } from "react-icons/ai";
 
 const Sidebar = ({
   onPresentationClick,
@@ -18,64 +23,76 @@ const Sidebar = ({
   currentPage,
 }) => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const renderIndicator = (page) =>
     currentPage === page ? (
-      <Icon
-        as={ChevronRightIcon}
-        color="#7551FF"
+      <Box
+        w="4px"
+        h="20px"
+        bg="#7551FF"
         ml={2}
-        boxSize={4}
-        verticalAlign="middle"
+        borderRadius="25px"
+        transform="rotate(0deg)"
       />
     ) : null;
+
+    const renderButton = (text, icon, onClick, page) => (
+        <Flex
+          alignItems="center"
+          justifyContent="space-between"
+          width="100%"
+          onClick={onClick}
+        >
+          <Button
+            leftIcon={<Icon as={icon} boxSize="16px" />}
+            variant="ghost"
+            fontSize="sm"
+            fontWeight="semibold"
+            textAlign="left"
+          >
+            {text}
+          </Button>
+          {renderIndicator(page)}
+        </Flex>
+      );
+      
 
   return (
     <Box
       position="fixed"
       left="0"
       top="0"
-      width="220px"
+      width={isLargerThan768 ? "220px" : "100%"}
       height="100%"
-      bg={colorMode === "dark" ? "gray.800" : "white"}
+      bg={colorMode === "dark" ? "#111C44" : "white"}
       padding="4"
       boxShadow="md"
       zIndex="1"
     >
-      <VStack spacing="8" alignItems="center">
-        <Heading size="lg" mb="8">
-          NetMaster
+      <VStack spacing="4" alignItems="stretch">
+        <Heading size="lg" mb="2" textAlign="center" fontSize="md">
+          NETMASTER
         </Heading>
-        <Button
-          onClick={onPresentationClick}
-          variant="ghost"
-          width="100%"
-          textAlign="left"
-          justifyContent="space-between"
-        >
-          Presentation
-          {renderIndicator("presentation")}
-        </Button>
-        <Button
-          onClick={onControlPanelClick}
-          variant="ghost"
-          width="100%"
-          textAlign="left"
-          justifyContent="space-between"
-        >
-          Control Panel
-          {renderIndicator("control-panel")}
-        </Button>
-        <Button
-          onClick={onDashboardClick}
-          variant="ghost"
-          width="100%"
-          textAlign="left"
-          justifyContent="space-between"
-        >
-          Dashboard
-          {renderIndicator("dashboard")}
-        </Button>
+        <Divider borderColor="gray.300" my={2} />
+        {renderButton(
+          "Presentation",
+          AiOutlineHome,
+          onPresentationClick,
+          "presentation"
+        )}
+        {renderButton(
+          "Control Panel",
+          AiFillLayout,
+          onControlPanelClick,
+          "control-panel"
+        )}
+        {renderButton(
+          "Dashboard",
+          RiBarChartBoxLine,
+          onDashboardClick,
+          "dashboard"
+        )}
         <Spacer />
         <Button
           aria-label="Toggle Dark Mode"

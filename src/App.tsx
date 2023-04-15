@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Box, Flex } from "@chakra-ui/react";
+import {
+  Container,
+  Box,
+  Flex,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import axios from "axios";
 import Sidebar from "./components/Sidebar";
 import Presentation from "./pages/Presentation";
@@ -10,6 +16,8 @@ const App = () => {
   const [ip, setIp] = useState("");
   const [computers, setComputers] = useState([]);
   const [currentPage, setCurrentPage] = useState("presentation");
+  const { colorMode } = useColorMode();
+  const sidebarBg = useColorModeValue("white", "#111C44");
 
   useEffect(() => {
     fetchComputers();
@@ -69,16 +77,24 @@ const App = () => {
     }
   };
 
+  const handlePageChange = (page) => setCurrentPage(page);
+
   return (
     <Container maxW="container.xl" centerContent>
       <Flex>
-      <Sidebar
+        <Sidebar
           currentPage={currentPage}
-          onPresentationClick={() => setCurrentPage("presentation")}
-          onControlPanelClick={() => setCurrentPage("control-panel")}
-          onDashboardClick={() => setCurrentPage("dashboard")}
+          onPresentationClick={() => handlePageChange("presentation")}
+          onControlPanelClick={() => handlePageChange("control-panel")}
+          onDashboardClick={() => handlePageChange("dashboard")}
         />
-        <Box mt="8" w="100%" minH="calc(100vh - 2rem)" pl={{ base: 0, md: 4 }}>
+        <Box
+          mt="8"
+          w="100%"
+          minHeight="calc(100vh - 2rem)"
+          pl={{ base: 0, md: 4 }}
+          bg={sidebarBg}
+        >
           {renderCurrentPage()}
         </Box>
       </Flex>

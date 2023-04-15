@@ -57,13 +57,38 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #000000;
+    background-color: #e5e5e5;
   }
   a:hover {
-    color: #747bff;
+    color: #5c5cff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #c6d4ff;
+    color: #1a1a1a;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #ffffff;
+    background-color: #0B1437;
+  }
+  a:hover {
+    color: #a0aaff;
+  }
+  button {
+    background-color: #0B1437;
+    color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  button:hover {
+    background-color: #2a3b6d;
+  }
+  button:focus,
+  button:focus-visible {
+    box-shadow: 0 0 0 2px #a0aaff, 0 0 0 4px #0B1437;
   }
 }
