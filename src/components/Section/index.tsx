@@ -18,6 +18,10 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
       borderRadius="md"
       borderWidth={1}
       borderColor={borderColor}
+      display="flex"
+      flexDirection="column"
+      flex="1"
+      minHeight="100%"
     >
       <Heading as="h3" fontSize="lg" mb={4}>
         {title}

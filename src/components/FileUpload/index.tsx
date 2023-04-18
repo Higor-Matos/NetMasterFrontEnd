@@ -33,7 +33,7 @@ const FileUpload: React.FC = () => (
       </p>
       <p className="ant-upload-text">Click or drag file to this area to upload</p>
       <p className="ant-upload-hint">
-                Support all file types, send only a single file at a time.
+                PNG, JPG , PDF, and ZIP files are allowed.
                 
       </p>
     </Dragger>

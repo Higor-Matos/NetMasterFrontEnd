@@ -7,11 +7,11 @@ import { SiAdobe, SiChocolatey } from "react-icons/si";
 import { MdOutlineRestartAlt } from "react-icons/md";
 import { RiShutDownLine } from "react-icons/ri";
 
-import SingleCommandIPAddressInput from "../components/IPAddressInput";
-import ControlButtons from "../components/ControlButtons";
-import FileUpload from "../components/FileUpload";
-import Section from "../components/Section";
-import IPAddressInput from "../components/IPAddressInput";
+import SingleCommandIPAddressInput from "../../components/IPAddressInput";
+import ControlButtons from "../../components/ControlButtons";
+import FileUpload from "../../components/FileUpload";
+import Section from "../../components/Section";
+import IPAddressInput from "../../components/IPAddressInput";
 
 interface ControlPanelProps {
   ip: string;
