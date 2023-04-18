@@ -22,6 +22,7 @@ const App = () => {
   const [ip, setIp] = useState("");
   const [computers, setComputers] = useState([]);
   const [currentPage, setCurrentPage] = useState("presentation");
+  const [showNavigation, setShowNavigation] = useState(false);
 
   useEffect(() => {
     fetchComputers();
@@ -61,7 +62,12 @@ const App = () => {
     }
   };
 
-  const handlePageChange = (page) => setCurrentPage(page);
+  const handlePageChange = (newPage: string) => {
+    setCurrentPage(newPage);
+    if (newPage !== "presentation") {
+      setShowNavigation(true);
+    }
+  };
 
   const renderCurrentPage = () => {
     switch (currentPage) {
@@ -77,32 +83,32 @@ const App = () => {
       case "dashboard":
         return <Dashboard />;
       default:
-        return <Presentation />;
+        return <Presentation handlePageChange={handlePageChange} />;
     }
   };
 
 return (
   <>
-    <Topbar />
+    {showNavigation && <Topbar />}
     <Container maxW="container.xl">
-      <Box minHeight="100vh" display="flex" flexDirection="column">
-        <Flex direction={{ base: "column", md: "row" }} flex="1">
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        paddingBottom={{ base: "16", md: "64px" }}
+      >
+        {showNavigation && (
           <Sidebar
             currentPage={currentPage}
             onPresentationClick={() => handlePageChange("presentation")}
             onControlPanelClick={() => handlePageChange("control-panel")}
             onDashboardClick={() => handlePageChange("dashboard")}
           />
-          <Main>
-            {renderCurrentPage()}
-            <Footer />
-          </Main>
-        </Flex>
-      </Box>
+        )}
+        <Main>{renderCurrentPage()}</Main>
+      </Flex>
     </Container>
+    <Footer />
   </>
 );
-
 };
 
 export default App;

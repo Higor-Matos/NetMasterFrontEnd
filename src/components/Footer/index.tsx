@@ -1,37 +1,37 @@
-import React from "react";
-import { Box, Flex, Link, Text, Icon, Stack, useColorMode } from "@chakra-ui/react";
-import { AiFillGithub, AiFillLinkedin, AiOutlineMail, AiOutlineWhatsApp } from "react-icons/ai";
+// src/components/Footer.tsx
+import React from 'react';
+import { Box, Container, Text, HStack, Link } from '@chakra-ui/react';
+import { FaLinkedin, FaGithub, FaEnvelope, FaWhatsapp } from 'react-icons/fa';
 
 const Footer = () => {
-  const { colorMode } = useColorMode();
-  const bgColor = { light: "white", dark: "gray.800" };
-
   return (
     <Box
-      bg={bgColor[colorMode]}
-      w="100%"
-      p={4}
-      position="sticky"
-      bottom={0}
-      zIndex={1000}
+      as='footer'
+      paddingY='1.5rem'
+      marginTop='auto'
+      marginLeft={{ base: 0, md: '220px' }} // Adicione marginLeft para dispositivos md e maiores
     >
-      <Stack direction={{ base: "column", md: "row" }} alignItems="center" justify="space-between">
-        <Text fontSize="sm">&copy; 2023 Integrator Projector. All Rights Reserved.</Text>
-        <Stack direction="row" spacing={4}>
-          <Link href="https://www.linkedin.com/in/higordedeusmatos/" isExternal>
-            <Icon as={AiFillLinkedin} w={4} h={4} />
-          </Link>
-          <Link href="https://github.com/Higor-Matos" isExternal>
-            <Icon as={AiFillGithub} w={6} h={6} />
-          </Link>
-          <Link href="mailto:higordeus22@gmail.com?subject=Interesse%20Comercial&body=Ol%C3%A1!" isExternal>
-            <Icon as={AiOutlineMail} w={6} h={6} />
-          </Link>
-          <Link href="https://wa.link/76i4cd" isExternal>
-            <Icon as={AiOutlineWhatsApp} w={6} h={6} />
-          </Link>
-        </Stack>
-      </Stack>
+      <Container maxW='container.xl'>
+        <HStack justifyContent='space-between'>
+          <Text fontSize='sm' color='gray.600'>
+            &copy; 2023 Integrator Projector. All Rights Reserved.
+          </Text>
+          <HStack spacing='4'>
+            <Link href='https://www.linkedin.com/in/higordedeusmatos/' target='_blank' rel='noopener noreferrer'>
+              <FaLinkedin />
+            </Link>
+            <Link href='https://github.com/Higor-Matos' target='_blank' rel='noopener noreferrer'>
+              <FaGithub />
+            </Link>
+            <Link href='mailto:higordeus22@gmail.com?subject=Interesse%20Comercial&body=Ol%C3%A1!' target='_blank' rel='noopener noreferrer'>
+              <FaEnvelope />
+            </Link>
+            <Link href='https://wa.link/76i4cd' target='_blank' rel='noopener noreferrer'>
+              <FaWhatsapp />
+            </Link>
+          </HStack>
+        </HStack>
+      </Container>
     </Box>
   );
 };

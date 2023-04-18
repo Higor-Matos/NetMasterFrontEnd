@@ -3,7 +3,8 @@ import {
   VStack,
   Heading,
   Spacer,
-  Divider
+  Divider,
+  Box,
 } from "@chakra-ui/react";
 import { AiOutlineHome, AiFillLayout } from "react-icons/ai";
 import { RiBarChartBoxLine } from "react-icons/ri";
@@ -64,6 +65,7 @@ const Sidebar = ({
         menuItems={menuItems}
         currentPage={currentPage}
         renderIndicator={renderIndicator}
+        zIndex={10} // Adicione um zIndex mais alto
       />
       <SidebarDrawer
         menuItems={menuItems}
