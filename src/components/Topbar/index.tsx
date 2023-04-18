@@ -10,8 +10,11 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  MenuGroup,
+  MenuDivider,
 } from '@chakra-ui/react';
 import { SunIcon, MoonIcon, BellIcon, WarningIcon } from '@chakra-ui/icons';
+import avatarImg from '../../assets/img/avatar.jpg';
 
 const Topbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -23,16 +26,33 @@ const Topbar = () => {
         <MenuButton
           as={IconButton}
           aria-label="Avatar"
-          icon={
-            <Avatar size="xs" src="assets/img/avatar.jpg" />
-
-          }
+          icon={<Avatar size="xs" src={avatarImg} />}
           variant="ghost"
           size="sm"
           borderRadius="md"
           colorScheme={colorMode === 'dark' ? 'orange' : 'gray'}
         />
         <MenuList>
+          {!isLargerThan768 && (
+            <MenuGroup>
+              <MenuItem onClick={toggleColorMode}>
+                {colorMode === 'dark' ? (
+                  <>
+                    <SunIcon mr="2" />
+                    Tema Claro
+                  </>
+                ) : (
+                  <>
+                    <MoonIcon mr="2" />
+                    Tema Escuro
+                  </>
+                )}
+              </MenuItem>
+              <MenuItem icon={<BellIcon />}>Notification</MenuItem>
+              <MenuItem icon={<WarningIcon />}>Attention</MenuItem>
+            </MenuGroup>
+          )}
+          {!isLargerThan768 && <MenuDivider />}
           <MenuItem>Profile</MenuItem>
           <MenuItem>Settings</MenuItem>
           <MenuItem>Logout</MenuItem>
@@ -53,7 +73,7 @@ const Topbar = () => {
       boxShadow="lg"
     >
       <HStack spacing="2">
-        {isLargerThan768 ? (
+        {isLargerThan768 && (
           <>
             <IconButton
               aria-label="Notification"
@@ -81,7 +101,7 @@ const Topbar = () => {
               borderRadius="md"
             />
           </>
-        ) : null}
+        )}
         <AvatarMenu />
       </HStack>
     </Box>

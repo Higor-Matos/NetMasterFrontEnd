@@ -7,11 +7,10 @@ import {
   extendTheme
 } from "@chakra-ui/react";
 import axios from "axios";
-import Sidebar from "./components/Sidebar";
 import Presentation from "./pages/Presentation";
 import ControlPanel from "./pages/ControlPanel";
 import Dashboard from "./pages/Dashboard";
-import Topbar from "./components/Topbar";
+import { Topbar, Sidebar } from "./components/index";
 
 
 
