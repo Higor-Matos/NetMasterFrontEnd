@@ -1,4 +1,3 @@
-// src/components/Sidebar/MobileMenuButton.tsx
 import React from "react";
 import { IconButton, useMediaQuery } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";

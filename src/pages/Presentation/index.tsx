@@ -1,5 +1,5 @@
 // src/pages/Presentation.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Text, Button, Heading, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import wallpaper from '../../assets/img/wallpaper.jpg';
@@ -12,7 +12,17 @@ interface PresentationProps {
   handlePageChange: (page: string) => void;
 }
 
-const Presentation: React.FC<PresentationProps> = ({ handlePageChange }) => {
+const Presentation = ({ handlePageChange }) => {
+  const [showSidebarTopbar, setShowSidebarTopbar] = useState(false);
+
+
+  const handleStartClick = () => {
+    setShowSidebarTopbar(true);
+    handlePageChange("control-panel");
+  };
+
+
+
   return (
     <Box
       position="absolute"
@@ -52,15 +62,15 @@ const Presentation: React.FC<PresentationProps> = ({ handlePageChange }) => {
           O painel de administração para gerenciar sua rede
         </MotionText>
        <MotionButton
-          onClick={() => handlePageChange("control-panel")}
+          onClick={handleStartClick}
           size="lg"
           colorScheme="blue"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          Start
-        </MotionButton>
+      Start
+      </MotionButton>
       </VStack>
     </Box>
   );

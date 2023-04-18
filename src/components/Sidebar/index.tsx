@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from 'framer-motion';
 import {
   VStack,
   Heading,
@@ -23,13 +24,15 @@ type SidebarProps = {
   currentPage: string;
 };
 
-const Sidebar = ({
-  onPresentationClick,
-  onControlPanelClick,
-  onDashboardClick,
-  currentPage
-}: SidebarProps) => {
+const MotionBox = motion(Box);
+
+const Sidebar = ({ onPresentationClick, onControlPanelClick, onDashboardClick, currentPage, isVisible }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const containerVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: { opacity: 1, x: 0 },
+  };
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -61,11 +64,16 @@ const Sidebar = ({
   return (
     <>
       <MobileMenuButton isOpen={isMenuOpen} onClick={toggleMenu} />
-      <DesktopSidebar
+      <MotionBox
+        as={DesktopSidebar}
         menuItems={menuItems}
         currentPage={currentPage}
         renderIndicator={renderIndicator}
         zIndex={10} // Adicione um zIndex mais alto
+        initial="hidden"
+        animate={isVisible ? "visible" : "hidden"}
+        variants={containerVariants}
+        transition={{ duration: 0.5 }}
       />
       <SidebarDrawer
         menuItems={menuItems}

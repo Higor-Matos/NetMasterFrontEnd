@@ -7,11 +7,7 @@ import { SiAdobe, SiChocolatey } from "react-icons/si";
 import { MdOutlineRestartAlt } from "react-icons/md";
 import { RiShutDownLine } from "react-icons/ri";
 
-import SingleCommandIPAddressInput from "../../components/IPAddressInput";
-import ControlButtons from "../../components/ControlButtons";
-import FileUpload from "../../components/FileUpload";
-import Section from "../../components/Section";
-import IPAddressInput from "../../components/IPAddressInput";
+import {ControlButtons, FileUpload, Section, IPAddressInput } from "../../components";
 
 interface ControlPanelProps {
   ip: string;
@@ -54,7 +50,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       </Section>
       <Section title="Send Single Command">
         <VStack spacing={4}>
-          <SingleCommandIPAddressInput value={ip} onChange={onIPChange} />
+          <IPAddressInput value={ip} onChange={onIPChange} />
           <ControlButtons
             label="Chocolatey Version"
             icon={SiChocolatey}

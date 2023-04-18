@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import {
   Box,
   HStack,
@@ -16,9 +17,17 @@ import {
 import { SunIcon, MoonIcon, BellIcon, WarningIcon } from '@chakra-ui/icons';
 import avatarImg from '../../assets/img/avatar.jpg';
 
-const Topbar = () => {
+const MotionBox = motion(Box);
+
+
+const Topbar = ({ isVisible }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: -30 },
+    visible: { opacity: 1, y: 0 },
+  };
 
   const AvatarMenu = () => {
     return (
@@ -62,6 +71,20 @@ const Topbar = () => {
   };
 
   return (
+    <MotionBox
+      position="fixed"
+      top="5"
+      right="5"
+      p={{ base: '1', md: '2' }}
+      zIndex="2"
+      borderRadius="xl"
+      bg={colorMode === 'dark' ? '#111C44' : 'white'}
+      boxShadow="lg"
+      initial="hidden"
+      animate={isVisible ? "visible" : "hidden"}
+      variants={containerVariants}
+      transition={{ duration: 0.5 }}
+      >
     <Box
       position="fixed"
       top="5"
@@ -104,7 +127,8 @@ const Topbar = () => {
         )}
         <AvatarMenu />
       </HStack>
-    </Box>
+        </Box>
+      </MotionBox>
   );
 };
 

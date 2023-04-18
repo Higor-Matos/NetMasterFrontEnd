@@ -1,3 +1,10 @@
-export { default as ControlPanel } from './ControlPanel';
-export { default as Dashboard } from './Dashboard';
-export { default as Presentation } from './Presentation';
+import { default as ControlPanel } from './ControlPanel';
+import { default as Dashboard } from './Dashboard';
+import { default as Presentation } from './Presentation';
+
+
+export {
+ControlPanel,
+Dashboard,
+Presentation,
+};
