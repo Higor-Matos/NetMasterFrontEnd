@@ -24,7 +24,8 @@ const Topbar = () => {
           as={IconButton}
           aria-label="Avatar"
           icon={
-            <Avatar size="xs" src="https://i.ibb.co/fMgWt01/download.jpg" />
+            <Avatar size="xs" src="assets/img/avatar.jpg" />
+
           }
           variant="ghost"
           size="sm"
