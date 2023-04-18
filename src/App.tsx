@@ -12,6 +12,9 @@ import Presentation from "./pages/Presentation";
 import ControlPanel from "./pages/ControlPanel";
 import Dashboard from "./pages/Dashboard";
 import Topbar from "./components/Topbar";
+
+
+
 const theme = extendTheme({
   fonts: {
     heading: "Poppins, sans-serif",
@@ -94,10 +97,11 @@ const handleButtonClick = async (endpoint: any) => {
   };
    
 
-  return (
+return (
+  <>
+    <Topbar />
     <Container maxW="container.xl">
-      <Topbar />
-      <Flex>
+      <Flex direction={{ base: "column", md: "row" }}>
         <Sidebar
           currentPage={currentPage}
           onPresentationClick={() => handlePageChange("presentation")}
@@ -107,13 +111,15 @@ const handleButtonClick = async (endpoint: any) => {
         <Main sidebarBg={sidebarBg}>{renderCurrentPage()}</Main>
       </Flex>
     </Container>
-  );
+  </>
+);
+
 };
 
 const Main = ({ sidebarBg, children }) => (
   <Box
-    mt="8"
-    w={{ base: "100%", md: "calc(100% - 220px)" }}
+    mt={{ base: "16", md: "8" }}
+    w="100%"
     minHeight="calc(100vh - 2rem)"
     pl={{ base: 0, md: 4 }}
     ml={{ base: 0, md: "220px" }}
@@ -121,5 +127,6 @@ const Main = ({ sidebarBg, children }) => (
     {children}
   </Box>
 );
+
 
 export default App;

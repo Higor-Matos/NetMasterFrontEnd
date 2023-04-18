@@ -3,23 +3,24 @@ import { Input, InputGroup, InputLeftAddon } from "@chakra-ui/react";
 
 interface IPAddressInputProps {
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
+  singleCommand?: boolean;
 }
 
-const IPAddressInput: React.FC<IPAddressInputProps> = ({ value, onChange }) => {
+const IPAddressInput: React.FC<IPAddressInputProps> = ({ value, onChange, singleCommand }) => {
   const [currentValue, setCurrentValue] = useState(value);
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const newIP = e.target.value;
-    if (newIP !== currentValue) {
-      onChange(e);
-    } else {
-      setCurrentValue(value);
+  const handleBlur = () => {
+    if (singleCommand) {
+      onChange(currentValue);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentValue(e.target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentValue(event.target.value);
+    if (!singleCommand) {
+      onChange(event.target.value);
+    }
   };
 
   return (
@@ -30,7 +31,7 @@ const IPAddressInput: React.FC<IPAddressInputProps> = ({ value, onChange }) => {
         value={currentValue}
         onBlur={handleBlur}
         onChange={handleChange}
-        maxLength={50}
+        maxLength={singleCommand ? 1000 : 50}
       />
     </InputGroup>
   );
