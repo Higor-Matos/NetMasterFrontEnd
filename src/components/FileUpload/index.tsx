@@ -27,14 +27,13 @@ const props: UploadProps = {
 
 const FileUpload: React.FC = () => (
   <Flex height="100%" direction="column">
-    <Dragger {...props} style={{ flexGrow: 1 }}>
+    <Dragger {...props} style={{ flexGrow: 1, height: "100%" }}>
       <p className="ant-upload-drag-icon">
         <InboxOutlined />
       </p>
       <p className="ant-upload-text">Click or drag file to this area to upload</p>
       <p className="ant-upload-hint">
-                PNG, JPG , PDF, and ZIP files are allowed.
-                
+        PNG, JPG , PDF, and ZIP files are allowed.
       </p>
     </Dragger>
   </Flex>
