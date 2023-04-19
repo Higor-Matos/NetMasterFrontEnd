@@ -1,7 +1,8 @@
 // src/components/Footer.tsx
 import React from 'react';
-import { Box, Container, Text, HStack } from '@chakra-ui/react';
+import { Box, Container, Text, HStack, Link, Icon } from '@chakra-ui/react';
 import { FiFacebook, FiTwitter, FiInstagram } from 'react-icons/fi';
+import { AiFillGithub, AiFillLinkedin, AiOutlineMail, AiOutlineWhatsApp } from 'react-icons/ai';
 
 const Footer = () => {
   return (
@@ -17,9 +18,19 @@ const Footer = () => {
             &copy; 2023 Integrator Projector. All Rights Reserved.
           </Text>
           <HStack spacing='4'>
-            <FiFacebook />
-            <FiTwitter />
-            <FiInstagram />
+          <Link href="https://www.linkedin.com/in/higordedeusmatos/" isExternal>
+            <Icon as={AiFillLinkedin} w={4} h={4} ml={4} />
+          </Link>
+          <Link href="https://github.com/Higor-Matos" isExternal>
+            <Icon as={AiFillGithub} w={4} h={4} ml={4} />
+          </Link>
+          <Link href="mailto:higordeus22@gmail.com?subject=Interesse%20Comercial&body=Ol%C3%A1!" isExternal>
+            <Icon as={AiOutlineMail} w={4} h={4} ml={4} />
+          </Link>
+          <Link href="https://wa.link/76i4cd" isExternal>
+            <Icon as={AiOutlineWhatsApp} w={4} h={4} ml={4} />
+          </Link>
+
           </HStack>
         </HStack>
       </Container>

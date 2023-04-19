@@ -24,7 +24,6 @@ const App = () => {
     }
   };
 
-
   const PageContent = ({ children }) => {
     return (
       <Box

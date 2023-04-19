@@ -27,7 +27,7 @@ const DesktopSidebar = ({ menuItems, currentPage, renderIndicator }: DesktopSide
     >
       <VStack spacing="2" alignItems="stretch">
         <Heading size="sm" mb="1" textAlign="center" fontSize="lg">
-          NET MASTER
+          <strong style={{fontWeight: 'bold'}}>NET</strong> MASTER
         </Heading>
         <Divider borderColor="gray.300" my={2} />
         {menuItems.map((item) => (

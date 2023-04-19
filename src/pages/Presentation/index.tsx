@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Text, Button, Heading, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import wallpaper from '../../assets/img/wallpaper.jpg';
+import { AiOutlineArrowRight } from 'react-icons/ai';
 
 const MotionHeading = motion(Heading);
 const MotionText = motion(Text);
@@ -44,7 +45,7 @@ const Presentation = ({ handlePageChange, setShowSidebarTopbar, showSidebarTopba
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          NetMaster
+          Net Master
         </MotionHeading>
         <MotionText
           fontSize="2xl"
@@ -59,10 +60,14 @@ const Presentation = ({ handlePageChange, setShowSidebarTopbar, showSidebarTopba
         <MotionButton
           onClick={handleStartClick}
           size="lg"
-          colorScheme="blue"
+          bg="purple.600"
+          color="white"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
+          borderRadius="md"
+          boxShadow="md"
+          rightIcon={<AiOutlineArrowRight />}
         >
           Start
         </MotionButton>

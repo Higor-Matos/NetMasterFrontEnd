@@ -1,11 +1,11 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #0B1437;
+  background-color: #1A1E44;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -92,6 +92,7 @@ button:focus-visible {
   }
   button:focus,
   button:focus-visible {
-    box-shadow: 0 0 0 2px #7A7ECD, 0 0 0 4px #0B1437;
-  }
+    box-shadow: 0 0 
+0 2px #7A7ECD, 0 0 0 4px #0B1437;
+}
 }
