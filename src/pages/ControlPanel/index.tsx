@@ -23,7 +23,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   onClick,
 }) => {
   return (
-    <SimpleGrid columns={{ base: 1, md: 2 }} gap={6} pb={6}>
+    <SimpleGrid columns={{ base: 1, md: 2 }} gap={6} pb={6} pr={{ base: 4, md: 8}}>
       <Section title="Install Program">
         <VStack spacing={4}>
           <IPAddressInput value={ip} onChange={onIPChange} singleCommand />
