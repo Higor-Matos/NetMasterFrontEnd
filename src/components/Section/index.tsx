@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Divider, Heading, useColorModeValue } from "@chakra-ui/react";
+import { Box, Divider, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 
 interface SectionProps {
   title: string;
@@ -10,6 +10,7 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
   const dividerColor = useColorModeValue("gray.200", "gray.700");
   const backgroundColor = useColorModeValue("gray.100", "gray.900");
   const borderColor = useColorModeValue("gray.200", "gray.700");
+  const textColor = useColorModeValue("gray.800", "white");
 
   return (
     <Box
@@ -23,11 +24,11 @@ const Section: React.FC<SectionProps> = ({ title, children }) => {
       flex="1"
       minHeight="100%"
     >
-      <Heading as="h3" fontSize="lg" mb={4}>
+      <Heading as="h3" fontSize="lg" mb={4} color={textColor}>
         {title}
       </Heading>
       <Divider borderColor={dividerColor} mb={4} />
-      {children}
+      <Text color={textColor}>{children}</Text>
     </Box>
   );
 };
