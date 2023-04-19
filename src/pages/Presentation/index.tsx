@@ -10,16 +10,17 @@ const MotionButton = motion(Button);
 
 interface PresentationProps {
   handlePageChange: (page: string) => void;
+  setShowSidebarTopbar: (show: boolean) => void;
 }
 
-const Presentation = ({ handlePageChange }) => {
-  const [showSidebarTopbar, setShowSidebarTopbar] = useState(false);
+const Presentation = ({ handlePageChange, setShowSidebarTopbar }) => {
 
 
-  const handleStartClick = () => {
-    setShowSidebarTopbar(true);
-    handlePageChange("control-panel");
-  };
+const handleStartClick = () => {
+  setShowSidebarTopbar(true);
+  handlePageChange("control-panel");
+};
+
 
 
 

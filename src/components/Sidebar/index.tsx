@@ -26,7 +26,7 @@ type SidebarProps = {
 
 const MotionBox = motion(Box);
 
-const Sidebar = ({ onPresentationClick, onControlPanelClick, onDashboardClick, currentPage, isVisible }) => {
+const Sidebar = ({ onPresentationClick, onControlPanelClick, onDashboardClick, currentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const containerVariants = {
@@ -69,12 +69,12 @@ const Sidebar = ({ onPresentationClick, onControlPanelClick, onDashboardClick, c
         menuItems={menuItems}
         currentPage={currentPage}
         renderIndicator={renderIndicator}
-        zIndex={10} // Adicione um zIndex mais alto
+        zIndex={10}
         initial="hidden"
-        animate={isVisible ? "visible" : "hidden"}
         variants={containerVariants}
         transition={{ duration: 0.5 }}
       />
+
       <SidebarDrawer
         menuItems={menuItems}
         isOpen={isMenuOpen}

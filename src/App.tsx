@@ -5,7 +5,7 @@ import { Dashboard, ControlPanel, Presentation } from './pages';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('presentation');
-  const [showSidebarTopbar, setShowSidebarTopbar] = useState(true);
+  const [showSidebarTopbar, setShowSidebarTopbar] = useState(false);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -14,13 +14,13 @@ const App = () => {
   const getPageContent = () => {
     switch (currentPage) {
       case 'presentation':
-        return <Presentation handlePageChange={handlePageChange} />;
+        return <Presentation handlePageChange={handlePageChange} setShowSidebarTopbar={setShowSidebarTopbar} />;
       case 'control-panel':
         return <ControlPanel />;
       case 'dashboard':
         return <Dashboard />;
       default:
-        return <Presentation handlePageChange={handlePageChange} />;
+        return <Presentation handlePageChange={handlePageChange} setShowSidebarTopbar={setShowSidebarTopbar} />;
     }
   };
 
@@ -41,13 +41,14 @@ const App = () => {
 
   return (
     <ChakraProvider>
-      <Sidebar
-        onPresentationClick={() => handlePageChange('presentation')}
-        onControlPanelClick={() => handlePageChange('control-panel')}
-        onDashboardClick={() => handlePageChange('dashboard')}
-        currentPage={currentPage}
-        isVisible={showSidebarTopbar}
-      />
+      {showSidebarTopbar && (
+        <Sidebar
+          onPresentationClick={() => handlePageChange("presentation")}
+          onControlPanelClick={() => handlePageChange("control-panel")}
+          onDashboardClick={() => handlePageChange("dashboard")}
+          currentPage={currentPage}
+        />
+      )}
       <Topbar isVisible={showSidebarTopbar} />
       <PageContent>{getPageContent()}</PageContent>
       <Footer />
