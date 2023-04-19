@@ -80,20 +80,12 @@ const Topbar = ({ isVisible }) => {
       borderRadius="xl"
       bg={colorMode === 'dark' ? '#111C44' : 'white'}
       boxShadow="lg"
+      maxWidth={{ base: "100%", md: "calc(100% - 250px)" }} // Adicione esta linha
+      right={{ base: "5", md: "0" }} // Adicione esta linha
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
       variants={containerVariants}
       transition={{ duration: 0.5 }}
-      >
-    <Box
-      position="fixed"
-      top="5"
-      right="5"
-      p={{ base: '1', md: '2' }}
-      zIndex="2"
-      borderRadius="xl"
-      bg={colorMode === 'dark' ? '#111C44' : 'white'}
-      boxShadow="lg"
     >
       <HStack spacing="2">
         {isLargerThan768 && (
@@ -127,8 +119,7 @@ const Topbar = ({ isVisible }) => {
         )}
         <AvatarMenu />
       </HStack>
-        </Box>
-      </MotionBox>
+    </MotionBox>
   );
 };
 

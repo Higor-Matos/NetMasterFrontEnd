@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import { Sidebar, Topbar, Footer } from './components';
 import { Dashboard, ControlPanel, Presentation } from './pages';
@@ -7,9 +7,14 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState('presentation');
   const [showSidebarTopbar, setShowSidebarTopbar] = useState(false);
 
-  const handlePageChange = (page) => {
+  const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
-  };
+  }, []);
+
+  const handleShowSidebarTopbar = useCallback((show) => {
+    setShowSidebarTopbar(show);
+  }, []);
+
 
   const getPageContent = () => {
     switch (currentPage) {
