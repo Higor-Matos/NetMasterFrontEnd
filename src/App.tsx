@@ -14,24 +14,25 @@ const App = () => {
   const getPageContent = () => {
     switch (currentPage) {
       case 'presentation':
-        return <Presentation handlePageChange={handlePageChange} setShowSidebarTopbar={setShowSidebarTopbar} />;
+        return <Presentation handlePageChange={handlePageChange} setShowSidebarTopbar={setShowSidebarTopbar} showSidebarTopbar={showSidebarTopbar} />;
       case 'control-panel':
         return <ControlPanel />;
       case 'dashboard':
         return <Dashboard />;
       default:
-        return <Presentation handlePageChange={handlePageChange} setShowSidebarTopbar={setShowSidebarTopbar} />;
+        return <Presentation handlePageChange={handlePageChange} setShowSidebarTopbar={setShowSidebarTopbar} showSidebarTopbar={showSidebarTopbar} />;
     }
   };
+
 
   const PageContent = ({ children }) => {
     return (
       <Box
-        marginLeft={{ base: 0, md: showSidebarTopbar ? '250px' : '0' }} // Adicione estilos responsivos
+        marginLeft={{ base: 0, md: showSidebarTopbar ? '250px' : '0' }}
         paddingTop="5rem"
         minHeight="100vh"
-        paddingRight={{ base: '1rem', md: '0' }} // Adicione paddingRight para base
-        paddingLeft={{ base: '1rem', md: '0' }} // Adicione paddingLeft para base
+        paddingRight={{ base: '1rem', md: '0' }}
+        paddingLeft={{ base: '1rem', md: '0' }}
         transition="margin-left 0.3s ease-in"
       >
         {children}

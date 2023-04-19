@@ -29,12 +29,12 @@ const MotionBox = motion(Box);
 const Sidebar = ({ onPresentationClick, onControlPanelClick, onDashboardClick, currentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const containerVariants = {
+   const containerVariants = {
     hidden: { opacity: 0, x: -30 },
     visible: { opacity: 1, x: 0 },
   };
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const renderIndicator = (page: string) => (
     <Indicator isVisible={currentPage === page} />
@@ -71,6 +71,7 @@ const Sidebar = ({ onPresentationClick, onControlPanelClick, onDashboardClick, c
         renderIndicator={renderIndicator}
         zIndex={10}
         initial="hidden"
+        animate={currentPage !== "presentation" ? "visible" : "hidden"}
         variants={containerVariants}
         transition={{ duration: 0.5 }}
       />

@@ -1,4 +1,3 @@
-// src/pages/Presentation.tsx
 import React, { useState } from 'react';
 import { Box, Text, Button, Heading, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
@@ -11,18 +10,13 @@ const MotionButton = motion(Button);
 interface PresentationProps {
   handlePageChange: (page: string) => void;
   setShowSidebarTopbar: (show: boolean) => void;
+  showSidebarTopbar: boolean;
 }
 
-const Presentation = ({ handlePageChange, setShowSidebarTopbar }) => {
-
-
-const handleStartClick = () => {
-  setShowSidebarTopbar(true);
-  handlePageChange("control-panel");
-};
-
-
-
+const Presentation = ({ handlePageChange, setShowSidebarTopbar, showSidebarTopbar }) => {
+  const handleStartClick = () => {
+    setShowSidebarTopbar(true);
+  };
 
   return (
     <Box
@@ -62,7 +56,7 @@ const handleStartClick = () => {
         >
           O painel de administração para gerenciar sua rede
         </MotionText>
-       <MotionButton
+        <MotionButton
           onClick={handleStartClick}
           size="lg"
           colorScheme="blue"
@@ -70,8 +64,8 @@ const handleStartClick = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
         >
-      Start
-      </MotionButton>
+          Start
+        </MotionButton>
       </VStack>
     </Box>
   );
