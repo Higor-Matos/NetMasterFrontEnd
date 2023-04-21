@@ -48,6 +48,7 @@ const Presentation: React.FC<PresentationProps> = ({ handlePageChange, setShowSi
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
+          textShadow="2px 2px 3px rgba(0, 0, 0, 20)" 
         >
           Net Master
         </MotionHeading>
@@ -58,6 +59,7 @@ const Presentation: React.FC<PresentationProps> = ({ handlePageChange, setShowSi
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
+          textShadow="2px 2px 3px rgba(0, 0, 0, 20)"
         >
           O painel de administração para gerenciar sua rede
         </MotionText>
