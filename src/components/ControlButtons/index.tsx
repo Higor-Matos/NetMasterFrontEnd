@@ -8,9 +8,19 @@ interface ControlButtonsProps {
   icon: IconType;
 }
 
-const ControlButtons: React.FC<ControlButtonsProps> = ({ label, onClick, icon: ButtonIcon }) => {
+const ControlButtons: React.FC<ControlButtonsProps> = ({
+  label,
+  onClick,
+  icon: ButtonIcon,
+}) => {
   return (
-    <Button onClick={onClick} variant="outline" leftIcon={<ButtonIcon />} width="100%" textAlign="right">
+    <Button
+      onClick={onClick}
+      variant="outline"
+      leftIcon={<ButtonIcon />}
+      width="100%"
+      textAlign="right"
+    >
       {label}
     </Button>
   );

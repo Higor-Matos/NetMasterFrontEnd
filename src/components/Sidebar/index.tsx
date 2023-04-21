@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import { motion } from 'framer-motion';
-import {
-  VStack,
-  Heading,
-  Spacer,
-  Divider,
-  Box,
-} from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { Box } from "@chakra-ui/react";
 import { AiOutlineHome, AiFillLayout } from "react-icons/ai";
 import { RiBarChartBoxLine } from "react-icons/ri";
 import {
-  MenuButton,
   Indicator,
   MobileMenuButton,
   SidebarDrawer,
-  DesktopSidebar
+  DesktopSidebar,
 } from "../index";
 
 type SidebarProps = {
@@ -26,15 +19,20 @@ type SidebarProps = {
 
 const MotionBox = motion(Box);
 
-const Sidebar = ({ onPresentationClick, onControlPanelClick, onDashboardClick, currentPage }) => {
+const Sidebar = ({
+  onPresentationClick,
+  onControlPanelClick,
+  onDashboardClick,
+  currentPage,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-   const containerVariants = {
+  const containerVariants = {
     hidden: { opacity: 0, x: -30 },
     visible: { opacity: 1, x: 0 },
   };
 
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const renderIndicator = (page: string) => (
     <Indicator isVisible={currentPage === page} />
@@ -45,20 +43,20 @@ const Sidebar = ({ onPresentationClick, onControlPanelClick, onDashboardClick, c
       text: "Presentation",
       icon: AiOutlineHome,
       onClick: onPresentationClick,
-      page: "presentation"
+      page: "presentation",
     },
     {
       text: "Control Panel",
       icon: AiFillLayout,
       onClick: onControlPanelClick,
-      page: "control-panel"
+      page: "control-panel",
     },
     {
       text: "Dashboard",
       icon: RiBarChartBoxLine,
       onClick: onDashboardClick,
-      page: "dashboard"
-    }
+      page: "dashboard",
+    },
   ];
 
   return (

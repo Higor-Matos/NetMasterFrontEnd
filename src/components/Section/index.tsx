@@ -1,5 +1,11 @@
 import React from "react";
-import { Box, Divider, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  Heading,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 interface SectionProps {
   title: string;

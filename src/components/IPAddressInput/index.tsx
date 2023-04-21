@@ -7,7 +7,11 @@ interface IPAddressInputProps {
   singleCommand?: boolean;
 }
 
-const IPAddressInput: React.FC<IPAddressInputProps> = ({ value, onChange, singleCommand }) => {
+const IPAddressInput: React.FC<IPAddressInputProps> = ({
+  value,
+  onChange,
+  singleCommand,
+}) => {
   const [currentValue, setCurrentValue] = useState(value);
 
   const handleBlur = () => {

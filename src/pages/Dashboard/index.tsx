@@ -1,4 +1,3 @@
-// src/pages/Dashboard.tsx
 import React from "react";
 import { Text, Grid, GridItem } from "@chakra-ui/react";
 

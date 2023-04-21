@@ -8,7 +8,7 @@ import {
   Heading,
   Divider,
   useColorMode,
-  Spacer
+  Spacer,
 } from "@chakra-ui/react";
 import { MenuButton } from "../index";
 
@@ -25,14 +25,17 @@ const SidebarDrawer = ({
   isOpen,
   onClose,
   currentPage,
-  renderIndicator
+  renderIndicator,
 }: SidebarDrawerProps) => {
   const { colorMode } = useColorMode();
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="left" size="xs">
       <DrawerOverlay />
-      <DrawerContent bg={colorMode === "dark" ? "#111C44" : "white"} borderRadius="md">
+      <DrawerContent
+        bg={colorMode === "dark" ? "#111C44" : "white"}
+        borderRadius="md"
+      >
         <DrawerCloseButton />
         <VStack spacing="4" alignItems="stretch" padding="4">
           <Heading size="lg" mb="2" textAlign="center" fontSize="md">

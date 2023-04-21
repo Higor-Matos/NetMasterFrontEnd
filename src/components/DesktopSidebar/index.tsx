@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, VStack, Heading, Divider, Spacer, useColorMode } from "@chakra-ui/react";
+import {
+  Box,
+  VStack,
+  Heading,
+  Divider,
+  Spacer,
+  useColorMode,
+} from "@chakra-ui/react";
 import { MenuButton } from "../index";
 
 type DesktopSidebarProps = {
@@ -8,7 +15,11 @@ type DesktopSidebarProps = {
   renderIndicator: (page: string) => JSX.Element;
 };
 
-const DesktopSidebar = ({ menuItems, currentPage, renderIndicator }: DesktopSidebarProps) => {
+const DesktopSidebar = ({
+  menuItems,
+  currentPage,
+  renderIndicator,
+}: DesktopSidebarProps) => {
   const { colorMode } = useColorMode();
 
   return (
@@ -27,7 +38,7 @@ const DesktopSidebar = ({ menuItems, currentPage, renderIndicator }: DesktopSide
     >
       <VStack spacing="2" alignItems="stretch">
         <Heading size="sm" mb="1" textAlign="center" fontSize="lg">
-          <strong style={{fontWeight: 'bold'}}>NET</strong> MASTER
+          <strong style={{ fontWeight: "bold" }}>NET</strong> MASTER
         </Heading>
         <Divider borderColor="gray.300" my={2} />
         {menuItems.map((item) => (

@@ -1,22 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  Box,
   HStack,
   IconButton,
   Avatar,
   useColorMode,
-  useColorModeValue,
-  useMediaQuery,
   Collapse,
 } from "@chakra-ui/react";
-import {
-  SunIcon,
-  MoonIcon,
-  BellIcon,
-  WarningIcon,
-  ChevronDownIcon,
-} from "@chakra-ui/icons";
-
+import { SunIcon, MoonIcon, BellIcon, WarningIcon } from "@chakra-ui/icons";
 
 const AvatarMenu = ({ colorScheme }) => {
   const { colorMode, toggleColorMode } = useColorMode();

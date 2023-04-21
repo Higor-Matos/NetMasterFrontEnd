@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { InboxOutlined } from "@ant-design/icons";
 import { Upload, UploadProps, message } from "antd";
-import { Flex, Text, Box, VStack, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Text, Box, useColorModeValue } from "@chakra-ui/react";
 
 const { Dragger } = Upload;
 
@@ -47,7 +47,8 @@ const FileUpload: React.FC = () => {
       {lastUploadedFile && (
         <Box mt={2}>
           <Text fontSize="sm" style={{ color: textColor }}>
-            Last uploaded file: <span style={{ color: textColor }}>{lastUploadedFile}</span>
+            Last uploaded file:{" "}
+            <span style={{ color: textColor }}>{lastUploadedFile}</span>
           </Text>
         </Box>
       )}

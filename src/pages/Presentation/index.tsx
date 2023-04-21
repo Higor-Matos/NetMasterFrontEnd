@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Box, Text, Button, Heading, VStack } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import wallpaper from '../../assets/img/wallpaper.jpg';
-import { AiOutlineArrowRight } from 'react-icons/ai';
+import React from "react";
+import { Box, Text, Button, Heading, VStack } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import wallpaper from "../../assets/img/wallpaper.jpg";
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 const MotionHeading = motion(Heading);
 const MotionText = motion(Text);
@@ -13,7 +13,10 @@ interface PresentationProps {
   setShowSidebarTopbar: (show: boolean) => void;
 }
 
-const Presentation: React.FC<PresentationProps> = ({ handlePageChange, setShowSidebarTopbar }) => {
+const Presentation: React.FC<PresentationProps> = ({
+  handlePageChange,
+  setShowSidebarTopbar,
+}) => {
   const handleStartClick = () => {
     setShowSidebarTopbar(true);
   };
@@ -48,7 +51,7 @@ const Presentation: React.FC<PresentationProps> = ({ handlePageChange, setShowSi
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          textShadow="2px 2px 3px rgba(0, 0, 0, 20)" 
+          textShadow="2px 2px 3px rgba(0, 0, 0, 20)"
         >
           Net Master
         </MotionHeading>

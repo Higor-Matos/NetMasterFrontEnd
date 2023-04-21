@@ -63,9 +63,11 @@ button:focus-visible {
     color: #1A1E44;
     background-color: #E5F0FF;
   }
+
   a:hover {
     color: #5E62C5;
   }
+
   button {
     background-color: #D7E3FF;
     color: #1A1E44;
@@ -77,9 +79,11 @@ button:focus-visible {
     color: #ffffff;
     background-color: #0B1437;
   }
+
   a:hover {
     color: #5E62C5;
   }
+
   button {
     background-color: #1A1E44;
     color: #ffffff;
@@ -90,9 +94,9 @@ button:focus-visible {
   button:hover {
     background-color: #2D3357;
   }
+
   button:focus,
   button:focus-visible {
-    box-shadow: 0 0 
-0 2px #7A7ECD, 0 0 0 4px #0B1437;
-}
+    box-shadow: 0 0 0 2px #7A7ECD, 0 0 0 4px #0B1437;
+  }
 }
