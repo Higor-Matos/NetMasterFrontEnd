@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import {
   Box,
@@ -13,60 +12,68 @@ import {
   MenuItem,
   MenuGroup,
   MenuDivider,
+  ColorMode,
 } from "@chakra-ui/react";
 import { SunIcon, MoonIcon, BellIcon, WarningIcon } from "@chakra-ui/icons";
 import avatarImg from "../../assets/img/avatar.jpg";
 
 const MotionBox = motion(Box);
 
-const Topbar = ({ isVisible }) => {
+interface Props {
+  colorMode: ColorMode;
+  toggleColorMode: () => void;
+  isLargerThan768: boolean;
+  isVisible: boolean;
+}
+
+const AvatarMenu = ({ colorMode, toggleColorMode, isLargerThan768 }: Props) => {
+  return (
+    <Menu>
+      <MenuButton
+        as={IconButton}
+        aria-label="Avatar"
+        icon={<Avatar size="xs" src={avatarImg} />}
+        variant="ghost"
+        size="sm"
+        borderRadius="md"
+        colorScheme={colorMode === "dark" ? "orange" : "gray"}
+      />
+      <MenuList>
+        {!isLargerThan768 && (
+          <MenuGroup>
+            <MenuItem onClick={toggleColorMode}>
+              {colorMode === "dark" ? (
+                <>
+                  <SunIcon mr="2" />
+                  Tema Claro
+                </>
+              ) : (
+                <>
+                  <MoonIcon mr="2" />
+                  Tema Escuro
+                </>
+              )}
+            </MenuItem>
+            <MenuItem icon={<BellIcon />}>Notification</MenuItem>
+            <MenuItem icon={<WarningIcon />}>Attention</MenuItem>
+          </MenuGroup>
+        )}
+        {!isLargerThan768 && <MenuDivider />}
+        <MenuItem>Profile</MenuItem>
+        <MenuItem>Settings</MenuItem>
+        <MenuItem>Logout</MenuItem>
+      </MenuList>
+    </Menu>
+  );
+};
+
+const Topbar = ({ isVisible }: Props) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const containerVariants = {
     hidden: { opacity: 0, y: -30 },
     visible: { opacity: 1, y: 0 },
-  };
-
-  const AvatarMenu = () => {
-    return (
-      <Menu>
-        <MenuButton
-          as={IconButton}
-          aria-label="Avatar"
-          icon={<Avatar size="xs" src={avatarImg} />}
-          variant="ghost"
-          size="sm"
-          borderRadius="md"
-          colorScheme={colorMode === "dark" ? "orange" : "gray"}
-        />
-        <MenuList>
-          {!isLargerThan768 && (
-            <MenuGroup>
-              <MenuItem onClick={toggleColorMode}>
-                {colorMode === "dark" ? (
-                  <>
-                    <SunIcon mr="2" />
-                    Tema Claro
-                  </>
-                ) : (
-                  <>
-                    <MoonIcon mr="2" />
-                    Tema Escuro
-                  </>
-                )}
-              </MenuItem>
-              <MenuItem icon={<BellIcon />}>Notification</MenuItem>
-              <MenuItem icon={<WarningIcon />}>Attention</MenuItem>
-            </MenuGroup>
-          )}
-          {!isLargerThan768 && <MenuDivider />}
-          <MenuItem>Profile</MenuItem>
-          <MenuItem>Settings</MenuItem>
-          <MenuItem>Logout</MenuItem>
-        </MenuList>
-      </Menu>
-    );
   };
 
   return (
@@ -80,7 +87,6 @@ const Topbar = ({ isVisible }) => {
       bg={colorMode === "dark" ? "#111C44" : "white"}
       boxShadow="lg"
       maxWidth={{ base: "100%", md: "calc(100% - 250px)" }}
-      right={{ base: "5", md: "0" }}
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
       variants={containerVariants}
@@ -116,7 +122,12 @@ const Topbar = ({ isVisible }) => {
             />
           </>
         )}
-        <AvatarMenu />
+        <AvatarMenu
+          colorMode={colorMode}
+          toggleColorMode={toggleColorMode}
+          isLargerThan768={isLargerThan768}
+          isVisible={false}
+        />
       </HStack>
     </MotionBox>
   );

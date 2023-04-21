@@ -14,17 +14,12 @@ interface PresentationProps {
 }
 
 const Presentation: React.FC<PresentationProps> = ({
-  handlePageChange,
   setShowSidebarTopbar,
 }) => {
   const handleStartClick = () => {
     setShowSidebarTopbar(true);
   };
 
-  const handleButtonClick = () => {
-    handlePageChange("control-panel");
-    setShowSidebarTopbar(true);
-  };
 
   return (
     <Box

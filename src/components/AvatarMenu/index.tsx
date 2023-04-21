@@ -8,7 +8,11 @@ import {
 } from "@chakra-ui/react";
 import { SunIcon, MoonIcon, BellIcon, WarningIcon } from "@chakra-ui/icons";
 
-const AvatarMenu = ({ colorScheme }) => {
+interface Props {
+  colorScheme: string;
+}
+
+const AvatarMenu = ({ colorScheme }: Props) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [isOpen, setIsOpen] = useState(false);
 

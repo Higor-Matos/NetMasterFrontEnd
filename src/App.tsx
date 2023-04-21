@@ -7,13 +7,10 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState("presentation");
   const [showSidebarTopbar, setShowSidebarTopbar] = useState(false);
 
-  const handlePageChange = useCallback((page) => {
+  const handlePageChange = useCallback((page: React.SetStateAction<string>) => {
     setCurrentPage(page);
   }, []);
 
-  const handleShowSidebarTopbar = useCallback((show) => {
-    setShowSidebarTopbar(show);
-  }, []);
 
   const getPageContent = () => {
     switch (currentPage) {

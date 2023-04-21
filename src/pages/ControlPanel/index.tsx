@@ -21,7 +21,6 @@ interface ControlPanelProps {
 const ControlPanel: React.FC<ControlPanelProps> = ({
   ip,
   onIPChange,
-  computers,
   onClick,
 }) => {
   return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 function StreamPlayer() {
-  const [socket, setSocket] = useState<WebSocket | null>(null);
+  const [setSocket] = useState<WebSocket | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
