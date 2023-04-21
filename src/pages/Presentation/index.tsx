@@ -20,7 +20,6 @@ const Presentation: React.FC<PresentationProps> = ({
     setShowSidebarTopbar(true);
   };
 
-
   return (
     <Box
       position="absolute"
