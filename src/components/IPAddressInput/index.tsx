@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, InputGroup, InputLeftAddon } from "@chakra-ui/react";
+import { Input, InputGroup } from "@chakra-ui/react";
 
 interface IPAddressInputProps {
   value: string;
@@ -14,13 +14,13 @@ const IPAddressInput: React.FC<IPAddressInputProps> = ({
 }) => {
   const [currentValue, setCurrentValue] = useState(value);
 
-  const handleBlur = () => {
+  const handleInputBlur = () => {
     if (singleCommand) {
       onChange(currentValue);
     }
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentValue(event.target.value);
     if (!singleCommand) {
       onChange(event.target.value);
@@ -29,13 +29,15 @@ const IPAddressInput: React.FC<IPAddressInputProps> = ({
 
   return (
     <InputGroup size="md" width="100%">
-      <InputLeftAddon children="IP" />
       <Input
         type="text"
         value={currentValue}
-        onBlur={handleBlur}
-        onChange={handleChange}
+        onBlur={handleInputBlur}
+        onChange={handleInputChange}
         maxLength={singleCommand ? 1000 : 50}
+        id="ip-input"
+        placeholder="Input IP"
+        isInvalid={false} 
       />
     </InputGroup>
   );

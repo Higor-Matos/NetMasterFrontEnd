@@ -11,7 +11,6 @@ const App = () => {
     setCurrentPage(page);
   }, []);
 
-
   const getPageContent = () => {
     switch (currentPage) {
       case "presentation":

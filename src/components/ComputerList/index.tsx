@@ -1,13 +1,20 @@
-import { FormControl, Select } from "@chakra-ui/react";
+import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 
-const ComputerList = ({ computers }) => {
+interface Props {
+  options: string[];
+  defaultValue?: string;
+  label?: string;
+}
+
+const ComputerList = ({ options, defaultValue, label }: Props) => {
   return (
     <FormControl>
-      <Select placeholder="Select a computer">
-        {Array.isArray(computers) &&
-          computers.map((computer, index) => (
-            <option key={index} value={computer}>
-              {computer}
+      {label && <FormLabel>{label}</FormLabel>}
+      <Select placeholder="Select a computer" defaultValue={defaultValue}>
+        {Array.isArray(options) &&
+          options.map((option, optionIndex) => (
+            <option key={option} value={option}>
+              {option}
             </option>
           ))}
       </Select>

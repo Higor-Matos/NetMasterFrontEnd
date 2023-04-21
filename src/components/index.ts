@@ -10,7 +10,6 @@ import { default as IPAddressInput } from "./IPAddressInput";
 import { default as Main } from "./Main";
 import { default as MenuButton } from "./MenuButton";
 import { default as MobileMenuButton } from "./MobileMenuButton";
-import { default as PresentationSlide } from "./PresentationSlide";
 import { default as Section } from "./Section";
 import { default as SectionTitle } from "./SectionTitle";
 import { default as Sidebar } from "./Sidebar";
@@ -31,7 +30,6 @@ export {
   Main,
   MenuButton,
   MobileMenuButton,
-  PresentationSlide,
   Section,
   SectionTitle,
   Sidebar,

@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Icon, Text, IconBaseProps } from "@chakra-ui/react";
+import { Button, Icon, Text, IconProps, HStack, Box } from "@chakra-ui/react";
 
 interface MenuButtonProps {
   text: string;
-  icon: (props: IconBaseProps) => JSX.Element;
+  icon: React.ComponentType<IconProps>;
   onClick: () => void;
   page: string;
   renderIndicator: (page: string) => JSX.Element | null;
@@ -11,26 +11,27 @@ interface MenuButtonProps {
 
 const MenuButton: React.FC<MenuButtonProps> = ({
   text,
-  icon,
+  icon: IconComponent,
   onClick,
   page,
   renderIndicator,
 }) => (
   <Button
-    leftIcon={<Icon as={icon} boxSize="16px" />}
+    leftIcon={<Icon as={IconComponent} boxSize="16px" />}
     variant="ghost"
     fontSize="sm"
     fontWeight="semibold"
     textAlign="left"
     onClick={onClick}
     width="100%"
-    justifyContent="space-between"
     alignItems="center"
     borderRadius="md"
-    mb={2}
   >
-    <Text flex="1">{text}</Text>
-    {renderIndicator(page)}
+    <HStack spacing={2} flex="1">
+      <Text>{text}</Text>
+      <Box flex="1" />
+      {renderIndicator(page)}
+    </HStack>
   </Button>
 );
 

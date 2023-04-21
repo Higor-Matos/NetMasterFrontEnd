@@ -10,31 +10,39 @@ import { SunIcon, MoonIcon, BellIcon, WarningIcon } from "@chakra-ui/icons";
 
 interface Props {
   colorScheme: string;
+  avatarUrl: string;
 }
 
-const AvatarMenu = ({ colorScheme }: Props) => {
+const AvatarMenu = ({ colorScheme, avatarUrl }: Props) => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
+
+  const avatarLabel = "Avatar";
+  const notificationLabel = "Notificações";
+  const toggleDarkModeLabel = `Mudar para modo ${
+    colorMode === "dark" ? "claro" : "escuro"
+  }`;
+  const attentionLabel = "Atenção";
 
   return (
     <>
       <IconButton
-        aria-label="Avatar"
-        icon={<Avatar size="xs" src="https://i.ibb.co/fMgWt01/download.jpg" />}
+        aria-label={avatarLabel}
+        icon={<Avatar size="xs" src={avatarUrl} />}
         variant="ghost"
         size="sm"
         borderRadius="md"
-        onClick={handleToggle}
+        onClick={toggleMenu}
         colorScheme={colorScheme}
       />
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse in={isMenuOpen} animateOpacity>
         <HStack spacing="2">
           <IconButton
-            aria-label="Notification"
+            aria-label={notificationLabel}
             icon={<BellIcon />}
             variant="ghost"
             colorScheme={colorScheme}
@@ -42,7 +50,7 @@ const AvatarMenu = ({ colorScheme }: Props) => {
             borderRadius="md"
           />
           <IconButton
-            aria-label="Toggle Dark Mode"
+            aria-label={toggleDarkModeLabel}
             icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
             variant="ghost"
             onClick={toggleColorMode}
@@ -51,7 +59,7 @@ const AvatarMenu = ({ colorScheme }: Props) => {
             borderRadius="md"
           />
           <IconButton
-            aria-label="Attention"
+            aria-label={attentionLabel}
             icon={<WarningIcon />}
             variant="ghost"
             colorScheme={colorScheme}

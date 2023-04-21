@@ -17,6 +17,8 @@ const MobileMenuButton = ({ isOpen, onClick }: MobileMenuButtonProps) => {
   return (
     <IconButton
       aria-label="Open Menu"
+      aria-expanded={isOpen}
+      data-testid="mobile-menu-button"
       icon={<HamburgerIcon />}
       onClick={onClick}
       position="fixed"
