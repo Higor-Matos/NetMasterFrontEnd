@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 import {
   Box,
   HStack,
@@ -13,16 +13,15 @@ import {
   MenuItem,
   MenuGroup,
   MenuDivider,
-} from '@chakra-ui/react';
-import { SunIcon, MoonIcon, BellIcon, WarningIcon } from '@chakra-ui/icons';
-import avatarImg from '../../assets/img/avatar.jpg';
+} from "@chakra-ui/react";
+import { SunIcon, MoonIcon, BellIcon, WarningIcon } from "@chakra-ui/icons";
+import avatarImg from "../../assets/img/avatar.jpg";
 
 const MotionBox = motion(Box);
 
-
 const Topbar = ({ isVisible }) => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const containerVariants = {
     hidden: { opacity: 0, y: -30 },
@@ -39,13 +38,13 @@ const Topbar = ({ isVisible }) => {
           variant="ghost"
           size="sm"
           borderRadius="md"
-          colorScheme={colorMode === 'dark' ? 'orange' : 'gray'}
+          colorScheme={colorMode === "dark" ? "orange" : "gray"}
         />
         <MenuList>
           {!isLargerThan768 && (
             <MenuGroup>
               <MenuItem onClick={toggleColorMode}>
-                {colorMode === 'dark' ? (
+                {colorMode === "dark" ? (
                   <>
                     <SunIcon mr="2" />
                     Tema Claro
@@ -75,13 +74,13 @@ const Topbar = ({ isVisible }) => {
       position="fixed"
       top="5"
       right="5"
-      p={{ base: '1', md: '2' }}
+      p={{ base: "1", md: "2" }}
       zIndex="2"
       borderRadius="xl"
-      bg={colorMode === 'dark' ? '#111C44' : 'white'}
+      bg={colorMode === "dark" ? "#111C44" : "white"}
       boxShadow="lg"
-      maxWidth={{ base: "100%", md: "calc(100% - 250px)" }} // Adicione esta linha
-      right={{ base: "5", md: "0" }} // Adicione esta linha
+      maxWidth={{ base: "100%", md: "calc(100% - 250px)" }}
+      right={{ base: "5", md: "0" }}
       initial="hidden"
       animate={isVisible ? "visible" : "hidden"}
       variants={containerVariants}
@@ -94,16 +93,16 @@ const Topbar = ({ isVisible }) => {
               aria-label="Notification"
               icon={<BellIcon />}
               variant="ghost"
-              colorScheme={colorMode === 'dark' ? 'orange' : 'gray'}
+              colorScheme={colorMode === "dark" ? "orange" : "gray"}
               size="sm"
               borderRadius="md"
             />
             <IconButton
               aria-label="Toggle Dark Mode"
-              icon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
+              icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
               variant="ghost"
               onClick={toggleColorMode}
-              colorScheme={colorMode === 'dark' ? 'orange' : 'gray'}
+              colorScheme={colorMode === "dark" ? "orange" : "gray"}
               size="sm"
               borderRadius="md"
             />
@@ -111,7 +110,7 @@ const Topbar = ({ isVisible }) => {
               aria-label="Attention"
               icon={<WarningIcon />}
               variant="ghost"
-              colorScheme={colorMode === 'dark' ? 'orange' : 'gray'}
+              colorScheme={colorMode === "dark" ? "orange" : "gray"}
               size="sm"
               borderRadius="md"
             />
