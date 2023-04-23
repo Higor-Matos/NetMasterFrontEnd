@@ -27,6 +27,7 @@ interface Props {
 }
 
 const AvatarMenu = ({ colorMode, toggleColorMode, isLargerThan768 }: Props) => {
+  const iconColor = colorMode === "dark" ? "white" : "gray.800";
   return (
     <Menu>
       <MenuButton
@@ -76,6 +77,8 @@ const Topbar = ({ isVisible }: Props) => {
     visible: { opacity: 1, y: 0 },
   };
 
+  const iconColor = colorMode === "dark" ? "white" : "gray.800";
+
   return (
     <MotionBox
       position="fixed"
@@ -102,6 +105,7 @@ const Topbar = ({ isVisible }: Props) => {
               colorScheme={colorMode === "dark" ? "orange" : "gray"}
               size="sm"
               borderRadius="md"
+              color={iconColor}
             />
             <IconButton
               aria-label="Toggle Dark Mode"
@@ -111,6 +115,7 @@ const Topbar = ({ isVisible }: Props) => {
               colorScheme={colorMode === "dark" ? "orange" : "gray"}
               size="sm"
               borderRadius="md"
+              color={iconColor}
             />
             <IconButton
               aria-label="Attention"
@@ -119,6 +124,7 @@ const Topbar = ({ isVisible }: Props) => {
               colorScheme={colorMode === "dark" ? "orange" : "gray"}
               size="sm"
               borderRadius="md"
+              color={iconColor}
             />
           </>
         )}
@@ -132,5 +138,4 @@ const Topbar = ({ isVisible }: Props) => {
     </MotionBox>
   );
 };
-
 export default Topbar;
