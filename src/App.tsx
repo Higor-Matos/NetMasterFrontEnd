@@ -1,5 +1,3 @@
-// App.tsx
-
 import React, { useState, useCallback } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Sidebar, Topbar, Footer, PageContent } from "./components";
