@@ -13,13 +13,13 @@ interface SectionProps {
 }
 
 const Section: React.FC<SectionProps> = ({ title, children }) => {
-  const dividerColor = useColorModeValue("gray.200", "gray.700");
-  const backgroundColor = useColorModeValue("gray.100", "gray.900");
-  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const dividerColor = useColorModeValue("gray.300", "gray.600");
+  const backgroundColor = useColorModeValue("white", "gray.800");
+  const borderColor = useColorModeValue("gray.300", "gray.600");
   const textColor = useColorModeValue("gray.800", "white");
   const boxShadow = useColorModeValue(
-    "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-    "0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(255, 255, 255, 0.06)"
+    "0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)",
+    "0 1px 3px rgba(255, 255, 255, 0.12), 0 1px 2px rgba(255, 255, 255, 0.24)"
   );
 
   return (
