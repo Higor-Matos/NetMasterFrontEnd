@@ -16,6 +16,7 @@ import { default as Sidebar } from "./Sidebar";
 import { default as SidebarDrawer } from "./SidebarDrawer";
 import { default as StreamPlayer } from "./StreamPlayer";
 import { default as Topbar } from "./Topbar";
+import { default as PageContent } from "./PageContent";
 
 export {
   AvatarMenu,
@@ -36,4 +37,5 @@ export {
   SidebarDrawer,
   StreamPlayer,
   Topbar,
+  PageContent,
 };

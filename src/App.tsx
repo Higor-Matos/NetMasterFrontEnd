@@ -1,6 +1,8 @@
+// App.tsx
+
 import React, { useState, useCallback } from "react";
-import { ChakraProvider, Box } from "@chakra-ui/react";
-import { Sidebar, Topbar, Footer } from "./components";
+import { ChakraProvider } from "@chakra-ui/react";
+import { Sidebar, Topbar, Footer, PageContent } from "./components";
 import { Dashboard, ControlPanel, Presentation } from "./pages";
 
 const App = () => {
@@ -36,21 +38,6 @@ const App = () => {
     }
   };
 
-  const PageContent = ({ children }) => {
-    return (
-      <Box
-        marginLeft={{ base: 0, md: showSidebarTopbar ? "250px" : "0" }}
-        paddingTop="5rem"
-        minHeight="100vh"
-        paddingRight={{ base: "1rem", md: "0" }}
-        paddingLeft={{ base: "1rem", md: "0" }}
-        transition="margin-left 0.3s ease-in"
-      >
-        {children}
-      </Box>
-    );
-  };
-
   return (
     <ChakraProvider>
       {showSidebarTopbar && (
@@ -62,7 +49,9 @@ const App = () => {
         />
       )}
       <Topbar isVisible={showSidebarTopbar} />
-      <PageContent>{getPageContent()}</PageContent>
+      <PageContent showSidebarTopbar={showSidebarTopbar}>
+        {getPageContent()}
+      </PageContent>
       <Footer />
     </ChakraProvider>
   );
