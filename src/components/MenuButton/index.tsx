@@ -13,8 +13,7 @@ type MenuButtonProps = {
   icon: IconType;
   onClick: () => void;
   page: string;
-  bgColor: string;
-  hoverColor: string;
+  activeColor: string;
   renderIndicator: (page: string) => JSX.Element;
   iconColor?: string;
 };
@@ -24,6 +23,7 @@ const MenuButton = ({
   icon: Icon,
   onClick,
   page,
+  activeColor,
   renderIndicator,
   iconColor,
 }: MenuButtonProps) => {
@@ -51,9 +51,9 @@ const MenuButton = ({
       w="100%"
       alignItems="center"
       justifyContent="space-between"
-      bg={bgColor}
+      bg={page === activeColor ? activeColor : bgColor}
       _hover={{
-        bg: hoverBgColor,
+        bg: page === activeColor ? activeColor : hoverBgColor,
       }}
     />
   );

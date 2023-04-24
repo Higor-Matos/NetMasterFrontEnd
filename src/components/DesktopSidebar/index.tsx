@@ -16,11 +16,15 @@ interface MenuItem {
   icon: IconType;
   onClick: () => void;
   page: string;
-  hoverColor: string;
 }
 
 interface DesktopSidebarProps {
-  menuItems: MenuItem[];
+  menuItems: {
+    text: string;
+    icon: IconType;
+    onClick: () => void;
+    page: string;
+  }[];
   currentPage: string;
   renderIndicator: (page: string) => JSX.Element;
 }
@@ -32,6 +36,7 @@ const DesktopSidebar = ({
 }: DesktopSidebarProps) => {
   const { colorMode } = useColorMode();
   const headingColor = useColorModeValue("gray.800", "white");
+  const hoverBgColor = useColorModeValue("gray.100", "gray.700");
 
   return (
     <Box
@@ -61,12 +66,9 @@ const DesktopSidebar = ({
         {menuItems.map((item) => (
           <MenuButton
             key={item.text}
-            bg={item.page === currentPage ? item.hoverColor : ""}
+            activeColor={item.page === currentPage ? hoverBgColor : ""}
+            {...item}
             renderIndicator={renderIndicator}
-            text={item.text}
-            icon={item.icon}
-            onClick={item.onClick}
-            page={item.page}
           />
         ))}
         <Spacer />
