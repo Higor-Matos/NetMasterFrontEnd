@@ -11,18 +11,13 @@ interface FooterProps {}
 
 const Footer: React.FC<FooterProps> = () => {
   return (
-    <Box
-      as="footer"
-      py="1.5rem"
-      mt="auto"
-      ml={{ base: 0, md: "220px" }}
-    >
+    <Box as="footer" py="1.5rem" mt="auto" ml={{ base: 0, md: "220px" }}>
       <Container maxW="container.xl">
         <Flex justifyContent="space-between">
           <Text fontSize="sm" color="gray.600">
             &copy; 2023 Integrator Projector. All Rights Reserved.
           </Text>
-          <Flex spacing="4">
+          <Flex gap="4">
             <Link
               href="https://www.linkedin.com/in/higordedeusmatos/"
               isExternal
