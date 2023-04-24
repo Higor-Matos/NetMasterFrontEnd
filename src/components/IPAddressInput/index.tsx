@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, InputGroup } from "@chakra-ui/react";
+import { Input, InputGroup, useColorMode } from "@chakra-ui/react";
 
 interface IPAddressInputProps {
   value: string;
@@ -13,6 +13,7 @@ const IPAddressInput: React.FC<IPAddressInputProps> = ({
   singleCommand,
 }) => {
   const [currentValue, setCurrentValue] = useState(value);
+  const { colorMode } = useColorMode();
 
   const handleInputBlur = () => {
     if (singleCommand) {
@@ -37,7 +38,17 @@ const IPAddressInput: React.FC<IPAddressInputProps> = ({
         maxLength={singleCommand ? 1000 : 50}
         id="ip-input"
         placeholder="Input IP"
-        isInvalid={false} 
+        isInvalid={false}
+        variant="filled"
+        borderColor={colorMode === "dark" ? "gray.600" : "gray.300"}
+        bg={colorMode === "dark" ? "gray.700" : "gray.100"}
+        _hover={{
+          borderColor: colorMode === "dark" ? "gray.400" : "gray.500",
+        }}
+        _focus={{
+          borderColor: colorMode === "dark" ? "gray.400" : "gray.500",
+          boxShadow: "0 0 0 1px rgba(66, 153, 225, 0.6)",
+        }}
       />
     </InputGroup>
   );
