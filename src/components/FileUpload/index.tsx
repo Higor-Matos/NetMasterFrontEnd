@@ -6,9 +6,10 @@ import { Flex, Text, Box, useColorModeValue } from "@chakra-ui/react";
 const { Dragger } = Upload;
 
 const FileUpload: React.FC = () => {
-  const [lastUploadedFile, setLastUploadedFile] = useState("");
-
   const textColor = useColorModeValue("black", "white");
+  const bgColor = useColorModeValue("gray.100", "gray.700");
+  const borderColor = useColorModeValue("gray.300", "gray.600");
+  const hoverBorderColor = useColorModeValue("gray.500", "gray.400");
 
   const props: UploadProps = {
     name: "file",
@@ -21,7 +22,6 @@ const FileUpload: React.FC = () => {
       }
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
-        setLastUploadedFile(info.file.name);
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -33,7 +33,19 @@ const FileUpload: React.FC = () => {
 
   return (
     <Flex height="100%" direction="column">
-      <Dragger {...props} style={{ flexGrow: 1, height: "100%" }}>
+      <Dragger
+        {...props}
+        style={{
+          flexGrow: 1,
+          height: "100%",
+          background: bgColor,
+          borderColor: borderColor,
+          transition: "border-color 0.2s",
+          "&:hover": {
+            borderColor: hoverBorderColor,
+          },
+        }}
+      >
         <p className="ant-upload-drag-icon" style={{ color: textColor }}>
           <InboxOutlined />
         </p>
@@ -44,14 +56,6 @@ const FileUpload: React.FC = () => {
           PNG, JPG, PDF, and ZIP files are allowed.
         </Text>
       </Dragger>
-      {lastUploadedFile && (
-        <Box mt={2}>
-          <Text fontSize="sm" style={{ color: textColor }}>
-            Last uploaded file:{" "}
-            <span style={{ color: textColor }}>{lastUploadedFile}</span>
-          </Text>
-        </Box>
-      )}
     </Flex>
   );
 };

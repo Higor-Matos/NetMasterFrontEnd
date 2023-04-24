@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Box } from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 import { AiOutlineHome, AiFillLayout } from "react-icons/ai";
 import { RiBarChartBoxLine } from "react-icons/ri";
 import {
@@ -24,7 +24,7 @@ const Sidebar = ({
   onControlPanelClick,
   onDashboardClick,
   currentPage,
-}) => {
+}: SidebarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const containerVariants = {
@@ -38,24 +38,33 @@ const Sidebar = ({
     <Indicator isVisible={currentPage === page} />
   );
 
+  const bgColor = useColorModeValue("gray.100", "gray.700");
+  const hoverColor = useColorModeValue("gray.200", "gray.600");
+
   const menuItems = [
     {
       text: "Presentation",
       icon: AiOutlineHome,
       onClick: onPresentationClick,
       page: "presentation",
+      bgColor,
+      hoverColor,
     },
     {
       text: "Control Panel",
       icon: AiFillLayout,
       onClick: onControlPanelClick,
       page: "control-panel",
+      bgColor,
+      hoverColor,
     },
     {
       text: "Dashboard",
       icon: RiBarChartBoxLine,
       onClick: onDashboardClick,
       page: "dashboard",
+      bgColor,
+      hoverColor,
     },
   ];
 
