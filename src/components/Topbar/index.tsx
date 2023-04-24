@@ -27,13 +27,12 @@ interface Props {
 }
 
 const AvatarMenu = ({ colorMode, toggleColorMode, isLargerThan768 }: Props) => {
-  const iconColor = colorMode === "dark" ? "white" : "gray.800";
   return (
     <Menu>
       <MenuButton
         as={IconButton}
         aria-label="Avatar"
-        icon={<Avatar size="xs" src={avatarImg} />}
+        icon={<Avatar size="xs" src={avatarImg} border="none" />}
         variant="ghost"
         size="sm"
         borderRadius="md"

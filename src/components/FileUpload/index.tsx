@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { InboxOutlined } from "@ant-design/icons";
 import { Upload, UploadProps, message } from "antd";
-import { Flex, Text, Box, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 
 const { Dragger } = Upload;
 

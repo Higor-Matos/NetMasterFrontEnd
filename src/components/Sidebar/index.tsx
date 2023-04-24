@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box, useColorModeValue, Text } from "@chakra-ui/react";
 import { AiOutlineHome, AiFillLayout } from "react-icons/ai";
 import { RiBarChartBoxLine } from "react-icons/ri";
 import {
@@ -43,7 +43,11 @@ const Sidebar = ({
 
   const menuItems = [
     {
-      text: "Presentation",
+      text: (
+        <Text fontSize="sm" textAlign="left">
+          Presentation
+        </Text>
+      ),
       icon: AiOutlineHome,
       onClick: onPresentationClick,
       page: "presentation",
@@ -51,7 +55,11 @@ const Sidebar = ({
       hoverColor,
     },
     {
-      text: "Control Panel",
+      text: (
+        <Text fontSize="sm" textAlign="left">
+          Control Panel
+        </Text>
+      ),
       icon: AiFillLayout,
       onClick: onControlPanelClick,
       page: "control-panel",
@@ -59,7 +67,11 @@ const Sidebar = ({
       hoverColor,
     },
     {
-      text: "Dashboard",
+      text: (
+        <Text fontSize="sm" textAlign="left">
+          Dashboard
+        </Text>
+      ),
       icon: RiBarChartBoxLine,
       onClick: onDashboardClick,
       page: "dashboard",

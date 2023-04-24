@@ -32,10 +32,9 @@ const AvatarMenu = ({ colorScheme, avatarUrl }: Props) => {
     <>
       <IconButton
         aria-label={avatarLabel}
-        icon={<Avatar size="xs" src={avatarUrl} />}
+        icon={<Avatar size="full" src={avatarUrl} border="none" />}
         variant="ghost"
         size="sm"
-        borderRadius="md"
         onClick={toggleMenu}
         colorScheme={colorScheme}
       />

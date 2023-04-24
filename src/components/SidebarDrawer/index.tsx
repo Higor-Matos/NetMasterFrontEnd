@@ -47,7 +47,7 @@ const SidebarDrawer = ({
             fontSize={{ base: "md", md: "lg" }}
             color={headingColor}
           >
-            NET MASTER
+            <strong style={{ fontWeight: "bold" }}>NET</strong> MASTER
           </Heading>
           <Divider borderColor="gray.300" my={2} />
           {menuItems.map((item) => (

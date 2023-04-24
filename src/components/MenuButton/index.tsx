@@ -1,13 +1,12 @@
 import React from "react";
 import {
-  Button,
-  Icon,
-  HStack,
+  Box,
+  Flex,
+  IconButton,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { IconType } from "react-icons";
-import Indicator from "./Indicator";
 
 type MenuButtonProps = {
   text: string;
@@ -22,39 +21,41 @@ type MenuButtonProps = {
 
 const MenuButton = ({
   text,
-  icon,
+  icon: Icon,
   onClick,
   page,
-  bgColor,
-  hoverColor,
   renderIndicator,
   iconColor,
 }: MenuButtonProps) => {
   const textColor = useColorModeValue("gray.800", "white");
-  const defaultIconColor = useColorModeValue("gray.600", "gray.300");
-  const fontSize = { base: "sm", md: "md" };
+  const bgColor = useColorModeValue("transparent", "transparent");
+  const hoverBgColor = useColorModeValue("gray.100", "gray.700");
 
   return (
-    <Button
-      variant="ghost"
-      justifyContent="flex-start"
-      isFullWidth
+    <Flex
+      as={IconButton}
+      aria-label={text}
+      icon={
+        <>
+          <Icon fontSize="1.2rem" />
+          <Text ml={2} color={textColor} flexGrow={1} fontSize="1rem">
+            {text}
+          </Text>
+          <Box w="20px" fontSize="0.8rem" textAlign="right">
+            {renderIndicator(page)}
+          </Box>
+        </>
+      }
       onClick={onClick}
       borderRadius="md"
-      py="3"
-      px="2"
-      _hover={{ bg: hoverColor }}
-      _active={{ bg: bgColor }}
-      _focus={{ boxShadow: "none" }}
-    >
-      <HStack spacing="2">
-        <Icon as={icon} boxSize="20px" color={iconColor || defaultIconColor} />
-        <Text fontSize={fontSize} color={textColor}>
-          {text}
-        </Text>
-      </HStack>
-      {renderIndicator(page)}
-    </Button>
+      w="100%"
+      alignItems="center"
+      justifyContent="space-between"
+      bg={bgColor}
+      _hover={{
+        bg: hoverBgColor,
+      }}
+    />
   );
 };
 
