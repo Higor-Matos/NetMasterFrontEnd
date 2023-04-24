@@ -1,40 +1,61 @@
 import React from "react";
-import { Button, Icon, Text, IconProps, HStack, Box } from "@chakra-ui/react";
+import {
+  Button,
+  Icon,
+  HStack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { IconType } from "react-icons";
+import Indicator from "./Indicator";
 
-interface MenuButtonProps {
+type MenuButtonProps = {
   text: string;
-  icon: React.ComponentType<IconProps>;
+  icon: IconType;
   onClick: () => void;
   page: string;
-  renderIndicator: (page: string) => JSX.Element | null;
-  iconColor: string;
-}
+  bgColor: string;
+  hoverColor: string;
+  renderIndicator: (page: string) => JSX.Element;
+  iconColor?: string;
+};
 
-const MenuButton: React.FC<MenuButtonProps> = ({
+const MenuButton = ({
   text,
-  icon: IconComponent,
+  icon,
   onClick,
   page,
+  bgColor,
+  hoverColor,
   renderIndicator,
   iconColor,
-}) => (
-  <Button
-    leftIcon={<Icon as={IconComponent} boxSize="16px" color={iconColor} />}
-    variant="ghost"
-    fontSize="sm"
-    fontWeight="semibold"
-    textAlign="left"
-    onClick={onClick}
-    width="100%"
-    alignItems="center"
-    borderRadius="md"
-  >
-    <HStack spacing={2} flex="1">
-      <Text>{text}</Text>
-      <Box flex="1" />
+}: MenuButtonProps) => {
+  const textColor = useColorModeValue("gray.800", "white");
+  const defaultIconColor = useColorModeValue("gray.600", "gray.300");
+  const fontSize = { base: "sm", md: "md" };
+
+  return (
+    <Button
+      variant="ghost"
+      justifyContent="flex-start"
+      isFullWidth
+      onClick={onClick}
+      borderRadius="md"
+      py="3"
+      px="2"
+      _hover={{ bg: hoverColor }}
+      _active={{ bg: bgColor }}
+      _focus={{ boxShadow: "none" }}
+    >
+      <HStack spacing="2">
+        <Icon as={icon} boxSize="20px" color={iconColor || defaultIconColor} />
+        <Text fontSize={fontSize} color={textColor}>
+          {text}
+        </Text>
+      </HStack>
       {renderIndicator(page)}
-    </HStack>
-  </Button>
-);
+    </Button>
+  );
+};
 
 export default MenuButton;

@@ -29,7 +29,7 @@ const SidebarDrawer = ({
   renderIndicator,
 }: SidebarDrawerProps) => {
   const { colorMode } = useColorMode();
-  const iconColor = useColorModeValue("gray.800", "white");
+  const headingColor = useColorModeValue("gray.800", "white");
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="left" size="xs">
@@ -40,7 +40,13 @@ const SidebarDrawer = ({
       >
         <DrawerCloseButton />
         <VStack spacing="4" alignItems="stretch" padding="4">
-          <Heading size="lg" mb="2" textAlign="center" fontSize="md">
+          <Heading
+            size="lg"
+            mb="2"
+            textAlign="center"
+            fontSize={{ base: "md", md: "lg" }}
+            color={headingColor}
+          >
             NET MASTER
           </Heading>
           <Divider borderColor="gray.300" my={2} />
@@ -52,10 +58,9 @@ const SidebarDrawer = ({
               onClick={item.onClick}
               page={item.page}
               renderIndicator={renderIndicator}
-              iconColor={iconColor}
+              iconColor={headingColor}
             />
           ))}
-
           <Spacer />
         </VStack>
       </DrawerContent>

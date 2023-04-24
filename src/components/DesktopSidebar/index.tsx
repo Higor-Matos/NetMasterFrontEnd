@@ -6,6 +6,7 @@ import {
   Divider,
   Spacer,
   useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { MenuButton } from "../index";
@@ -34,6 +35,7 @@ const DesktopSidebar = ({
   renderIndicator,
 }: DesktopSidebarProps) => {
   const { colorMode } = useColorMode();
+  const headingColor = useColorModeValue("gray.800", "white");
 
   return (
     <Box
@@ -50,14 +52,20 @@ const DesktopSidebar = ({
       borderRadius="md"
     >
       <VStack spacing="2" alignItems="stretch">
-        <Heading size="sm" mb="1" textAlign="center" fontSize="lg">
+        <Heading
+          size="sm"
+          mb="1"
+          textAlign="center"
+          fontSize={{ base: "md", md: "lg" }}
+          color={headingColor}
+        >
           <strong style={{ fontWeight: "bold" }}>NET</strong> MASTER
         </Heading>
         <Divider as="hr" borderColor="gray.300" my={2} />
         {menuItems.map((item) => (
           <MenuButton
             key={item.text}
-            bg={item.page === currentPage ? "gray.200" : ""}
+            bg={item.page === currentPage ? item.hoverColor : ""}
             {...item}
             renderIndicator={renderIndicator}
           />
