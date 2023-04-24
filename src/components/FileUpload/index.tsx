@@ -1,7 +1,7 @@
 import React from "react";
 import { InboxOutlined } from "@ant-design/icons";
 import { Upload, UploadProps, message } from "antd";
-import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 
 const { Dragger } = Upload;
 
@@ -33,19 +33,15 @@ const FileUpload: React.FC = () => {
 
   return (
     <Flex height="100%" direction="column">
-      <Dragger
-        {...props}
-        style={{
-          flexGrow: 1,
-          height: "100%",
-          background: bgColor,
-          borderColor: borderColor,
-          transition: "border-color 0.2s",
-          "&:hover": {
-            borderColor: hoverBorderColor,
-          },
-        }}
-      >
+      <Box
+        _hover={{ borderColor: hoverBorderColor }}
+        transition="border-color 0.2s"
+        flexGrow={1}
+        height="100%"
+        bg={bgColor}
+        borderColor={borderColor}
+      ></Box>
+      <Dragger {...props}>
         <p className="ant-upload-drag-icon" style={{ color: textColor }}>
           <InboxOutlined />
         </p>
