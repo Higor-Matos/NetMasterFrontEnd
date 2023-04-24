@@ -16,15 +16,11 @@ interface MenuItem {
   icon: IconType;
   onClick: () => void;
   page: string;
+  hoverColor: string;
 }
 
 interface DesktopSidebarProps {
-  menuItems: {
-    text: string;
-    icon: IconType;
-    onClick: () => void;
-    page: string;
-  }[];
+  menuItems: MenuItem[];
   currentPage: string;
   renderIndicator: (page: string) => JSX.Element;
 }
