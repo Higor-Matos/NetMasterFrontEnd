@@ -7,6 +7,7 @@ interface MenuButtonProps {
   onClick: () => void;
   page: string;
   renderIndicator: (page: string) => JSX.Element | null;
+  iconColor: string;
 }
 
 const MenuButton: React.FC<MenuButtonProps> = ({
@@ -15,9 +16,10 @@ const MenuButton: React.FC<MenuButtonProps> = ({
   onClick,
   page,
   renderIndicator,
+  iconColor,
 }) => (
   <Button
-    leftIcon={<Icon as={IconComponent} boxSize="16px" />}
+    leftIcon={<Icon as={IconComponent} boxSize="16px" color={iconColor} />}
     variant="ghost"
     fontSize="sm"
     fontWeight="semibold"

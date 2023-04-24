@@ -9,6 +9,7 @@ import {
   Divider,
   useColorMode,
   Spacer,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { MenuButton } from "../index";
 
@@ -28,6 +29,7 @@ const SidebarDrawer = ({
   renderIndicator,
 }: SidebarDrawerProps) => {
   const { colorMode } = useColorMode();
+  const iconColor = useColorModeValue("gray.800", "white");
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="left" size="xs">
@@ -50,8 +52,10 @@ const SidebarDrawer = ({
               onClick={item.onClick}
               page={item.page}
               renderIndicator={renderIndicator}
+              iconColor={iconColor}
             />
           ))}
+
           <Spacer />
         </VStack>
       </DrawerContent>
