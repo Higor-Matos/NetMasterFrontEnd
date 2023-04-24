@@ -15,7 +15,7 @@ import {
   ColorMode,
 } from "@chakra-ui/react";
 import { SunIcon, MoonIcon, BellIcon, WarningIcon } from "@chakra-ui/icons";
-import avatarImg from "../../assets/img/avatar.jpg";
+//import avatarImg from "../../assets/img/avatar.jpg";
 
 const MotionBox = motion(Box);
 
@@ -32,7 +32,14 @@ const AvatarMenu = ({ colorMode, toggleColorMode, isLargerThan768 }: Props) => {
       <MenuButton
         as={IconButton}
         aria-label="Avatar"
-        icon={<Avatar size="xs" src={avatarImg} border="none" />}
+        icon={
+          <Avatar
+            size="xs"
+            src="https://i.imgur.com/8GX26iI.jpg"
+            border="none"
+          />
+        }
+        //icon={<Avatar size="xs" src={avatarImg} border="none" />}
         variant="ghost"
         size="sm"
         borderRadius="md"
