@@ -66,8 +66,11 @@ const DesktopSidebar = ({
           <MenuButton
             key={item.text}
             bg={item.page === currentPage ? item.hoverColor : ""}
-            {...item}
             renderIndicator={renderIndicator}
+            text={item.text}
+            icon={item.icon}
+            onClick={item.onClick}
+            page={item.page}
           />
         ))}
         <Spacer />

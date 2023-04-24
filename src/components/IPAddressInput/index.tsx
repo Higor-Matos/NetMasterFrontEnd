@@ -37,7 +37,7 @@ const IPAddressInput: React.FC<IPAddressInputProps> = ({
         onChange={handleInputChange}
         maxLength={singleCommand ? 1000 : 50}
         id="ip-input"
-        placeholder="Input IP"
+        placeholder="Endereço IP"
         isInvalid={false}
         variant="filled"
         borderColor={colorMode === "dark" ? "gray.600" : "gray.300"}
