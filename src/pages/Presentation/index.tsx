@@ -59,7 +59,7 @@ const Presentation: React.FC<PresentationProps> = ({
           transition={{ duration: 1, delay: 0.5 }}
           textShadow="2px 2px 3px rgba(0, 0, 0, 20)"
         >
-          O painel de administração para gerenciar sua rede
+          O painel de administração para sua rede
         </MotionText>
         <MotionButton
           onClick={handleStartClick}
