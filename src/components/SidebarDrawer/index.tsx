@@ -30,6 +30,7 @@ const SidebarDrawer = ({
 }: SidebarDrawerProps) => {
   const { colorMode } = useColorMode();
   const headingColor = useColorModeValue("gray.800", "white");
+  const activeColor = useColorModeValue("blue.500", "blue.200");
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="left" size="xs">
@@ -59,6 +60,7 @@ const SidebarDrawer = ({
               page={item.page}
               renderIndicator={renderIndicator}
               iconColor={headingColor}
+              activeColor={activeColor}
             />
           ))}
           <Spacer />
