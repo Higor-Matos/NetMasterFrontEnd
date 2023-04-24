@@ -13,7 +13,7 @@ import {
 
 interface ControlPanelProps {
   ip: string;
-  onIPChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onIPChange: (value: string) => void;
   computer: string;
   onClick: (endpoint: string, ip?: string) => void;
 }
