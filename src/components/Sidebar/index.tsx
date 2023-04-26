@@ -92,7 +92,7 @@ const Sidebar = ({
         initial="hidden"
         animate={currentPage !== "presentation" ? "visible" : "hidden"}
         variants={containerVariants}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 1 }}
       />
 
       <SidebarDrawer
