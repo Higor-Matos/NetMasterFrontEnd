@@ -10,6 +10,10 @@ interface ChocolateyInfoProps {
 }
 
 const ChocolateyInfo: React.FC<ChocolateyInfoProps> = ({ chocolateyData }) => {
+  if (!chocolateyData) {
+    return <Text>Carregando informações do Chocolatey...</Text>;
+  }
+
   return (
     <Box>
       <Text fontSize="xl" fontWeight="bold">Chocolatey Version</Text>

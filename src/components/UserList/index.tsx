@@ -2,6 +2,7 @@ import React from "react";
 import { List, ListItem, Box, Text, Spinner } from "@chakra-ui/react";
 
 interface User {
+  id: number;
   name: string;
 }
 
@@ -11,25 +12,23 @@ interface UserListProps {
 }
 
 const UserList: React.FC<UserListProps> = ({ userData, isLoading }) => {
+  if (isLoading) {
+    return <Spinner size="md" color="blue.500" />;
+  }
+
   return (
     <Box>
-      {isLoading ? (
-        <Spinner size="md" color="blue.500" />
+      <Text fontSize="xl" mb={5}>
+        Usuários da Máquina
+      </Text>
+      {userData?.length > 0 ? (
+        <List>
+          {userData.map((user: User) => (
+            <ListItem key={user.id}>{user.name}</ListItem>
+          ))}
+        </List>
       ) : (
-        <Box>
-          <Text fontSize="xl" mb={5}>
-            Usuários da Máquina
-          </Text>
-          {userData.length > 0 ? (
-            <List>
-              {userData.map((user: User, index: number) => (
-                <ListItem key={index}>{user.name}</ListItem>
-              ))}
-            </List>
-          ) : (
-            <p>Carregando dados de usuários...</p>
-          )}
-        </Box>
+        <Text>Nenhum usuário encontrado.</Text>
       )}
     </Box>
   );
