@@ -21,6 +21,7 @@ import { default as RamChart } from "./RamChart";
 import { default as StorageChart } from "./StorageChart";
 import { default as UserList } from "./UserList";
 import { default as ChocolateyInfo } from "./ChocolateyInfo";
+import { default as OSInfo } from "./OSInfo";
 
 export {
   AvatarMenu,
@@ -46,4 +47,5 @@ export {
   RamChart,
   ChocolateyInfo,
   UserList,
+  OSInfo,
 };

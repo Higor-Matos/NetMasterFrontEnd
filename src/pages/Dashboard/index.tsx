@@ -4,13 +4,15 @@ import axios from "axios";
 import RamChart from "../../components/RamChart";
 import StorageChart from "../../components/StorageChart";
 import UserList from "../../components/UserList";
-import ChocolateyInfo from "../../components/ChocolateyInfo"; // Novo componente
+import ChocolateyInfo from "../../components/ChocolateyInfo"; 
+import OSInfo from "../../components/OSInfo"; // Novo componente
 
 const Dashboard = () => {
   const [ramData, setRamData] = useState<{ name: string; value: number }[]>([]);
   const [storageData, setStorageData] = useState<any[]>([]);
   const [userData, setUserData] = useState<any[]>([]);
-  const [chocolateyData, setChocolateyData] = useState<any>({}); // Estado para dados do Chocolatey
+  const [chocolateyData, setChocolateyData] = useState<any>({}); 
+  const [osData, setOsData] = useState<any>({}); // Estado para dados do sistema operacional
   const [computerName, setComputerName] = useState("MAGNATI-10848-F");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -25,7 +27,8 @@ const Dashboard = () => {
       const ramResponse = await axios.get(`http://localhost:5018/hardware/getInfo/ram/${computerName}`);
       const storageResponse = await axios.get(`http://localhost:5018/hardware/getInfo/storage/${computerName}`);
       const userResponse = await axios.get(`http://localhost:5018/system/getUsersInfo/${computerName}`);
-      const chocolateyResponse = await axios.get(`http://localhost:5018/system/getChocolateyInfo/${computerName}`); // Buscando os dados do Chocolatey
+      const chocolateyResponse = await axios.get(`http://localhost:5018/system/getChocolateyInfo/${computerName}`); 
+      const osResponse = await axios.get(`http://localhost:5018/system/getOsVersionInfo/${computerName}`); // Buscando os dados do sistema operacional
 
       setRamData([
         { name: "Total", value: ramResponse.data.totalVisibleMemorySize_GB },
@@ -34,7 +37,8 @@ const Dashboard = () => {
 
       setStorageData(storageResponse.data.disks);
       setUserData(userResponse.data.users);
-      setChocolateyData(chocolateyResponse.data); // Atualizando o estado com os dados do Chocolatey
+      setChocolateyData(chocolateyResponse.data); 
+      setOsData(osResponse.data); // Atualizando o estado com os dados do sistema operacional
     } catch (error) {
       console.error("Error fetching data: ", error);
       setError("Ocorreu um erro ao buscar os dados. Tente novamente mais tarde.");
@@ -57,8 +61,8 @@ const Dashboard = () => {
         templateColumns={{
           base: "repeat(1, 1fr)",
           sm: "repeat(2, 1fr)",
-          md: "repeat(4, 1fr)", 
-          lg: "repeat(4, 1fr)", 
+          md: "repeat(5, 1fr)", 
+          lg: "repeat(5, 1fr)", 
         }}
         gap={6}
       >
@@ -74,14 +78,17 @@ const Dashboard = () => {
         </GridItem>
         <GridItem>
           <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg={boxColor}>
-
-
             <UserList userData={userData} isLoading={isLoading} />
+          </Box>
+        </GridItem>
+        <GridItem>
+          <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg={boxColor}>
+            <ChocolateyInfo chocolateyData={chocolateyData} />
           </Box>
         </GridItem>
         <GridItem> {/* Novo painel */}
           <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg={boxColor}>
-            <ChocolateyInfo chocolateyData={chocolateyData} />
+            <OSInfo osData={osData} />
           </Box>
         </GridItem>
       </Grid>
