@@ -7,10 +7,10 @@ import UserList from "../../components/UserList";
 import ChocolateyInfo from "../../components/ChocolateyInfo"; // Novo componente
 
 const Dashboard = () => {
-  const [ramData, setRamData] = useState([]);
-  const [storageData, setStorageData] = useState([]);
-  const [userData, setUserData] = useState([]);
-  const [chocolateyData, setChocolateyData] = useState({}); // Estado para dados do Chocolatey
+  const [ramData, setRamData] = useState<{ name: string; value: number }[]>([]);
+  const [storageData, setStorageData] = useState<any[]>([]);
+  const [userData, setUserData] = useState<any[]>([]);
+  const [chocolateyData, setChocolateyData] = useState<any>({}); // Estado para dados do Chocolatey
   const [computerName, setComputerName] = useState("MAGNATI-10848-F");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -74,7 +74,9 @@ const Dashboard = () => {
         </GridItem>
         <GridItem>
           <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg={boxColor}>
-            <UserList userData={userData} />
+
+
+            <UserList userData={userData} isLoading={isLoading} />
           </Box>
         </GridItem>
         <GridItem> {/* Novo painel */}
