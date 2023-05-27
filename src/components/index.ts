@@ -17,6 +17,8 @@ import { default as SidebarDrawer } from "./SidebarDrawer";
 import { default as StreamPlayer } from "./StreamPlayer";
 import { default as Topbar } from "./Topbar";
 import { default as PageContent } from "./PageContent";
+import { default as RamChart } from "./RamChart";
+import { default as StorageChart } from "./StorageChart";
 
 export {
   AvatarMenu,
@@ -38,4 +40,6 @@ export {
   StreamPlayer,
   Topbar,
   PageContent,
+  StorageChart,
+  RamChart,
 };

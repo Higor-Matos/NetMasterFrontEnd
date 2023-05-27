@@ -1,7 +1,16 @@
 import React, { useState, useCallback } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
-import { Sidebar, Topbar, Footer, PageContent } from "./components";
-import { Dashboard, ControlPanel, Presentation } from "./pages";
+import {
+  Sidebar,
+  Topbar,
+  Footer,
+  PageContent,
+} from "./components";
+import {
+  ControlPanel,
+  Dashboard,
+  Presentation,
+} from "./pages";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("presentation");
@@ -11,17 +20,14 @@ const App = () => {
     setCurrentPage(page);
   }, []);
 
-  const getPageContent = () => {
+  const getPageContent = useCallback(() => {
     switch (currentPage) {
       case "control-panel":
-        return (
-          <ControlPanel
-            ip=""
-            onIPChange={() => {}}
-            computer=""
-            onClick={() => {}}
-          />
-        );
+        return <ControlPanel ip={""} onIPChange={function (value: string): void {
+          throw new Error("Function not implemented.");
+        } } computer={""} onClick={function (endpoint: string, ip?: string | undefined): void {
+          throw new Error("Function not implemented.");
+        } } />;
       case "dashboard":
         return <Dashboard />;
       default:
@@ -32,7 +38,7 @@ const App = () => {
           />
         );
     }
-  };
+  }, [currentPage, handlePageChange]);
 
   return (
     <ChakraProvider>
@@ -46,8 +52,8 @@ const App = () => {
       )}
       <Topbar
         isVisible={showSidebarTopbar}
-        colorMode={"light"}
-        toggleColorMode={function (): void {
+        colorMode="light"
+        toggleColorMode={() => {
           throw new Error("Function not implemented.");
         }}
         isLargerThan768={false}
