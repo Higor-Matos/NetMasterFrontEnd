@@ -19,6 +19,8 @@ import { default as Topbar } from "./Topbar";
 import { default as PageContent } from "./PageContent";
 import { default as RamChart } from "./RamChart";
 import { default as StorageChart } from "./StorageChart";
+import { default as UserList } from "./UserList";
+import { default as ChocolateyInfo } from "./ChocolateyInfo";
 
 export {
   AvatarMenu,
@@ -42,4 +44,6 @@ export {
   PageContent,
   StorageChart,
   RamChart,
+  ChocolateyInfo,
+  UserList,
 };

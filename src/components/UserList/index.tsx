@@ -1,7 +1,16 @@
 import React from "react";
 import { List, ListItem, Box, Text, Spinner } from "@chakra-ui/react";
 
-const UserList = ({ userData, isLoading }) => {
+interface User {
+  name: string;
+}
+
+interface UserListProps {
+  userData: User[];
+  isLoading: boolean;
+}
+
+const UserList: React.FC<UserListProps> = ({ userData, isLoading }) => {
   return (
     <Box>
       {isLoading ? (
@@ -13,7 +22,7 @@ const UserList = ({ userData, isLoading }) => {
           </Text>
           {userData.length > 0 ? (
             <List>
-              {userData.map((user, index) => (
+              {userData.map((user: User, index: number) => (
                 <ListItem key={index}>{user.name}</ListItem>
               ))}
             </List>
