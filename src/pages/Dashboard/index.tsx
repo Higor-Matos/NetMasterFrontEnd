@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Text,
-  Grid,
-  GridItem,
-  useColorModeValue,
-  Spinner,
-} from "@chakra-ui/react";
+import { Box, Button, Text, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
 import axios from "axios";
-import {
-  RamChart,
-  StorageChart,
-} from "../../components";
+import RamChart from "../../components/RamChart";
+import StorageChart from "../../components/StorageChart";
+import UserList from "../../components/UserList";
 
-
-const Dashboard: React.FC = () => {
-  const [ramData, setRamData] = useState<{ name: string; value: number }[]>([]);
-  const [storageData, setStorageData] = useState<{
-    DeviceID: string;
-    Size_GB: number;
-    FreeSpace_GB: number;
-  }[]>([]);
+const Dashboard = () => {
+  const [ramData, setRamData] = useState([]);
+  const [storageData, setStorageData] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [computerName, setComputerName] = useState("MAGNATI-10848-F");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -31,19 +18,11 @@ const Dashboard: React.FC = () => {
   }, [computerName]);
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
-      const ramResponse = await axios.get<{ totalVisibleMemorySize_GB: number; freePhysicalMemory_GB: number }>(
-        `http://localhost:5018/hardware/getInfo/ram/${computerName}`
-      );
-      const storageResponse = await axios.get<{
-        disks: {
-          DeviceID: string;
-          Size_GB: number;
-          FreeSpace_GB: number;
-        }[];
-      }>(
-        `http://localhost:5018/hardware/getInfo/storage/${computerName}`
-      );
+      const ramResponse = await axios.get(`http://localhost:5018/hardware/getInfo/ram/${computerName}`);
+      const storageResponse = await axios.get(`http://localhost:5018/hardware/getInfo/storage/${computerName}`);
+      const userResponse = await axios.get(`http://localhost:5018/system/getUsersInfo/${computerName}`);
 
       setRamData([
         { name: "Total", value: ramResponse.data.totalVisibleMemorySize_GB },
@@ -51,10 +30,11 @@ const Dashboard: React.FC = () => {
       ]);
 
       setStorageData(storageResponse.data.disks);
-      setIsLoading(false);
+      setUserData(userResponse.data.users);
     } catch (error) {
       console.error("Error fetching data: ", error);
       setError("Ocorreu um erro ao buscar os dados. Tente novamente mais tarde.");
+    } finally {
       setIsLoading(false);
     }
   };
@@ -73,37 +53,24 @@ const Dashboard: React.FC = () => {
         templateColumns={{
           base: "repeat(1, 1fr)",
           sm: "repeat(2, 1fr)",
-          md: "repeat(2, 1fr)",
-          lg: "repeat(2, 1fr)",
+          md: "repeat(3, 1fr)",
+          lg: "repeat(3, 1fr)",
         }}
         gap={6}
       >
         <GridItem>
           <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg={boxColor}>
-            <Text fontSize="xl" mb={5}>
-              RAM
-            </Text>
-            {isLoading ? (
-              <Spinner size="md" color="blue.500" />
-            ) : ramData.length > 0 ? (
-              <RamChart ramData={ramData} />
-            ) : (
-              <p>Carregando dados de RAM...</p>
-            )}
+            <RamChart ramData={ramData} />
           </Box>
         </GridItem>
         <GridItem>
           <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg={boxColor}>
-            <Text fontSize="xl" mb={5}>
-              Armazenamento
-            </Text>
-            {isLoading ? (
-              <Spinner size="md" color="blue.500" />
-            ) : storageData.length > 0 ? (
-              <StorageChart storageData={storageData} />
-            ) : (
-              <p>Carregando dados de Armazenamento...</p>
-            )}
+            <StorageChart storageData={storageData} />
+          </Box>
+        </GridItem>
+        <GridItem>
+          <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg={boxColor}>
+            <UserList userData={userData} />
           </Box>
         </GridItem>
       </Grid>
