@@ -1,21 +1,64 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Text, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Text, Grid, GridItem, useColorModeValue, Select, VStack, Heading, Icon } from "@chakra-ui/react";
 import axios from "axios";
 import RamChart from "../../components/RamChart";
 import StorageChart from "../../components/StorageChart";
 import UserList from "../../components/UserList";
 import ChocolateyInfo from "../../components/ChocolateyInfo"; 
-import OSInfo from "../../components/OSInfo"; // Novo componente
+import OSInfo from "../../components/OSInfo"; 
+import ProgramsInfo from "../../components/ProgramsInfo"; 
+
+const API_BASE_URL = "http://localhost:5018";
+
+const fetchData = async (endpoint) => {
+  try {
+    const response = await axios.get(endpoint);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw new Error(getErrorMessage(error));
+  }
+};
+
+const getErrorMessage = (error) => {
+  if (error.response) {
+    return "Ocorreu um erro ao buscar os dados. Tente novamente mais tarde.";
+  } else if (error.request) {
+    return "Não foi possível se conectar ao servidor. Verifique sua conexão com a internet.";
+  } else {
+    return "Ocorreu um erro desconhecido.";
+  }
+};
+
+const fetchRamInfo = (computerName) =>
+  fetchData(`${API_BASE_URL}/hardware/getInfo/ram/${computerName}`);
+
+const fetchStorageInfo = (computerName) =>
+  fetchData(`${API_BASE_URL}/hardware/getInfo/storage/${computerName}`);
+
+const fetchUserInfo = (computerName) =>
+  fetchData(`${API_BASE_URL}/system/getUsersInfo/${computerName}`);
+
+const fetchChocolateyInfo = (computerName) =>
+  fetchData(`${API_BASE_URL}/system/getChocolateyInfo/${computerName}`);
+
+const fetchOsInfo = (computerName) =>
+  fetchData(`${API_BASE_URL}/system/getOsVersionInfo/${computerName}`);
+
+const fetchProgramsInfo = (computerName) =>
+  fetchData(`${API_BASE_URL}/system/getInstalledProgramsInfo/${computerName}`);
 
 const Dashboard = () => {
-  const [ramData, setRamData] = useState<{ name: string; value: number }[]>([]);
-  const [storageData, setStorageData] = useState<any[]>([]);
-  const [userData, setUserData] = useState<any[]>([]);
-  const [chocolateyData, setChocolateyData] = useState<any>({}); 
-  const [osData, setOsData] = useState<any>({}); // Estado para dados do sistema operacional
+  const [ramData, setRamData] = useState([]);
+  const [storageData, setStorageData] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [chocolateyData, setChocolateyData] = useState({});
+  const [osData, setOsData] = useState({});
+  const [programsData, setProgramsData] = useState([]);
   const [computerName, setComputerName] = useState("MAGNATI-10848-F");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const computerOptions = ["MAGNATI-10848-F", "RAMO-PC", "ANOTHER-PC"]; // Adicione todos os computadores que você quer na lista
 
   useEffect(() => {
     fetchData();
@@ -23,35 +66,43 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
-    try {
-      const ramResponse = await axios.get(`http://localhost:5018/hardware/getInfo/ram/${computerName}`);
-      const storageResponse = await axios.get(`http://localhost:5018/hardware/getInfo/storage/${computerName}`);
-      const userResponse = await axios.get(`http://localhost:5018/system/getUsersInfo/${computerName}`);
-      const chocolateyResponse = await axios.get(`http://localhost:5018/system/getChocolateyInfo/${computerName}`); 
-      const osResponse = await axios.get(`http://localhost:5018/system/getOsVersionInfo/${computerName}`); // Buscando os dados do sistema operacional
 
-      setRamData([
-        { name: "Total", value: ramResponse.data.totalVisibleMemorySize_GB },
-        { name: "Livre", value: ramResponse.data.freePhysicalMemory_GB },
+    try {
+      const [
+        ramResponse,
+        storageResponse,
+        userResponse,
+        chocolateyResponse,
+        osResponse,
+        programsResponse,
+      ] = await Promise.all([
+        fetchRamInfo(computerName),
+        fetchStorageInfo(computerName),
+        fetchUserInfo(computerName),
+        fetchChocolateyInfo(computerName),
+        fetchOsInfo(computerName),
+        fetchProgramsInfo(computerName),
       ]);
 
-      setStorageData(storageResponse.data.disks);
-      setUserData(userResponse.data.users);
-      setChocolateyData(chocolateyResponse.data); 
-      setOsData(osResponse.data); // Atualizando o estado com os dados do sistema operacional
+      const { totalVisibleMemorySize_GB: total, freePhysicalMemory_GB: free } = ramResponse;
+      setRamData([{ name: "Total", value: total }, { name: "Livre", value: free }]);
+
+      setStorageData(storageResponse.disks);
+      setUserData(userResponse.users);
+      setChocolateyData(chocolateyResponse);
+      setOsData(osResponse);
+      setProgramsData(programsResponse.programs);
     } catch (error) {
-      console.error("Error fetching data: ", error);
-      setError("Ocorreu um erro ao buscar os dados. Tente novamente mais tarde.");
+      setError(error.message);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleChangeComputer = () => {
-    setComputerName((prevComputerName) =>
-      prevComputerName === "RAMO-PC" ? "MAGNATI-10848-F" : "RAMO-PC"
-    );
+  const handleChangeComputer = (event) => {
+    setComputerName(event.target.value);
   };
+
 
   const boxColor = useColorModeValue("white", "gray.700");
 
@@ -61,8 +112,8 @@ const Dashboard = () => {
         templateColumns={{
           base: "repeat(1, 1fr)",
           sm: "repeat(2, 1fr)",
-          md: "repeat(5, 1fr)", 
-          lg: "repeat(5, 1fr)", 
+          md: "repeat(5, 1fr)",
+          lg: "repeat(5, 1fr)",
         }}
         gap={6}
       >
@@ -86,7 +137,12 @@ const Dashboard = () => {
             <ChocolateyInfo chocolateyData={chocolateyData} />
           </Box>
         </GridItem>
-        <GridItem> {/* Novo painel */}
+        <GridItem>
+          <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg={boxColor}>
+            <ProgramsInfo programsData={programsData} />
+          </Box>
+        </GridItem>
+        <GridItem>
           <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg={boxColor}>
             <OSInfo osData={osData} />
           </Box>

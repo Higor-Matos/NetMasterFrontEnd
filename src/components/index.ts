@@ -22,6 +22,7 @@ import { default as StorageChart } from "./StorageChart";
 import { default as UserList } from "./UserList";
 import { default as ChocolateyInfo } from "./ChocolateyInfo";
 import { default as OSInfo } from "./OSInfo";
+import { default as ProgramsInfo } from "./ProgramsInfo";
 
 export {
   AvatarMenu,
@@ -48,4 +49,5 @@ export {
   ChocolateyInfo,
   UserList,
   OSInfo,
+  ProgramsInfo,
 };
