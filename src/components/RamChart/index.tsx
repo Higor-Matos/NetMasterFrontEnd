@@ -8,23 +8,28 @@ import {
   Legend,
 } from "recharts";
 import { FaMemory } from "react-icons/fa";
-import { useColorModeValue } from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
+import { useColorModeValue, Box, Text, Spinner } from "@chakra-ui/react";
 
 interface RamChartProps {
   ramData: { name: string; value: number }[];
+  isLoading: boolean;
 }
 
 const COLORS = ["#E85D75", "#56B4A9", "#FFA24A", "#5A77DB"];
 
-const RamChart: React.FC<RamChartProps> = ({ ramData }) => {
-  if (ramData.length === 0) {
-    return <Box p="4">Sem dados disponíveis para exibição.</Box>;
+const RamChart: React.FC<RamChartProps> = ({ ramData, isLoading }) => {
+  const loadingColor = useColorModeValue("blue.500", "blue.300");
+  const boxBgColor = useColorModeValue("#F5F5F5", "#283142");
+  const textColor = useColorModeValue("gray.700", "gray.300");
+  const labelColor = useColorModeValue("#283142", "#F5F5F5");
+
+  if (isLoading) {
+    return <Spinner size="md" color={loadingColor} />;
   }
 
-  const iconColor = useColorModeValue("#283142", "#F5F5F5");
-  const chartBgColor = useColorModeValue("#F5F5F5", "#283142");
-  const labelColor = useColorModeValue("#283142", "#F5F5F5");
+  if (!ramData || ramData.length === 0) {
+    return <Box p="4">Sem dados disponíveis para exibição.</Box>;
+  }
 
   const total = ramData.reduce((sum, data) => sum + data.value, 0);
   const renderTooltipContent = (props: any) => {
@@ -35,7 +40,7 @@ const RamChart: React.FC<RamChartProps> = ({ ramData }) => {
       return (
         <div
           style={{
-            backgroundColor: chartBgColor,
+            backgroundColor: boxBgColor,
             padding: "10px",
             border: "1px solid #ccc",
             boxShadow: "0px 3px 6px rgba(0,0,0,0.16)",
@@ -60,23 +65,22 @@ const RamChart: React.FC<RamChartProps> = ({ ramData }) => {
     <Box
       boxShadow="0px 3px 6px rgba(0,0,0,0.16)"
       p="4"
-      borderRadius="lg"
-      backgroundColor={chartBgColor}
+      rounded="lg"
+      bg={boxBgColor}
     >
-      <h2
-        style={{
-          color: labelColor,
-          textAlign: "center",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "xl",
-          fontWeight: "bold",
-        }}
+      <Text
+        mb="4"
+        fontSize="xl"
+        fontWeight="bold"
+        textAlign="center"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        color={textColor}
       >
-        <FaMemory style={{ marginRight: "8px", color: iconColor }} />
-        Uso de Memória RAM
-      </h2>
+        <FaMemory style={{ marginRight: "8px" }} />
+        RAM
+      </Text>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
@@ -86,7 +90,7 @@ const RamChart: React.FC<RamChartProps> = ({ ramData }) => {
             cx="50%"
             cy="50%"
             outerRadius={80}
-            fill={chartBgColor}
+            fill={boxBgColor}
             label
           >
             {ramData.map((entry, index) => (
@@ -97,7 +101,13 @@ const RamChart: React.FC<RamChartProps> = ({ ramData }) => {
             ))}
           </Pie>
           <Tooltip content={renderTooltipContent} />
-          <Legend />
+          <Legend
+            wrapperStyle={{
+              marginTop: "20px",
+              color: labelColor,
+              fontWeight: "bold",
+            }}
+          />
         </PieChart>
       </ResponsiveContainer>
     </Box>

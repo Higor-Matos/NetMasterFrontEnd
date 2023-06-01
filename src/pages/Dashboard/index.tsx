@@ -7,6 +7,7 @@ import {
   GridItem,
   useColorModeValue,
   Select,
+  Center,
 } from "@chakra-ui/react";
 import {
   RamChart,
@@ -103,83 +104,85 @@ const Dashboard = () => {
         Mudar Computador
       </Button>
       {error && <Text color="red.500">{error}</Text>}
-      <Grid
-        templateColumns={{
-          base: "repeat(1, 1fr)",
-          sm: "repeat(2, 1fr)",
-          md: "repeat(3, 1fr)",
-          lg: "repeat(3, 1fr)",
-        }}
-        gap={6}
-        mt={6}
-      >
-        <GridItem>
-          <Box
-            p={5}
-            shadow="md"
-            borderWidth="1px"
-            borderRadius="md"
-            bg={boxColor}
-          >
-            <RamChart ramData={ramData} />
-          </Box>
-        </GridItem>
-        <GridItem>
-          <Box
-            p={5}
-            shadow="md"
-            borderWidth="1px"
-            borderRadius="md"
-            bg={boxColor}
-          >
-            <StorageChart storageData={storageData} />
-          </Box>
-        </GridItem>
-        <GridItem>
-          <Box
-            p={5}
-            shadow="md"
-            borderWidth="1px"
-            borderRadius="md"
-            bg={boxColor}
-          >
-            <UserList userData={userData} isLoading={isLoading} />
-          </Box>
-        </GridItem>
-        <GridItem>
-          <Box
-            p={5}
-            shadow="md"
-            borderWidth="1px"
-            borderRadius="md"
-            bg={boxColor}
-          >
-            <ChocolateyInfo chocolateyData={chocolateyData} />
-          </Box>
-        </GridItem>
-        <GridItem>
-          <Box
-            p={5}
-            shadow="md"
-            borderWidth="1px"
-            borderRadius="md"
-            bg={boxColor}
-          >
-            <ProgramsInfo programsData={programsData} />
-          </Box>
-        </GridItem>
-        <GridItem>
-          <Box
-            p={5}
-            shadow="md"
-            borderWidth="1px"
-            borderRadius="md"
-            bg={boxColor}
-          >
-            <OSInfo osData={osData} />
-          </Box>
-        </GridItem>
-      </Grid>
+      <Center>
+        <Grid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(3, 1fr)",
+          }}
+          gap={6}
+          mt={6}
+        >
+          <GridItem>
+            <Box
+              p={5}
+              shadow="md"
+              borderWidth="1px"
+              borderRadius="md"
+              bg={boxColor}
+            >
+              <RamChart ramData={ramData} />
+            </Box>
+          </GridItem>
+          <GridItem>
+            <Box
+              p={5}
+              shadow="md"
+              borderWidth="1px"
+              borderRadius="md"
+              bg={boxColor}
+            >
+              <StorageChart storageData={storageData} />
+            </Box>
+          </GridItem>
+          <GridItem>
+            <Box
+              p={5}
+              shadow="md"
+              borderWidth="1px"
+              borderRadius="md"
+              bg={boxColor}
+            >
+              <UserList userData={userData} isLoading={isLoading} />
+            </Box>
+          </GridItem>
+          <GridItem>
+            <Box
+              p={5}
+              shadow="md"
+              borderWidth="1px"
+              borderRadius="md"
+              bg={boxColor}
+            >
+              <ChocolateyInfo chocolateyData={chocolateyData} />
+            </Box>
+          </GridItem>
+          <GridItem>
+            <Box
+              p={5}
+              shadow="md"
+              borderWidth="1px"
+              borderRadius="md"
+              bg={boxColor}
+            >
+              <ProgramsInfo programsData={programsData} />
+            </Box>
+          </GridItem>
+          <GridItem>
+            <Box
+              p={5}
+              shadow="md"
+              borderWidth="1px"
+              borderRadius="md"
+              bg={boxColor}
+            >
+              <OSInfo osData={osData} />
+            </Box>
+          </GridItem>
+        </Grid>
+      </Center>
     </Box>
   );
 };
