@@ -37,7 +37,13 @@ const OSInfo: React.FC<OSInfoProps> = ({ osData, isLoading }) => {
         justifyContent="center"
         color={textColor}
       >
-        <AiOutlineDesktop style={{ marginRight: "8px", color: iconColor }} />
+        <AiOutlineDesktop
+          style={{
+            marginRight: "8px",
+            color: iconColor,
+            verticalAlign: "middle",
+          }}
+        />
         Sistema Operacional
       </Text>
       {osData ? (

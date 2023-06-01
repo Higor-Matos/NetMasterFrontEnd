@@ -105,7 +105,6 @@ const RamChart: React.FC<RamChartProps> = ({ ramData, isLoading }) => {
             wrapperStyle={{
               marginTop: "20px",
               color: labelColor,
-              fontWeight: "bold",
             }}
           />
         </PieChart>
