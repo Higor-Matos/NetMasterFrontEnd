@@ -92,6 +92,10 @@ const Dashboard = () => {
   };
 
   const boxColor = useColorModeValue("white", "gray.700");
+  const boxShadowColor = useColorModeValue(
+    "rgba(0, 0, 0, 0.1)",
+    "rgba(0, 0, 0, 0.3)"
+  );
 
   return (
     <Box p={5}>
@@ -124,32 +128,68 @@ const Dashboard = () => {
           mt={6}
         >
           <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 1 }}>
-            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
+            <Box
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
               <UserList userData={userData} isLoading={isLoading} />
             </Box>
           </GridItem>
           <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 1 }}>
-            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
+            <Box
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
               <ChocolateyInfo chocolateyData={chocolateyData} />
             </Box>
           </GridItem>
           <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
-            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
+            <Box
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
               <OSInfo osData={osData} />
             </Box>
           </GridItem>
           <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
-            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
+            <Box
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
               <RamChart ramData={ramData} />
             </Box>
           </GridItem>
           <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
-            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
+            <Box
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
               <StorageChart storageData={storageData} />
             </Box>
           </GridItem>
           <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
-            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
+            <Box
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
               <ProgramsInfo programsData={programsData} />
             </Box>
           </GridItem>
