@@ -8,7 +8,6 @@ import {
   useColorModeValue,
   Select,
 } from "@chakra-ui/react";
-import { AxiosError } from "axios";
 import {
   RamChart,
   StorageChart,
@@ -92,14 +91,26 @@ const Dashboard = () => {
 
   return (
     <Box p={5}>
+      <Select mt={4} value={computerName} onChange={handleChangeComputer}>
+        {computerOptions.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </Select>
+      <Button mt={4} onClick={fetchData}>
+        Mudar Computador
+      </Button>
+      {error && <Text color="red.500">{error}</Text>}
       <Grid
         templateColumns={{
           base: "repeat(1, 1fr)",
           sm: "repeat(2, 1fr)",
-          md: "repeat(5, 1fr)",
-          lg: "repeat(5, 1fr)",
+          md: "repeat(3, 1fr)",
+          lg: "repeat(3, 1fr)",
         }}
         gap={6}
+        mt={6}
       >
         <GridItem>
           <Box
@@ -168,17 +179,6 @@ const Dashboard = () => {
           </Box>
         </GridItem>
       </Grid>
-      <Select mt={4} value={computerName} onChange={handleChangeComputer}>
-        {computerOptions.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </Select>
-      <Button mt={4} onClick={fetchData}>
-        Mudar Computador
-      </Button>
-      {error && <Text color="red.500">{error}</Text>}
     </Box>
   );
 };
