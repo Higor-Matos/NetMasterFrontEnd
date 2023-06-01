@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Text, Button, Heading, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-//import wallpaper from "../../assets/img/wallpaper.jpg";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
 const MotionHeading = motion(Heading);

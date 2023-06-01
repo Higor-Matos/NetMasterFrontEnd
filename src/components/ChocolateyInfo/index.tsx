@@ -1,8 +1,8 @@
-import React from 'react';
-import { Box, Text, UnorderedList, ListItem } from '@chakra-ui/react';
+import React from "react";
+import { Box, Text, UnorderedList, ListItem } from "@chakra-ui/react";
 
 interface ChocolateyData {
-  chocolateyVersion: string;
+  chocolateyVersion?: string;
 }
 
 interface ChocolateyInfoProps {
@@ -12,7 +12,9 @@ interface ChocolateyInfoProps {
 const ChocolateyInfo: React.FC<ChocolateyInfoProps> = ({ chocolateyData }) => {
   return (
     <Box>
-      <Text fontSize="xl" fontWeight="bold">Chocolatey Version</Text>
+      <Text fontSize="xl" fontWeight="bold">
+        Chocolatey Version
+      </Text>
       <UnorderedList>
         <ListItem>{chocolateyData.chocolateyVersion}</ListItem>
       </UnorderedList>
