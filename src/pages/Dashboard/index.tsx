@@ -18,6 +18,7 @@ import {
 } from "../../components";
 import * as HardwareService from "../../services/hardwareService";
 import * as SystemService from "../../services/systemService";
+import { AxiosError } from "axios";
 
 interface ChocolateyData {
   chocolateyVersion: string;
