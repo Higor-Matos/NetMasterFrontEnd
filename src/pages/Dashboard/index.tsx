@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Button,
   Text,
   Grid,
   GridItem,
@@ -37,6 +36,7 @@ const Dashboard = () => {
   const [computerName, setComputerName] = useState("MAGNATI-10848-F");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [lastUpdated, setLastUpdated] = useState<string>("");
 
   const computerOptions = ["MAGNATI-10848-F", "RAMO-PC", "ANOTHER-PC"];
 
@@ -80,6 +80,7 @@ const Dashboard = () => {
       setError((error as AxiosError).message);
     } finally {
       setIsLoading(false);
+      setLastUpdated(new Date().toLocaleString());
     }
   };
 
@@ -87,12 +88,22 @@ const Dashboard = () => {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setComputerName(event.target.value);
+    fetchData();
   };
 
   const boxColor = useColorModeValue("white", "gray.700");
 
   return (
     <Box p={5}>
+      <Text
+        fontSize="sm"
+        letterSpacing="wider"
+        fontWeight="light"
+        color="gray.500"
+        mb={4}
+      >
+        últimas atualizações: {lastUpdated}
+      </Text>
       <Select mt={4} value={computerName} onChange={handleChangeComputer}>
         {computerOptions.map((option) => (
           <option key={option} value={option}>
@@ -100,9 +111,6 @@ const Dashboard = () => {
           </option>
         ))}
       </Select>
-      <Button mt={4} onClick={fetchData}>
-        Mudar Computador
-      </Button>
       {error && <Text color="red.500">{error}</Text>}
       <Center>
         <Grid
@@ -110,75 +118,39 @@ const Dashboard = () => {
             base: "repeat(1, 1fr)",
             sm: "repeat(2, 1fr)",
             md: "repeat(3, 1fr)",
-            lg: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
           }}
           gap={6}
           mt={6}
         >
-          <GridItem>
-            <Box
-              p={5}
-              shadow="md"
-              borderWidth="1px"
-              borderRadius="md"
-              bg={boxColor}
-            >
-              <RamChart ramData={ramData} />
-            </Box>
-          </GridItem>
-          <GridItem>
-            <Box
-              p={5}
-              shadow="md"
-              borderWidth="1px"
-              borderRadius="md"
-              bg={boxColor}
-            >
-              <StorageChart storageData={storageData} />
-            </Box>
-          </GridItem>
-          <GridItem>
-            <Box
-              p={5}
-              shadow="md"
-              borderWidth="1px"
-              borderRadius="md"
-              bg={boxColor}
-            >
+          <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 1 }}>
+            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
               <UserList userData={userData} isLoading={isLoading} />
             </Box>
           </GridItem>
-          <GridItem>
-            <Box
-              p={5}
-              shadow="md"
-              borderWidth="1px"
-              borderRadius="md"
-              bg={boxColor}
-            >
+          <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 1 }}>
+            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
               <ChocolateyInfo chocolateyData={chocolateyData} />
             </Box>
           </GridItem>
-          <GridItem>
-            <Box
-              p={5}
-              shadow="md"
-              borderWidth="1px"
-              borderRadius="md"
-              bg={boxColor}
-            >
-              <ProgramsInfo programsData={programsData} />
+          <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
+            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
+              <OSInfo osData={osData} />
             </Box>
           </GridItem>
-          <GridItem>
-            <Box
-              p={5}
-              shadow="md"
-              borderWidth="1px"
-              borderRadius="md"
-              bg={boxColor}
-            >
-              <OSInfo osData={osData} />
+          <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
+            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
+              <RamChart ramData={ramData} />
+            </Box>
+          </GridItem>
+          <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
+            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
+              <StorageChart storageData={storageData} />
+            </Box>
+          </GridItem>
+          <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
+            <Box p={5} shadow="sm" borderRadius="lg" bg={boxColor}>
+              <ProgramsInfo programsData={programsData} />
             </Box>
           </GridItem>
         </Grid>
