@@ -8,54 +8,17 @@ import {
   useColorModeValue,
   Select,
 } from "@chakra-ui/react";
-import axios, { AxiosError } from "axios";
-import RamChart from "../../components/RamChart";
-import StorageChart from "../../components/StorageChart";
-import UserList from "../../components/UserList";
-import ChocolateyInfo from "../../components/ChocolateyInfo";
-import OSInfo from "../../components/OSInfo";
-import ProgramsInfo from "../../components/ProgramsInfo";
-
-const API_BASE_URL = "http://localhost:5018";
-
-const fetchData = async (endpoint: string) => {
-  try {
-    const response = await axios.get(endpoint);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw new Error(getErrorMessage(error));
-  }
-};
-
-const getErrorMessage = (error: unknown) => {
-  if (axios.isAxiosError(error)) {
-    if (error.response) {
-      return "Ocorreu um erro ao buscar os dados. Tente novamente mais tarde.";
-    } else if (error.request) {
-      return "Não foi possível se conectar ao servidor. Verifique sua conexão com a internet.";
-    }
-  }
-  return "Ocorreu um erro desconhecido.";
-};
-
-const fetchRamInfo = (computerName: string) =>
-  fetchData(`${API_BASE_URL}/hardware/getInfo/ram/${computerName}`);
-
-const fetchStorageInfo = (computerName: string) =>
-  fetchData(`${API_BASE_URL}/hardware/getInfo/storage/${computerName}`);
-
-const fetchUserInfo = (computerName: string) =>
-  fetchData(`${API_BASE_URL}/system/getUsersInfo/${computerName}`);
-
-const fetchChocolateyInfo = (computerName: string) =>
-  fetchData(`${API_BASE_URL}/system/getChocolateyInfo/${computerName}`);
-
-const fetchOsInfo = (computerName: string) =>
-  fetchData(`${API_BASE_URL}/system/getOsVersionInfo/${computerName}`);
-
-const fetchProgramsInfo = (computerName: string) =>
-  fetchData(`${API_BASE_URL}/system/getInstalledProgramsInfo/${computerName}`);
+import { AxiosError } from "axios";
+import {
+  RamChart,
+  StorageChart,
+  UserList,
+  ChocolateyInfo,
+  OSInfo,
+  ProgramsInfo,
+} from "../../components";
+import * as HardwareService from "../../services/hardwareService";
+import * as SystemService from "../../services/systemService";
 
 interface ChocolateyData {
   chocolateyVersion: string;
@@ -92,12 +55,12 @@ const Dashboard = () => {
         osResponse,
         programsResponse,
       ] = await Promise.all([
-        fetchRamInfo(computerName),
-        fetchStorageInfo(computerName),
-        fetchUserInfo(computerName),
-        fetchChocolateyInfo(computerName),
-        fetchOsInfo(computerName),
-        fetchProgramsInfo(computerName),
+        HardwareService.fetchRamInfo(computerName),
+        HardwareService.fetchStorageInfo(computerName),
+        SystemService.fetchUserInfo(computerName),
+        SystemService.fetchChocolateyInfo(computerName),
+        SystemService.fetchOsInfo(computerName),
+        SystemService.fetchProgramsInfo(computerName),
       ]);
 
       const { totalVisibleMemorySize_GB: total, freePhysicalMemory_GB: free } =
