@@ -29,14 +29,25 @@ interface ChocolateyData {
   chocolateyVersion: string;
 }
 
+interface OSData {
+  caption: string;
+  version: string;
+}
+
+interface RamChartData {
+  name: string;
+  value: number;
+  isLoading: boolean;
+}
+
 const Dashboard = () => {
-  const [ramData, setRamData] = useState<{ name: string; value: number }[]>([]);
+  const [ramData, setRamData] = useState<RamChartData[]>([]);
   const [storageData, setStorageData] = useState([]);
   const [userData, setUserData] = useState([]);
   const [chocolateyData, setChocolateyData] = useState<ChocolateyData>({
     chocolateyVersion: "",
   });
-  const [osData, setOsData] = useState({});
+  const [osData, setOsData] = useState<OSData>({ caption: "", version: "" });
   const [programsData, setProgramsData] = useState([]);
   const [computerName, setComputerName] = useState("MAGNATI-10848-F");
   const [isLoading, setIsLoading] = useState(true);
@@ -73,8 +84,8 @@ const Dashboard = () => {
       const { totalVisibleMemorySize_GB: total, freePhysicalMemory_GB: free } =
         ramResponse;
       setRamData([
-        { name: "Total", value: total },
-        { name: "Livre", value: free },
+        { name: "Total", value: total, isLoading: isLoading },
+        { name: "Livre", value: free, isLoading: isLoading },
       ]);
 
       if (storageResponse.disks) {
@@ -87,7 +98,7 @@ const Dashboard = () => {
       setChocolateyData(chocolateyResponse);
       setOsData(osResponse);
       setProgramsData(programsResponse.programs);
-    } catch (error: unknown) {
+    } catch (error) {
       setError((error as AxiosError).message);
     } finally {
       setIsLoading(false);
@@ -122,6 +133,123 @@ const Dashboard = () => {
     },
   };
 
+  let content = null;
+  if (isLoading) {
+    content = (
+      <Center mt={6}>
+        <Spinner size="xl" />
+      </Center>
+    );
+  } else if (error) {
+    content = <Text color="red.500">{error}</Text>;
+  } else {
+    content = (
+      <Center>
+        <Grid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
+          }}
+          templateRows={{
+            base: "repeat(6, 1fr)",
+            sm: "repeat(3, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(2, 1fr)",
+          }}
+          gap={6}
+          mt={6}
+        >
+          <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 1 }} rowSpan={3}>
+            <MotionBox
+              initial="hidden"
+              animate="visible"
+              variants={boxVariants}
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
+              <UserList userData={userData} isLoading={isLoading} />
+            </MotionBox>
+          </GridItem>
+          <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 1 }} rowSpan={3}>
+            <MotionBox
+              initial="hidden"
+              animate="visible"
+              variants={boxVariants}
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
+              <ChocolateyInfo chocolateyData={chocolateyData} />
+            </MotionBox>
+          </GridItem>
+          <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 2 }} rowSpan={3}>
+            <MotionBox
+              initial="hidden"
+              animate="visible"
+              variants={boxVariants}
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
+              <OSInfo osData={osData} isLoading={isLoading} />
+            </MotionBox>
+          </GridItem>
+          <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 2 }} rowSpan={2}>
+            <MotionBox
+              initial="hidden"
+              animate="visible"
+              variants={boxVariants}
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
+              <RamChart ramData={ramData} isLoading={isLoading} />
+            </MotionBox>
+          </GridItem>
+          <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 2 }} rowSpan={2}>
+            <MotionBox
+              initial="hidden"
+              animate="visible"
+              variants={boxVariants}
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
+              <StorageChart storageData={storageData} />
+            </MotionBox>
+          </GridItem>
+          <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 2 }} rowSpan={2}>
+            <MotionBox
+              initial="hidden"
+              animate="visible"
+              variants={boxVariants}
+              p={5}
+              shadow="md"
+              borderRadius="lg"
+              bg={boxColor}
+              boxShadow={`0 4px 6px ${boxShadowColor}`}
+            >
+              <ProgramsInfo programsData={programsData} />
+            </MotionBox>
+          </GridItem>
+        </Grid>
+      </Center>
+    );
+  }
+
   return (
     <Box p={5}>
       <Text
@@ -140,111 +268,7 @@ const Dashboard = () => {
           </option>
         ))}
       </Select>
-      {isLoading ? (
-        <Center mt={6}>
-          <Spinner size="xl" />
-        </Center>
-      ) : error ? (
-        <Text color="red.500">{error}</Text>
-      ) : (
-        <Center>
-          <Grid
-            templateColumns={{
-              base: "repeat(1, 1fr)",
-              sm: "repeat(2, 1fr)",
-              md: "repeat(3, 1fr)",
-              lg: "repeat(4, 1fr)",
-            }}
-            gap={6}
-            mt={6}
-          >
-            <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 1 }}>
-              <MotionBox
-                initial="hidden"
-                animate="visible"
-                variants={boxVariants}
-                p={5}
-                shadow="md"
-                borderRadius="lg"
-                bg={boxColor}
-                boxShadow={`0 4px 6px ${boxShadowColor}`}
-              >
-                <UserList userData={userData} isLoading={isLoading} />
-              </MotionBox>
-            </GridItem>
-            <GridItem colSpan={{ base: 1, sm: 1, md: 1, lg: 1 }}>
-              <MotionBox
-                initial="hidden"
-                animate="visible"
-                variants={boxVariants}
-                p={5}
-                shadow="md"
-                borderRadius="lg"
-                bg={boxColor}
-                boxShadow={`0 4px 6px ${boxShadowColor}`}
-              >
-                <ChocolateyInfo chocolateyData={chocolateyData} />
-              </MotionBox>
-            </GridItem>
-            <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
-              <MotionBox
-                initial="hidden"
-                animate="visible"
-                variants={boxVariants}
-                p={5}
-                shadow="md"
-                borderRadius="lg"
-                bg={boxColor}
-                boxShadow={`0 4px 6px ${boxShadowColor}`}
-              >
-                <OSInfo osData={osData} isLoading={isLoading} />
-              </MotionBox>
-            </GridItem>
-            <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
-              <MotionBox
-                initial="hidden"
-                animate="visible"
-                variants={boxVariants}
-                p={5}
-                shadow="md"
-                borderRadius="lg"
-                bg={boxColor}
-                boxShadow={`0 4px 6px ${boxShadowColor}`}
-              >
-                <RamChart ramData={ramData} />
-              </MotionBox>
-            </GridItem>
-            <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
-              <MotionBox
-                initial="hidden"
-                animate="visible"
-                variants={boxVariants}
-                p={5}
-                shadow="md"
-                borderRadius="lg"
-                bg={boxColor}
-                boxShadow={`0 4px 6px ${boxShadowColor}`}
-              >
-                <StorageChart storageData={storageData} />
-              </MotionBox>
-            </GridItem>
-            <GridItem colSpan={{ base: 1, sm: 2, md: 2, lg: 2 }}>
-              <MotionBox
-                initial="hidden"
-                animate="visible"
-                variants={boxVariants}
-                p={5}
-                shadow="md"
-                borderRadius="lg"
-                bg={boxColor}
-                boxShadow={`0 4px 6px ${boxShadowColor}`}
-              >
-                <ProgramsInfo programsData={programsData} />
-              </MotionBox>
-            </GridItem>
-          </Grid>
-        </Center>
-      )}
+      {content}
     </Box>
   );
 };

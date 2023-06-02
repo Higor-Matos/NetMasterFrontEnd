@@ -48,6 +48,7 @@ const ChocolateyInfo: React.FC<ChocolateyInfoProps> = ({ chocolateyData }) => {
       </Text>
       <UnorderedList color={textColor}>
         <ListItem>{chocolateyData.chocolateyVersion}</ListItem>
+        <ListItem>{"Integrado ao Powershell"}</ListItem>
       </UnorderedList>
     </Box>
   );

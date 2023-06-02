@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Text, Spinner, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Spinner,
+  useColorModeValue,
+  UnorderedList,
+  ListItem,
+} from "@chakra-ui/react";
 import { AiOutlineDesktop } from "react-icons/ai";
 
 interface OSData {
@@ -14,9 +21,9 @@ interface OSInfoProps {
 
 const OSInfo: React.FC<OSInfoProps> = ({ osData, isLoading }) => {
   const loadingColor = useColorModeValue("blue.500", "blue.300");
-  const textColor = useColorModeValue("gray.700", "gray.300");
-  const boxBgColor = useColorModeValue("#F5F5F5", "#283142");
   const iconColor = useColorModeValue("#283142", "#F5F5F5");
+  const boxBgColor = useColorModeValue("#F5F5F5", "#283142");
+  const textColor = useColorModeValue("gray.700", "gray.300");
 
   if (isLoading) {
     return <Spinner size="md" color={loadingColor} />;
@@ -33,28 +40,22 @@ const OSInfo: React.FC<OSInfoProps> = ({ osData, isLoading }) => {
         mb="4"
         fontSize="xl"
         fontWeight="bold"
+        textAlign="center"
         display="flex"
+        alignItems="center"
         justifyContent="center"
         color={textColor}
       >
-        <AiOutlineDesktop
-          style={{
-            marginRight: "8px",
-            color: iconColor,
-            verticalAlign: "middle",
-          }}
-        />
+        <AiOutlineDesktop style={{ marginRight: "8px", color: iconColor }} />
         Sistema Operacional
       </Text>
       {osData ? (
-        <>
-          <Text color={textColor} mb="2">
-            {osData.caption}
-          </Text>
-          <Text color={textColor}>V. {osData.version}</Text>
-        </>
+        <UnorderedList color={textColor} style={{ paddingLeft: "20px" }}>
+          <ListItem>{osData.caption}</ListItem>
+          <ListItem>V. {osData.version}</ListItem>
+        </UnorderedList>
       ) : (
-        <Text color={textColor}>
+        <Text color={textColor} textAlign="center">
           Nenhuma informação do Sistema Operacional encontrada.
         </Text>
       )}

@@ -54,9 +54,9 @@ const ProgramsInfo: React.FC<ProgramsInfoProps> = ({ programsData }) => {
         Programas Instalados
       </Heading>
       <VStack spacing={2} alignItems="start">
-        {sortedProgramsData.map((program: Program, index: number) => (
+        {sortedProgramsData.map((program: Program) => (
           <Box
-            key={index}
+            key={program.displayName}
             backgroundColor={listItemBgColor}
             p="3"
             borderRadius="md"

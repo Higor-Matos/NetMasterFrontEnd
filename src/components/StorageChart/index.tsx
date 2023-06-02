@@ -21,14 +21,14 @@ interface StorageChartProps {
 }
 
 const StorageChart: React.FC<StorageChartProps> = ({ storageData }) => {
-  if (storageData.length === 0) {
-    return <Box p="4">Sem dados disponíveis para exibição.</Box>;
-  }
-
   const iconColor = useColorModeValue("#283142", "#F5F5F5");
   const chartBgColor = useColorModeValue("#F5F5F5", "#283142");
   const labelColor = useColorModeValue("#283142", "#F5F5F5");
   const textColor = useColorModeValue("gray.700", "gray.300");
+
+  if (storageData.length === 0) {
+    return <Box p="4">Sem dados disponíveis para exibição.</Box>;
+  }
 
   const renderTooltipContent = (props: any) => {
     const { payload } = props;
