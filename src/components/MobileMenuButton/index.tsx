@@ -1,34 +1,37 @@
 import React from "react";
-import { IconButton, useMediaQuery } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  IconButton,
+  useBreakpointValue,
+  useMediaQuery,
+} from "@chakra-ui/react";
+import { FiMenu } from "react-icons/fi";
 
 type MobileMenuButtonProps = {
   isOpen: boolean;
   onClick: () => void;
 };
 
-const MobileMenuButton = ({ isOpen, onClick }: MobileMenuButtonProps) => {
-  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-
-  if (isLargerThan768) {
-    return null;
-  }
-
-  return (
+const MobileMenuButton = ({ isOpen, onClick }) => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  return isMobile ? (
     <IconButton
       aria-label="Open Menu"
-      aria-expanded={isOpen}
-      data-testid="mobile-menu-button"
-      icon={<HamburgerIcon />}
+      icon={<FiMenu />}
       onClick={onClick}
       position="fixed"
-      zIndex="2"
-      left="5"
-      top="5"
+      top={4}
+      left={4}
+      bg="white"
       size="sm"
-      borderRadius="md"
+      color="purple.600"
+      display={isOpen ? "none" : "flex"}
+      fontSize="24px"
+      zIndex={20}
+      boxShadow="sm"
     />
-  );
+  ) : null;
 };
 
 export default MobileMenuButton;

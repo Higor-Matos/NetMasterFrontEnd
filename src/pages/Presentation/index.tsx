@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Text, Button, Heading, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -16,8 +16,11 @@ const Presentation: React.FC<PresentationProps> = ({
   handlePageChange,
   setShowSidebarTopbar,
 }) => {
+  const [startButtonVisible, setStartButtonVisible] = useState(true);
+
   const handleStartClick = () => {
     setShowSidebarTopbar(true);
+    setStartButtonVisible(false);
   };
 
   return (
@@ -60,20 +63,22 @@ const Presentation: React.FC<PresentationProps> = ({
         >
           O painel de administração para sua rede
         </MotionText>
-        <MotionButton
-          onClick={handleStartClick}
-          size="lg"
-          bg="purple.600"
-          color="white"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }}
-          borderRadius="md"
-          boxShadow="md"
-          rightIcon={<AiOutlineArrowRight />}
-        >
-          Start
-        </MotionButton>
+        {startButtonVisible && (
+          <MotionButton
+            onClick={handleStartClick}
+            size="lg"
+            bg="purple.600"
+            color="white"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1 }}
+            borderRadius="md"
+            boxShadow="md"
+            rightIcon={<AiOutlineArrowRight />}
+          >
+            Start
+          </MotionButton>
+        )}
       </VStack>
     </Box>
   );
