@@ -1,29 +1,24 @@
 import React from "react";
-import { SimpleGrid, VStack } from "@chakra-ui/react";
+import { SimpleGrid, VStack, Select } from "@chakra-ui/react";
 import { SiAdobe, SiChocolatey } from "react-icons/si";
 import { MdOutlineRestartAlt } from "react-icons/md";
 import { RiShutDownLine } from "react-icons/ri";
 
-import {
-  ControlButtons,
-  FileUpload,
-  Section,
-  IPAddressInput,
-} from "../../components";
+import { ControlButtons, FileUpload, Section } from "../../components";
 
 interface ControlPanelProps {
-  ip: string;
-  onIPChange: (value: string) => void;
-  computer: string;
-  onClick: (endpoint: string, ip?: string) => void;
+  selectedComputer: string;
+  onComputerChange: (value: string) => void;
+  onClick: (endpoint: string, computer?: string) => void;
 }
 
 const ControlPanel: React.FC<ControlPanelProps> = ({
-  ip,
-  onIPChange,
-  computer,
+  selectedComputer,
+  onComputerChange,
   onClick,
 }) => {
+  const computerOptions = ["RAMO-PC", "HIGOR-PC", "OUTRO-PC"];
+
   return (
     <SimpleGrid
       columns={{ base: 1, md: 2 }}
@@ -31,51 +26,71 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       pb={6}
       pr={{ base: 4, md: 8 }}
     >
-      <Section title="Install Program">
+      <Section title="Instalar Programa para usuário selecionado">
         <VStack spacing={4}>
-          <IPAddressInput value={ip} onChange={onIPChange} singleCommand />
+          <Select
+            value={selectedComputer}
+            onChange={(e) => onComputerChange(e.target.value)}
+          >
+            {computerOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </Select>
           <ControlButtons
             label="Adobe Reader"
             icon={SiAdobe}
-            onClick={() => onClick("installAdobeReader", ip)}
+            onClick={() => onClick("instalarAdobeReader", selectedComputer)}
           />
         </VStack>
       </Section>
-      <Section title="Available Actions in Batch">
+      <Section title="Comando para todos usuários">
         <VStack spacing={4}>
           <ControlButtons
-            label="Restart"
+            label="Reiniciar"
             icon={MdOutlineRestartAlt}
-            onClick={() => onClick("restartPc", ip)}
+            onClick={() => onClick("reiniciarPc", selectedComputer)}
           />
           <ControlButtons
-            label="Shutdown"
+            label="Desligar"
             icon={RiShutDownLine}
-            onClick={() => onClick("shutdownPc", ip)}
+            onClick={() => onClick("desligarPc", selectedComputer)}
           />
         </VStack>
       </Section>
-      <Section title="Send Single Command">
+      <Section title="Comando para usuário selecionado">
         <VStack spacing={4}>
-          <IPAddressInput value={ip} onChange={onIPChange} />
+          <Select
+            value={selectedComputer}
+            onChange={(e) => onComputerChange(e.target.value)}
+          >
+            {computerOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </Select>
           <ControlButtons
-            label="Chocolatey Version"
+            label="Versão do Chocolatey"
             icon={SiChocolatey}
-            onClick={() => onClick("verifyChocolateyVersion", ip)}
+            onClick={() =>
+              onClick("verificarVersaoChocolatey", selectedComputer)
+            }
           />
           <ControlButtons
-            label="Restart"
+            label="Reiniciar"
             icon={MdOutlineRestartAlt}
-            onClick={() => onClick("restartPc", ip)}
+            onClick={() => onClick("reiniciarPc", selectedComputer)}
           />
           <ControlButtons
-            label="Shutdown"
+            label="Desligar"
             icon={RiShutDownLine}
-            onClick={() => onClick("shutdownPc", ip)}
+            onClick={() => onClick("desligarPc", selectedComputer)}
           />
         </VStack>
       </Section>
-      <Section title="File Upload">
+      <Section title="Upload para todos usuários">
         <VStack spacing={4}>
           <FileUpload />
         </VStack>
