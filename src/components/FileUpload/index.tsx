@@ -14,7 +14,7 @@ const FileUpload: React.FC = () => {
   const props = {
     name: "file",
     multiple: false,
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+    action: "http://localhost:5018/upload/file",
     onChange(info: any) {
       const { status } = info.file;
       if (status !== "uploading") {
