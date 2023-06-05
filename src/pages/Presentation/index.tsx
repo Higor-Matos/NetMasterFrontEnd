@@ -27,8 +27,8 @@ const Presentation: React.FC<PresentationProps> = ({
 }) => {
   const { colorMode } = useColorMode();
   const backgroundColor = useColorModeValue(
-    "rgba(0, 0, 0, 0.7)",
-    "rgba(255, 255, 255, 0.7)"
+    "rgba(255, 255, 255, 0.9)",
+    "rgba(0, 0, 0, 0.9)"
   );
   const [startButtonVisible, setStartButtonVisible] = useState(true);
   const [startClicked, setStartClicked] = useState(false);
@@ -53,35 +53,52 @@ const Presentation: React.FC<PresentationProps> = ({
       textAlign="center"
       px="4"
     >
-      {colorMode === "light" ? (
-        <ParticlesBg type="cobweb" bg={true} color="#000000" />
-      ) : (
-        <ParticlesBg type="cobweb" bg={true} color="#ffffff" />
-      )}
+      <ParticlesBg
+        type="cobweb"
+        bg={true}
+        color={colorMode === "light" ? "#000000" : "#ffffff"}
+        zIndex={0}
+      />
 
-      <VStack spacing={8} zIndex="1">
-        <Box bg={backgroundColor} p={4} borderRadius="xl">
+      <VStack spacing={8} zIndex={1}>
+        <Box
+          bg={backgroundColor}
+          p={6}
+          borderRadius="xl"
+          backdropFilter="blur(10px)"
+          boxShadow="lg"
+        >
           <MotionHeading
-            fontSize="6xl"
+            fontSize="4xl"
             fontWeight="bold"
             color={colorMode === "light" ? "black" : "white"}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            textShadow="2px 2px 3px rgba(0, 0, 0, 0.8)"
+            textShadow="2px 2px 3px rgba(0, 0, 0, 0.2)"
+            zIndex={2}
+            fontFamily="sans-serif"
           >
             Net Master
           </MotionHeading>
         </Box>
-        <Box bg={backgroundColor} p={4} borderRadius="xl">
+        <Box
+          bg={backgroundColor}
+          p={4}
+          borderRadius="xl"
+          backdropFilter="blur(10px)"
+          boxShadow="lg"
+        >
           <MotionText
-            fontSize="2xl"
+            fontSize="xl"
             fontWeight="medium"
             color={colorMode === "light" ? "black" : "white"}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
-            textShadow="1px 1px 2px rgba(0, 0, 0, 0.7)"
+            textShadow="1px 1px 2px rgba(0, 0, 0, 0.2)"
+            zIndex={2}
+            fontFamily="sans-serif"
           >
             O painel de administração para sua rede
           </MotionText>
@@ -92,12 +109,23 @@ const Presentation: React.FC<PresentationProps> = ({
             size="lg"
             bg="purple.600"
             color="white"
+            _hover={{ bg: "purple.700" }}
+            _active={{ bg: "purple.800", transform: "scale(0.95)" }}
+            _focus={{ boxShadow: "outline" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1 }}
+            transition={{
+              duration: 1,
+              delay: 1,
+              type: "spring",
+              stiffness: 500,
+            }}
             borderRadius="md"
             boxShadow="md"
             rightIcon={<AiOutlineArrowRight />}
+            zIndex={2}
+            fontFamily="sans-serif"
+            aria-label="Start"
           >
             Start
           </MotionButton>
