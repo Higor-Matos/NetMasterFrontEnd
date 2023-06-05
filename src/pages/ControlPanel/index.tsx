@@ -28,7 +28,7 @@ interface ControlPanelProps {
 
 const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   const [selectedComputer, setSelectedComputer] = useState("");
-  const computerOptions = ["RAMO-PC", "HIGOR-PC", "OUTRO-PC"];
+  const computerOptions = ["RAMO-PC", "MAGNATI-10848-F", "OUTRO-PC"];
   const programOptions = [
     {
       label: "Adobe Reader",
@@ -200,7 +200,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
               <Box w="100%">
                 <Select
                   size="lg"
-                  value={selectedComputer} // Corrigido para usar o computador selecionado
+                  value={selectedComputer}
                   onChange={(e) => handleComputerChange(e.target.value || "")}
                   boxShadow={`0 4px 6px ${boxShadowColor}`}
                 >
@@ -214,7 +214,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
                   label="Versão do Chocolatey"
                   icon={SiChocolatey}
                   onClick={() =>
-                    handleApiCall("verificarVersaoChocolatey", selectedComputer)
+                    handleApiCall(
+                      "verificarVersaoChocolatey",
+                      selectedComputer || computerOptions[0]
+                    )
                   }
                 />
               </Box>
@@ -224,7 +227,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
                 <ControlButtons
                   label="Reiniciar"
                   icon={MdOutlineRestartAlt}
-                  onClick={() => handleApiCall("restartPc", selectedComputer)}
+                  onClick={() =>
+                    handleApiCall(
+                      "restartPc",
+                      selectedComputer || computerOptions[0]
+                    )
+                  }
                 />
               </Box>
             </SlideFade>
@@ -233,14 +241,18 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
                 <ControlButtons
                   label="Desligar"
                   icon={RiShutDownLine}
-                  onClick={
-                    () => handleApiCall("shutdownPc", selectedComputer) // Corrigido para usar o computador selecionado
+                  onClick={() =>
+                    handleApiCall(
+                      "shutdownPc",
+                      selectedComputer || computerOptions[0]
+                    )
                   }
                 />
               </Box>
             </SlideFade>
           </VStack>
         </Section>
+
         <Section title="Upload de Arquivo">
           <VStack spacing={6} w="100%" h="100%" align="stretch">
             <SlideFade in offsetY="20px">
