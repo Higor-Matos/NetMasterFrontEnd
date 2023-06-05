@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   SimpleGrid,
   VStack,
@@ -19,43 +19,126 @@ import { MdOutlineRestartAlt } from "react-icons/md";
 import { RiShutDownLine } from "react-icons/ri";
 import { BsFileEarmarkText, BsFillPlayFill } from "react-icons/bs";
 import { IoIosFolderOpen } from "react-icons/io";
-
 import { ControlButtons, FileUpload, Section } from "../../components";
+import { ApiService } from "../../services/ApiService";
 
 interface ControlPanelProps {
-  selectedComputer: string;
   onComputerChange: (value: string) => void;
-  onClick: (endpoint: string, computer?: string) => void;
 }
 
-const ControlPanel: React.FC<ControlPanelProps> = ({
-  selectedComputer,
-  onComputerChange,
-  onClick,
-}) => {
+const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
+  const [selectedComputer, setSelectedComputer] = useState("");
   const computerOptions = ["RAMO-PC", "HIGOR-PC", "OUTRO-PC"];
   const programOptions = [
-    { label: "Adobe Reader", icon: SiAdobe, endpoint: "instalarAdobeReader" },
-    { label: "Firefox", icon: SiFirefox, endpoint: "instalarFirefox" },
+    {
+      label: "Adobe Reader",
+      icon: SiAdobe,
+      software: "AdobeReader",
+    },
+    {
+      label: "Firefox",
+      icon: SiFirefox,
+      software: "Firefox",
+    },
     {
       label: "Google Chrome",
       icon: SiGooglechrome,
-      endpoint: "instalarGoogleChrome",
+      software: "GoogleChrome",
     },
     {
       label: "Office 365",
       icon: BsFileEarmarkText,
-      endpoint: "instalarOffice365",
+      software: "Office365",
     },
-    { label: "VLC", icon: BsFillPlayFill, endpoint: "instalarVLC" },
-    { label: "WinRAR", icon: IoIosFolderOpen, endpoint: "instalarWinRAR" },
+    {
+      label: "VLC",
+      icon: BsFillPlayFill,
+      software: "Vlc",
+    },
+    {
+      label: "WinRAR",
+      icon: IoIosFolderOpen,
+      software: "Winrar",
+    },
   ];
-
-  const boxColor = useColorModeValue("white", "gray.700");
   const boxShadowColor = useColorModeValue(
     "rgba(0, 0, 0, 0.1)",
     "rgba(0, 0, 0, 0.3)"
   );
+
+  useEffect(() => {
+    console.log(selectedComputer);
+  }, [selectedComputer]);
+
+  const handleApiCall = async (
+    endpoint: string,
+    computer: string,
+    software?: string
+  ) => {
+    try {
+      let response;
+      switch (endpoint) {
+        case "installSoftware":
+          response = await ApiService.installSoftware(computer, software);
+          break;
+        case "shutdownPc":
+          response = await ApiService.shutdownPc(computer);
+          break;
+        case "restartPc":
+          response = await ApiService.restartPc(computer);
+          break;
+        case "verificarVersaoChocolatey":
+          response = await ApiService.getChocolateyInfo(computer);
+          break;
+        default:
+          console.error("Endpoint não reconhecido!");
+          return;
+      }
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleBatchAction = async (endpoint: string) => {
+    for (const computer of computerOptions) {
+      await handleApiCall(endpoint, computer);
+    }
+  };
+
+  const handleComputerChange = (value: string) => {
+    setSelectedComputer(value);
+    onComputerChange(value);
+  };
+
+  const renderComputerOptions = () => {
+    return computerOptions.map((option) => (
+      <option key={option} value={option}>
+        {option}
+      </option>
+    ));
+  };
+
+  const renderProgramOptions = () => {
+    return programOptions.map((program, index) => (
+      <SlideFade in offsetY="20px" key={program.label}>
+        {index !== 0 && <Box h="10px" />}
+        <Box w="100%">
+          <ControlButtons
+            label={program.label}
+            icon={program.icon}
+            onClick={() =>
+              handleApiCall(
+                "installSoftware",
+                selectedComputer || computerOptions[0],
+                program.software
+              )
+            }
+          />
+        </Box>
+      </SlideFade>
+    ));
+  };
 
   return (
     <Fade in>
@@ -74,34 +157,18 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 <Select
                   size="lg"
                   value={selectedComputer}
-                  onChange={(e) => onComputerChange(e.target.value)}
+                  onChange={(e) => {
+                    const selectedValue = e.target.value;
+                    handleComputerChange(selectedValue);
+                  }}
                   boxShadow={`0 4px 6px ${boxShadowColor}`}
                 >
-                  {computerOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  {renderComputerOptions()}
                 </Select>
               </Box>
             </ScaleFade>
             <Box h="200px" overflowY="scroll" w="100%">
-              {programOptions.map((program, index) => (
-                <SlideFade in offsetY="20px" key={program.label}>
-                  <React.Fragment>
-                    {index !== 0 && <Box h="10px" />}
-                    <Box w="100%">
-                      <ControlButtons
-                        label={program.label}
-                        icon={program.icon}
-                        onClick={() =>
-                          onClick(program.endpoint, selectedComputer)
-                        }
-                      />
-                    </Box>
-                  </React.Fragment>
-                </SlideFade>
-              ))}
+              {renderProgramOptions()}
             </Box>
           </VStack>
         </Section>
@@ -112,7 +179,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 <ControlButtons
                   label="Reiniciar"
                   icon={MdOutlineRestartAlt}
-                  onClick={() => onClick("reiniciarPc", selectedComputer)}
+                  onClick={() => handleBatchAction("restartPc")}
                 />
               </Box>
             </SlideFade>
@@ -121,7 +188,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 <ControlButtons
                   label="Desligar"
                   icon={RiShutDownLine}
-                  onClick={() => onClick("desligarPc", selectedComputer)}
+                  onClick={() => handleBatchAction("shutdownPc")}
                 />
               </Box>
             </SlideFade>
@@ -133,15 +200,11 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
               <Box w="100%">
                 <Select
                   size="lg"
-                  value={selectedComputer}
-                  onChange={(e) => onComputerChange(e.target.value)}
+                  value={selectedComputer} // Corrigido para usar o computador selecionado
+                  onChange={(e) => handleComputerChange(e.target.value || "")}
                   boxShadow={`0 4px 6px ${boxShadowColor}`}
                 >
-                  {computerOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                  {renderComputerOptions()}
                 </Select>
               </Box>
             </SlideFade>
@@ -151,7 +214,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                   label="Versão do Chocolatey"
                   icon={SiChocolatey}
                   onClick={() =>
-                    onClick("verificarVersaoChocolatey", selectedComputer)
+                    handleApiCall("verificarVersaoChocolatey", selectedComputer)
                   }
                 />
               </Box>
@@ -161,7 +224,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 <ControlButtons
                   label="Reiniciar"
                   icon={MdOutlineRestartAlt}
-                  onClick={() => onClick("reiniciarPc", selectedComputer)}
+                  onClick={() => handleApiCall("restartPc", selectedComputer)}
                 />
               </Box>
             </SlideFade>
@@ -170,7 +233,9 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
                 <ControlButtons
                   label="Desligar"
                   icon={RiShutDownLine}
-                  onClick={() => onClick("desligarPc", selectedComputer)}
+                  onClick={
+                    () => handleApiCall("shutdownPc", selectedComputer) // Corrigido para usar o computador selecionado
+                  }
                 />
               </Box>
             </SlideFade>

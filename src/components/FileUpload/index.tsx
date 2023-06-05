@@ -42,7 +42,7 @@ const FileUpload: React.FC = () => {
     >
       <Dragger {...props}>
         <p className="ant-upload-drag-icon">
-          <InboxOutlined style={{ fontSize: "48px" }} />
+          <InboxOutlined style={{ fontSize: "48px", color: "#8B5CF6" }} />
         </p>
         <p className="ant-upload-text">
           Clique ou arraste o arquivo para fazer o upload
