@@ -1,7 +1,16 @@
 import React, { useState } from "react";
-import { Box, Text, Button, Heading, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Button,
+  Heading,
+  VStack,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import ParticlesBg from "particles-bg";
 
 const MotionHeading = motion(Heading);
 const MotionText = motion(Text);
@@ -16,11 +25,18 @@ const Presentation: React.FC<PresentationProps> = ({
   handlePageChange,
   setShowSidebarTopbar,
 }) => {
+  const { colorMode } = useColorMode();
+  const backgroundColor = useColorModeValue(
+    "rgba(0, 0, 0, 0.7)",
+    "rgba(255, 255, 255, 0.7)"
+  );
   const [startButtonVisible, setStartButtonVisible] = useState(true);
+  const [startClicked, setStartClicked] = useState(false);
 
   const handleStartClick = () => {
     setShowSidebarTopbar(true);
     setStartButtonVisible(false);
+    setStartClicked(true);
   };
 
   return (
@@ -30,9 +46,6 @@ const Presentation: React.FC<PresentationProps> = ({
       left="0"
       width="100%"
       height="100%"
-      backgroundImage={`url(${"https://i.imgur.com/HyWFnAE.jpg"})`}
-      backgroundSize="cover"
-      backgroundPosition="center"
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -40,29 +53,39 @@ const Presentation: React.FC<PresentationProps> = ({
       textAlign="center"
       px="4"
     >
-      <VStack spacing={8}>
-        <MotionHeading
-          fontSize="6xl"
-          fontWeight="bold"
-          color="white"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          textShadow="2px 2px 3px rgba(0, 0, 0, 20)"
-        >
-          Net Master
-        </MotionHeading>
-        <MotionText
-          fontSize="2xl"
-          fontWeight="medium"
-          color="white"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          textShadow="2px 2px 3px rgba(0, 0, 0, 20)"
-        >
-          O painel de administração para sua rede
-        </MotionText>
+      {colorMode === "light" ? (
+        <ParticlesBg type="cobweb" bg={true} color="#000000" />
+      ) : (
+        <ParticlesBg type="cobweb" bg={true} color="#ffffff" />
+      )}
+
+      <VStack spacing={8} zIndex="1">
+        <Box bg={backgroundColor} p={4} borderRadius="xl">
+          <MotionHeading
+            fontSize="6xl"
+            fontWeight="bold"
+            color={colorMode === "light" ? "black" : "white"}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            textShadow="2px 2px 3px rgba(0, 0, 0, 0.8)"
+          >
+            Net Master
+          </MotionHeading>
+        </Box>
+        <Box bg={backgroundColor} p={4} borderRadius="xl">
+          <MotionText
+            fontSize="2xl"
+            fontWeight="medium"
+            color={colorMode === "light" ? "black" : "white"}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            textShadow="1px 1px 2px rgba(0, 0, 0, 0.7)"
+          >
+            O painel de administração para sua rede
+          </MotionText>
+        </Box>
         {startButtonVisible && (
           <MotionButton
             onClick={handleStartClick}

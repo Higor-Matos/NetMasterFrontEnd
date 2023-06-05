@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 import {
   Box,
@@ -15,7 +16,6 @@ import {
   ColorMode,
 } from "@chakra-ui/react";
 import { SunIcon, MoonIcon, BellIcon, WarningIcon } from "@chakra-ui/icons";
-//import avatarImg from "../../assets/img/avatar.jpg";
 
 const MotionBox = motion(Box);
 
@@ -28,49 +28,50 @@ interface Props {
 
 const AvatarMenu = ({ colorMode, toggleColorMode, isLargerThan768 }: Props) => {
   return (
-    <Menu>
-      <MenuButton
-        as={IconButton}
-        aria-label="Avatar"
-        icon={
-          <Avatar
-            size="xs"
-            src="https://i.imgur.com/8GX26iI.jpg"
-            border="none"
-          />
-        }
-        //icon={<Avatar size="xs" src={avatarImg} border="none" />}
-        variant="ghost"
-        size="sm"
-        borderRadius="md"
-        colorScheme={colorMode === "dark" ? "orange" : "gray"}
-      />
-      <MenuList>
-        {!isLargerThan768 && (
-          <MenuGroup>
-            <MenuItem onClick={toggleColorMode}>
-              {colorMode === "dark" ? (
-                <>
-                  <SunIcon mr="2" />
-                  Tema Claro
-                </>
-              ) : (
-                <>
-                  <MoonIcon mr="2" />
-                  Tema Escuro
-                </>
-              )}
-            </MenuItem>
-            <MenuItem icon={<BellIcon />}>Notification</MenuItem>
-            <MenuItem icon={<WarningIcon />}>Attention</MenuItem>
-          </MenuGroup>
-        )}
-        {!isLargerThan768 && <MenuDivider />}
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>Settings</MenuItem>
-        <MenuItem>Logout</MenuItem>
-      </MenuList>
-    </Menu>
+    <Box display="flex" alignItems="center">
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Avatar"
+          icon={
+            <Avatar
+              size="xs"
+              src="https://i.imgur.com/8GX26iI.jpg"
+              border="none"
+            />
+          }
+          variant="ghost"
+          size="sm"
+          borderRadius="md"
+          colorScheme={colorMode === "dark" ? "orange" : "gray"}
+        />
+        <MenuList>
+          {!isLargerThan768 && (
+            <MenuGroup>
+              <MenuItem onClick={toggleColorMode}>
+                {colorMode === "dark" ? (
+                  <>
+                    <SunIcon mr="2" />
+                    Tema Claro
+                  </>
+                ) : (
+                  <>
+                    <MoonIcon mr="2" />
+                    Tema Escuro
+                  </>
+                )}
+              </MenuItem>
+              <MenuItem icon={<BellIcon />}>Notificação</MenuItem>
+              <MenuItem icon={<WarningIcon />}>Atenção</MenuItem>
+            </MenuGroup>
+          )}
+          {!isLargerThan768 && <MenuDivider />}
+          <MenuItem>Perfil</MenuItem>
+          <MenuItem>Configurações</MenuItem>
+          <MenuItem>Sair</MenuItem>
+        </MenuList>
+      </Menu>
+    </Box>
   );
 };
 
@@ -100,12 +101,13 @@ const Topbar = ({ isVisible }: Props) => {
       animate={isVisible ? "visible" : "hidden"}
       variants={containerVariants}
       transition={{ duration: 0.5 }}
+      style={{ alignItems: "center" }}
     >
       <HStack spacing="2">
         {isLargerThan768 && (
           <>
             <IconButton
-              aria-label="Notification"
+              aria-label="Notificação"
               icon={<BellIcon />}
               variant="ghost"
               colorScheme={colorMode === "dark" ? "orange" : "gray"}
@@ -114,7 +116,7 @@ const Topbar = ({ isVisible }: Props) => {
               color={iconColor}
             />
             <IconButton
-              aria-label="Toggle Dark Mode"
+              aria-label="Alternar Modo Escuro"
               icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
               variant="ghost"
               onClick={toggleColorMode}
@@ -124,7 +126,7 @@ const Topbar = ({ isVisible }: Props) => {
               color={iconColor}
             />
             <IconButton
-              aria-label="Attention"
+              aria-label="Atenção"
               icon={<WarningIcon />}
               variant="ghost"
               colorScheme={colorMode === "dark" ? "orange" : "gray"}
@@ -138,10 +140,11 @@ const Topbar = ({ isVisible }: Props) => {
           colorMode={colorMode}
           toggleColorMode={toggleColorMode}
           isLargerThan768={isLargerThan768}
-          isVisible={false}
+          isVisible={isVisible}
         />
       </HStack>
     </MotionBox>
   );
 };
+
 export default Topbar;

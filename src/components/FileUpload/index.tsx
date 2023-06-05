@@ -1,58 +1,57 @@
 import React from "react";
+import { Upload, message } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
-import { Upload, UploadProps, message } from "antd";
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 
 const { Dragger } = Upload;
 
 const FileUpload: React.FC = () => {
-  const textColor = useColorModeValue("black", "white");
+  const textColor = useColorModeValue("gray.700", "gray.300");
   const bgColor = useColorModeValue("gray.100", "gray.700");
   const borderColor = useColorModeValue("gray.300", "gray.600");
   const hoverBorderColor = useColorModeValue("gray.500", "gray.400");
 
-  const props: UploadProps = {
+  const props = {
     name: "file",
     multiple: false,
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange(info) {
+    onChange(info: any) {
       const { status } = info.file;
       if (status !== "uploading") {
         console.log(info.file, info.fileList);
       }
       if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
+        message.success(`Arquivo ${info.file.name} enviado com sucesso.`);
       } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
+        message.error(`Falha ao enviar o arquivo ${info.file.name}.`);
       }
-    },
-    onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
     },
   };
 
   return (
-    <Flex height="100%" direction="column">
-      <Box
-        _hover={{ borderColor: hoverBorderColor }}
-        transition="border-color 0.2s"
-        flexGrow={1}
-        height="100%"
-        bg={bgColor}
-        borderColor={borderColor}
-      ></Box>
+    <Box
+      p={4}
+      bg={bgColor}
+      borderRadius="md"
+      textAlign="center"
+      borderColor={borderColor}
+      borderWidth={1}
+      color={textColor}
+      _hover={{ borderColor: hoverBorderColor }}
+      transition="border-color 0.2s"
+    >
       <Dragger {...props}>
-        <p className="ant-upload-drag-icon" style={{ color: textColor }}>
-          <InboxOutlined />
+        <p className="ant-upload-drag-icon">
+          <InboxOutlined style={{ fontSize: "48px" }} />
         </p>
-        <Text as="p" className="ant-upload-text" style={{ color: textColor }}>
-          Click or drag file to this area to upload
-        </Text>
-        <Text as="p" className="ant-upload-hint" style={{ color: textColor }}>
-          PNG, JPG, PDF, and ZIP files are allowed.
-        </Text>
+        <p className="ant-upload-text">
+          Clique ou arraste o arquivo para fazer o upload
+        </p>
+        <p className="ant-upload-hint">
+          Arquivos PNG, JPG, PDF e ZIP são permitidos.
+        </p>
       </Dragger>
-    </Flex>
+    </Box>
   );
 };
 

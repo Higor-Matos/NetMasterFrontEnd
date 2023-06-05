@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Box, useColorModeValue, Text } from "@chakra-ui/react";
+import { Box, Text, useColorModeValue } from "@chakra-ui/react";
 import { AiOutlineHome, AiFillLayout } from "react-icons/ai";
 import { RiBarChartBoxLine } from "react-icons/ri";
 import {
@@ -38,14 +38,20 @@ const Sidebar = ({
     <Indicator isVisible={currentPage === page} />
   );
 
-  const bgColor = useColorModeValue("gray.100", "gray.700");
+  const bgColor = useColorModeValue("white", "gray.700");
   const hoverColor = useColorModeValue("gray.200", "gray.600");
+  const textColor = useColorModeValue("black", "white");
 
   const menuItems = [
     {
       text: (
-        <Text fontSize="sm" textAlign="left">
-          Presentation
+        <Text
+          fontSize="sm"
+          textAlign="left"
+          fontWeight="bold"
+          color={textColor}
+        >
+          Apresentação
         </Text>
       ),
       icon: AiOutlineHome,
@@ -56,8 +62,13 @@ const Sidebar = ({
     },
     {
       text: (
-        <Text fontSize="sm" textAlign="left">
-          Control Panel
+        <Text
+          fontSize="sm"
+          textAlign="left"
+          fontWeight="bold"
+          color={textColor}
+        >
+          Painel de Controle
         </Text>
       ),
       icon: AiFillLayout,
@@ -68,8 +79,13 @@ const Sidebar = ({
     },
     {
       text: (
-        <Text fontSize="sm" textAlign="left">
-          Dashboard
+        <Text
+          fontSize="sm"
+          textAlign="left"
+          fontWeight="bold"
+          color={textColor}
+        >
+          Relatórios
         </Text>
       ),
       icon: RiBarChartBoxLine,
@@ -93,6 +109,10 @@ const Sidebar = ({
         animate={currentPage !== "presentation" ? "visible" : "hidden"}
         variants={containerVariants}
         transition={{ duration: 1 }}
+        boxShadow={`0 4px 6px ${useColorModeValue(
+          "rgba(0, 0, 0, 0.1)",
+          "rgba(0, 0, 0, 0.3)"
+        )}`}
       />
 
       <SidebarDrawer

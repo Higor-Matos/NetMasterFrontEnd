@@ -17,9 +17,11 @@
     "antd": "^5.4.2",
     "axios": "^1.4.0",
     "framer-motion": "^10.12.16",
+    "particles-bg": "^2.5.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-tsparticles": "^2.9.3",
     "recharts": "^2.6.2",
     "websocket": "^1.0.34"
   },

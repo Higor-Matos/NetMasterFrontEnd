@@ -5,6 +5,7 @@ import {
   IconButton,
   Text,
   useColorModeValue,
+  useToken,
 } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 
@@ -27,9 +28,10 @@ const MenuButton = ({
   renderIndicator,
   iconColor,
 }: MenuButtonProps) => {
-  const textColor = useColorModeValue("gray.800", "white");
-  const bgColor = useColorModeValue("transparent", "transparent");
-  const hoverBgColor = useColorModeValue("gray.100", "gray.700");
+  const [hoverBgColor, hoverBorderColor] = useToken("colors", [
+    "gray.100",
+    "gray.200",
+  ]);
 
   return (
     <Flex
@@ -37,8 +39,8 @@ const MenuButton = ({
       aria-label={text}
       icon={
         <>
-          <Icon fontSize="1.2rem" />
-          <Text ml={2} color={textColor} flexGrow={1} fontSize="1rem">
+          <Icon fontSize="1.2rem" color={iconColor} />
+          <Text ml={2} color="gray.800" flexGrow={1} fontSize="1rem">
             {text}
           </Text>
           <Box w="20px" fontSize="0.8rem" textAlign="right">
@@ -51,9 +53,17 @@ const MenuButton = ({
       w="100%"
       alignItems="center"
       justifyContent="space-between"
-      bg={page === activeColor ? activeColor : bgColor}
+      bg={page === activeColor ? activeColor : "transparent"}
       _hover={{
-        bg: page === activeColor ? activeColor : hoverBgColor,
+        bg: hoverBgColor,
+        borderColor: hoverBorderColor,
+      }}
+      _active={{
+        bg: hoverBgColor,
+        borderColor: hoverBorderColor,
+      }}
+      _focus={{
+        boxShadow: "outline",
       }}
     />
   );

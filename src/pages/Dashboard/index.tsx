@@ -167,7 +167,6 @@ const Dashboard = () => {
               animate="visible"
               variants={boxVariants}
               p={5}
-              shadow="md"
               borderRadius="lg"
               bg={boxColor}
               boxShadow={`0 4px 6px ${boxShadowColor}`}
@@ -181,7 +180,6 @@ const Dashboard = () => {
               animate="visible"
               variants={boxVariants}
               p={5}
-              shadow="md"
               borderRadius="lg"
               bg={boxColor}
               boxShadow={`0 4px 6px ${boxShadowColor}`}
@@ -195,7 +193,6 @@ const Dashboard = () => {
               animate="visible"
               variants={boxVariants}
               p={5}
-              shadow="md"
               borderRadius="lg"
               bg={boxColor}
               boxShadow={`0 4px 6px ${boxShadowColor}`}
@@ -209,7 +206,6 @@ const Dashboard = () => {
               animate="visible"
               variants={boxVariants}
               p={5}
-              shadow="md"
               borderRadius="lg"
               bg={boxColor}
               boxShadow={`0 4px 6px ${boxShadowColor}`}
@@ -223,7 +219,6 @@ const Dashboard = () => {
               animate="visible"
               variants={boxVariants}
               p={5}
-              shadow="md"
               borderRadius="lg"
               bg={boxColor}
               boxShadow={`0 4px 6px ${boxShadowColor}`}
@@ -237,7 +232,6 @@ const Dashboard = () => {
               animate="visible"
               variants={boxVariants}
               p={5}
-              shadow="md"
               borderRadius="lg"
               bg={boxColor}
               boxShadow={`0 4px 6px ${boxShadowColor}`}
@@ -261,7 +255,12 @@ const Dashboard = () => {
       >
         últimas atualizações: {lastUpdated}
       </Text>
-      <Select mt={4} value={computerName} onChange={handleChangeComputer}>
+      <Select
+        mt={4}
+        value={computerName}
+        onChange={handleChangeComputer}
+        boxShadow={`0 4px 6px ${boxShadowColor}`}
+      >
         {computerOptions.map((option) => (
           <option key={option} value={option}>
             {option}
