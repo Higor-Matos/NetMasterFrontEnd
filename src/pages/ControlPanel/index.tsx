@@ -8,6 +8,14 @@ import {
   ScaleFade,
   SlideFade,
   useColorModeValue,
+  CircularProgress,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverBody,
+  Text,
 } from "@chakra-ui/react";
 import {
   SiAdobe,
@@ -28,6 +36,9 @@ interface ControlPanelProps {
 
 const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   const [selectedComputer, setSelectedComputer] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showLoadingMessage, setShowLoadingMessage] = useState(false);
+  const [error, setError] = useState("");
   const computerOptions = ["RAMO-PC", "MAGNATI-10848-F", "OUTRO-PC"];
   const programOptions = [
     {
@@ -75,6 +86,14 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
     computer: string,
     software?: string
   ) => {
+    setIsLoading(true);
+    setShowLoadingMessage(false);
+    setError(""); // Reset error
+
+    const loadingTimeout = setTimeout(() => {
+      setShowLoadingMessage(true);
+    }, 15000);
+
     try {
       let response;
       switch (endpoint) {
@@ -95,8 +114,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
           return;
       }
       console.log(response);
+      setIsLoading(false);
+      clearTimeout(loadingTimeout);
     } catch (error) {
       console.error(error);
+      setIsLoading(false);
+      clearTimeout(loadingTimeout);
+      setError("Ocorreu um erro ao executar a operação.");
     }
   };
 
@@ -142,127 +166,159 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
 
   return (
     <Fade in>
-      <SimpleGrid
-        columns={{ base: 1, md: 2 }}
-        gap={6}
-        pb={6}
-        pr={{ base: 4, md: 8 }}
-        w="100%"
-        h="100%"
-      >
-        <Section title="Instalar Programa">
-          <VStack spacing={6} w="100%" h="100%" align="stretch">
-            <ScaleFade in>
-              <Box w="100%">
-                <Select
-                  size="lg"
-                  value={selectedComputer}
-                  onChange={(e) => {
-                    const selectedValue = e.target.value;
-                    handleComputerChange(selectedValue);
-                  }}
-                  boxShadow={`0 4px 6px ${boxShadowColor}`}
-                >
-                  {renderComputerOptions()}
-                </Select>
-              </Box>
-            </ScaleFade>
-            <Box h="200px" overflowY="scroll" w="100%">
-              {renderProgramOptions()}
+      {isLoading ? (
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height="100%"
+        >
+          <CircularProgress isIndeterminate color="green.300" />
+          {showLoadingMessage && (
+            <Box mt={2} fontWeight="bold">
+              Comandos que demandam grande processamento podem demorar até 5
+              minutos.
             </Box>
-          </VStack>
-        </Section>
-        <Section title="Ações Disponíveis em Lote">
-          <VStack spacing={6} w="100%" h="100%" align="stretch">
-            <SlideFade in offsetY="20px">
-              <Box w="100%">
-                <ControlButtons
-                  label="Reiniciar"
-                  icon={MdOutlineRestartAlt}
-                  onClick={() => handleBatchAction("restartPc")}
-                />
+          )}
+        </Box>
+      ) : (
+        <SimpleGrid
+          columns={{ base: 1, md: 2 }}
+          gap={6}
+          pb={6}
+          pr={{ base: 4, md: 8 }}
+          w="100%"
+          h="100%"
+        >
+          <Section title="Instalar Programa">
+            <VStack spacing={6} w="100%" h="100%" align="stretch">
+              <ScaleFade in>
+                <Box w="100%">
+                  <Select
+                    size="lg"
+                    value={selectedComputer}
+                    onChange={(e) => {
+                      const selectedValue = e.target.value;
+                      handleComputerChange(selectedValue);
+                    }}
+                    boxShadow={`0 4px 6px ${boxShadowColor}`}
+                  >
+                    {renderComputerOptions()}
+                  </Select>
+                </Box>
+              </ScaleFade>
+              <Box h="200px" overflowY="scroll" w="100%">
+                {renderProgramOptions()}
               </Box>
-            </SlideFade>
-            <SlideFade in offsetY="20px">
-              <Box w="100%">
-                <ControlButtons
-                  label="Desligar"
-                  icon={RiShutDownLine}
-                  onClick={() => handleBatchAction("shutdownPc")}
-                />
-              </Box>
-            </SlideFade>
-          </VStack>
-        </Section>
-        <Section title="Enviar Comando Individual">
-          <VStack spacing={6} w="100%" h="100%" align="stretch">
-            <SlideFade in offsetY="20px">
-              <Box w="100%">
-                <Select
-                  size="lg"
-                  value={selectedComputer}
-                  onChange={(e) => handleComputerChange(e.target.value || "")}
-                  boxShadow={`0 4px 6px ${boxShadowColor}`}
-                >
-                  {renderComputerOptions()}
-                </Select>
-              </Box>
-            </SlideFade>
-            <SlideFade in offsetY="20px">
-              <Box w="100%">
-                <ControlButtons
-                  label="Versão do Chocolatey"
-                  icon={SiChocolatey}
-                  onClick={() =>
-                    handleApiCall(
-                      "verificarVersaoChocolatey",
-                      selectedComputer || computerOptions[0]
-                    )
-                  }
-                />
-              </Box>
-            </SlideFade>
-            <SlideFade in offsetY="20px">
-              <Box w="100%">
-                <ControlButtons
-                  label="Reiniciar"
-                  icon={MdOutlineRestartAlt}
-                  onClick={() =>
-                    handleApiCall(
-                      "restartPc",
-                      selectedComputer || computerOptions[0]
-                    )
-                  }
-                />
-              </Box>
-            </SlideFade>
-            <SlideFade in offsetY="20px">
-              <Box w="100%">
-                <ControlButtons
-                  label="Desligar"
-                  icon={RiShutDownLine}
-                  onClick={() =>
-                    handleApiCall(
-                      "shutdownPc",
-                      selectedComputer || computerOptions[0]
-                    )
-                  }
-                />
-              </Box>
-            </SlideFade>
-          </VStack>
-        </Section>
+            </VStack>
+          </Section>
+          <Section title="Ações Disponíveis em Lote">
+            <VStack spacing={6} w="100%" h="100%" align="stretch">
+              <SlideFade in offsetY="20px">
+                <Box w="100%">
+                  <ControlButtons
+                    label="Reiniciar"
+                    icon={MdOutlineRestartAlt}
+                    onClick={() => handleBatchAction("restartPc")}
+                  />
+                </Box>
+              </SlideFade>
+              <SlideFade in offsetY="20px">
+                <Box w="100%">
+                  <ControlButtons
+                    label="Desligar"
+                    icon={RiShutDownLine}
+                    onClick={() => handleBatchAction("shutdownPc")}
+                  />
+                </Box>
+              </SlideFade>
+            </VStack>
+          </Section>
+          <Section title="Enviar Comando Individual">
+            <VStack spacing={6} w="100%" h="100%" align="stretch">
+              <SlideFade in offsetY="20px">
+                <Box w="100%">
+                  <Select
+                    size="lg"
+                    value={selectedComputer}
+                    onChange={(e) => handleComputerChange(e.target.value || "")}
+                    boxShadow={`0 4px 6px ${boxShadowColor}`}
+                  >
+                    {renderComputerOptions()}
+                  </Select>
+                </Box>
+              </SlideFade>
+              <SlideFade in offsetY="20px">
+                <Box w="100%">
+                  <ControlButtons
+                    label="Versão do Chocolatey"
+                    icon={SiChocolatey}
+                    onClick={() =>
+                      handleApiCall(
+                        "verificarVersaoChocolatey",
+                        selectedComputer || computerOptions[0]
+                      )
+                    }
+                  />
+                </Box>
+              </SlideFade>
+              <SlideFade in offsetY="20px">
+                <Box w="100%">
+                  <ControlButtons
+                    label="Reiniciar"
+                    icon={MdOutlineRestartAlt}
+                    onClick={() =>
+                      handleApiCall(
+                        "restartPc",
+                        selectedComputer || computerOptions[0]
+                      )
+                    }
+                  />
+                </Box>
+              </SlideFade>
+              <SlideFade in offsetY="20px">
+                <Box w="100%">
+                  <ControlButtons
+                    label="Desligar"
+                    icon={RiShutDownLine}
+                    onClick={() =>
+                      handleApiCall(
+                        "shutdownPc",
+                        selectedComputer || computerOptions[0]
+                      )
+                    }
+                  />
+                </Box>
+              </SlideFade>
+            </VStack>
+          </Section>
 
-        <Section title="Upload de Arquivo">
-          <VStack spacing={6} w="100%" h="100%" align="stretch">
-            <SlideFade in offsetY="20px">
-              <Box w="100%" flex="1">
-                <FileUpload />
-              </Box>
-            </SlideFade>
-          </VStack>
-        </Section>
-      </SimpleGrid>
+          <Section title="Upload de Arquivo">
+            <VStack spacing={6} w="100%" h="100%" align="stretch">
+              <SlideFade in offsetY="20px">
+                <Box w="100%" flex="1">
+                  <FileUpload />
+                </Box>
+              </SlideFade>
+            </VStack>
+          </Section>
+
+          {error && (
+            <Popover>
+              <PopoverTrigger>
+                <Box visibility="hidden" />
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverBody>
+                  <Text>{error}</Text>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          )}
+        </SimpleGrid>
+      )}
     </Fade>
   );
 };
