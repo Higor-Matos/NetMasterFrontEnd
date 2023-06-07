@@ -39,6 +39,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showLoadingMessage, setShowLoadingMessage] = useState(false);
   const [error, setError] = useState("");
+  const [apiResponse, setApiResponse] = useState("");
   const computerOptions = ["RAMO-PC", "MAGNATI-10848-F", "OUTRO-PC"];
   const programOptions = [
     {
@@ -88,7 +89,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   ) => {
     setIsLoading(true);
     setShowLoadingMessage(false);
-    setError(""); // Reset error
+    setError("");
+    setApiResponse("");
 
     const loadingTimeout = setTimeout(() => {
       setShowLoadingMessage(true);
@@ -106,14 +108,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
         case "restartPc":
           response = await ApiService.restartPc(computer);
           break;
-        case "verificarVersaoChocolatey":
-          response = await ApiService.getChocolateyInfo(computer);
-          break;
         default:
           console.error("Endpoint não reconhecido!");
           return;
       }
       console.log(response);
+      setApiResponse(response.data.message);
       setIsLoading(false);
       clearTimeout(loadingTimeout);
     } catch (error) {
@@ -121,6 +121,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
       setIsLoading(false);
       clearTimeout(loadingTimeout);
       setError("Ocorreu um erro ao executar a operação.");
+      setApiResponse(error.response.data.message);
     }
   };
 
@@ -251,20 +252,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
               <SlideFade in offsetY="20px">
                 <Box w="100%">
                   <ControlButtons
-                    label="Versão do Chocolatey"
-                    icon={SiChocolatey}
-                    onClick={() =>
-                      handleApiCall(
-                        "verificarVersaoChocolatey",
-                        selectedComputer || computerOptions[0]
-                      )
-                    }
-                  />
-                </Box>
-              </SlideFade>
-              <SlideFade in offsetY="20px">
-                <Box w="100%">
-                  <ControlButtons
                     label="Reiniciar"
                     icon={MdOutlineRestartAlt}
                     onClick={() =>
@@ -292,7 +279,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
               </SlideFade>
             </VStack>
           </Section>
-
           <Section title="Upload de Arquivo">
             <VStack spacing={6} w="100%" h="100%" align="stretch">
               <SlideFade in offsetY="20px">
@@ -302,8 +288,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
               </SlideFade>
             </VStack>
           </Section>
-
-          {error && (
+          {apiResponse && (
             <Popover>
               <PopoverTrigger>
                 <Box visibility="hidden" />
@@ -312,7 +297,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
                 <PopoverArrow />
                 <PopoverCloseButton />
                 <PopoverBody>
-                  <Text>{error}</Text>
+                  <Text>{apiResponse}</Text>
                 </PopoverBody>
               </PopoverContent>
             </Popover>

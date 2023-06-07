@@ -1,33 +1,27 @@
-import React, { useState, useCallback } from "react";
-import { ChakraProvider } from "@chakra-ui/react";
-import {
-  Sidebar,
-  Topbar,
-  Footer,
-  PageContent,
-} from "./components";
-import {
-  ControlPanel,
-  Dashboard,
-  Presentation,
-} from "./pages";
+import React, { useState, useCallback, useEffect } from "react";
+import { ChakraProvider, useColorMode, useMediaQuery } from "@chakra-ui/react";
+import { Sidebar, Topbar, Footer, PageContent } from "./components";
+import { ControlPanel, Dashboard, Presentation } from "./pages";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("presentation");
   const [showSidebarTopbar, setShowSidebarTopbar] = useState(false);
+  const { colorMode, setColorMode } = useColorMode();
 
-  const handlePageChange = useCallback((page: React.SetStateAction<string>) => {
+  const [isDarkMode] = useMediaQuery("(prefers-color-scheme: dark)");
+
+  useEffect(() => {
+    setColorMode(isDarkMode ? "dark" : "light");
+  }, [isDarkMode, setColorMode]);
+
+  const handlePageChange = useCallback((page) => {
     setCurrentPage(page);
   }, []);
 
   const getPageContent = useCallback(() => {
     switch (currentPage) {
       case "control-panel":
-        return <ControlPanel ip={""} onIPChange={function (value: string): void {
-          throw new Error("Function not implemented.");
-        } } computer={""} onClick={function (endpoint: string, ip?: string | undefined): void {
-          throw new Error("Function not implemented.");
-        } } />;
+        return <ControlPanel />;
       case "dashboard":
         return <Dashboard />;
       default:
@@ -52,10 +46,8 @@ const App = () => {
       )}
       <Topbar
         isVisible={showSidebarTopbar}
-        colorMode="light"
-        toggleColorMode={() => {
-          throw new Error("Function not implemented.");
-        }}
+        colorMode={colorMode}
+        toggleColorMode={setColorMode}
         isLargerThan768={false}
       />
       <PageContent showSidebarTopbar={showSidebarTopbar}>
