@@ -49,12 +49,12 @@ const Dashboard = () => {
   });
   const [osData, setOsData] = useState<OSData>({ caption: "", version: "" });
   const [programsData, setProgramsData] = useState([]);
-  const [computerName, setComputerName] = useState("MAGNATI-10848-F");
+  const [computerName, setComputerName] = useState("RAMO-PC");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [lastUpdated, setLastUpdated] = useState<string>("");
 
-  const computerOptions = ["MAGNATI-10848-F", "RAMO-PC", "ANOTHER-PC"];
+  const computerOptions = ["RAMO-PC", "Erick-PC", "NoteGustavo"];
 
   useEffect(() => {
     fetchData();

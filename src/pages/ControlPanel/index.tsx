@@ -41,7 +41,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   const [showLoadingMessage, setShowLoadingMessage] = useState(false);
   const [error, setError] = useState("");
   const [apiResponse, setApiResponse] = useState("");
-  const computerOptions = ["RAMO-PC", "MAGNATI-10848-F", "OUTRO-PC"];
+  const computerOptions = ["RAMO-PC", "Erick-PC", "NoteGustavo"];
   const programOptions = [
     {
       label: "Adobe Reader",
