@@ -35,7 +35,8 @@ interface ControlPanelProps {
 }
 
 const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
-  const [selectedComputer, setSelectedComputer] = useState("");
+  const [selectedComputerInstall, setSelectedComputerInstall] = useState("");
+  const [selectedComputerAction, setSelectedComputerAction] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showLoadingMessage, setShowLoadingMessage] = useState(false);
   const [error, setError] = useState("");
@@ -79,8 +80,9 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   );
 
   useEffect(() => {
-    console.log(selectedComputer);
-  }, [selectedComputer]);
+    console.log(selectedComputerInstall);
+    console.log(selectedComputerAction);
+  }, [selectedComputerInstall, selectedComputerAction]);
 
   const handleApiCall = async (
     endpoint: string,
@@ -109,60 +111,57 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
           response = await ApiService.restartPc(computer);
           break;
         default:
-          console.error("Endpoint não reconhecido!");
+          console.error("Endpoint não reconhecido");
           return;
       }
-      console.log(response);
-      setApiResponse(response.data.message);
+      setApiResponse(response);
       setIsLoading(false);
       clearTimeout(loadingTimeout);
     } catch (error) {
-      console.error(error);
+      setError("Erro ao fazer a chamada de API");
       setIsLoading(false);
       clearTimeout(loadingTimeout);
-      setError("Ocorreu um erro ao executar a operação.");
-      setApiResponse(error.response.data.message);
     }
   };
 
-  const handleBatchAction = async (endpoint: string) => {
-    for (const computer of computerOptions) {
-      await handleApiCall(endpoint, computer);
-    }
+  const handleComputerChangeInstall = (value: string) => {
+    setSelectedComputerInstall(value);
+    onComputerChange(value);
   };
 
-  const handleComputerChange = (value: string) => {
-    setSelectedComputer(value);
+  const handleComputerChangeAction = (value: string) => {
+    setSelectedComputerAction(value);
     onComputerChange(value);
   };
 
   const renderComputerOptions = () => {
-    return computerOptions.map((option) => (
-      <option key={option} value={option}>
-        {option}
-      </option>
-    ));
+    return computerOptions.map((option, index) => {
+      return (
+        <option key={index} value={option}>
+          {option}
+        </option>
+      );
+    });
   };
 
   const renderProgramOptions = () => {
-    return programOptions.map((program, index) => (
-      <SlideFade in offsetY="20px" key={program.label}>
-        {index !== 0 && <Box h="10px" />}
-        <Box w="100%">
-          <ControlButtons
-            label={program.label}
-            icon={program.icon}
-            onClick={() =>
-              handleApiCall(
-                "installSoftware",
-                selectedComputer || computerOptions[0],
-                program.software
-              )
-            }
-          />
-        </Box>
-      </SlideFade>
-    ));
+    return programOptions.map((option, index) => {
+      const Icon = option.icon;
+      return (
+        <ControlButtons
+          key={index}
+          label={option.label}
+          Icon={Icon}
+          handleClick={() =>
+            handleApiCall(
+              "installSoftware",
+              selectedComputerInstall || computerOptions[0],
+              option.software
+            )
+          }
+        />
+      );
+    });
   };
 
   return (
