@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Text,
@@ -25,13 +25,22 @@ const Presentation: React.FC<PresentationProps> = ({
   handlePageChange,
   setShowSidebarTopbar,
 }) => {
-  const { colorMode } = useColorMode();
+  const { colorMode, setColorMode } = useColorMode();
   const backgroundColor = useColorModeValue(
     "rgba(255, 255, 255, 0.9)",
     "rgba(0, 0, 0, 0.9)"
   );
   const [startButtonVisible, setStartButtonVisible] = useState(true);
   const [startClicked, setStartClicked] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const colorScheme = localStorage.getItem("chakra-ui-color-mode");
+    return colorScheme === "dark";
+  });
+
+  useEffect(() => {
+    setIsDarkMode(colorMode === "dark");
+    localStorage.setItem("chakra-ui-color-mode", colorMode);
+  }, [colorMode]);
 
   const handleStartClick = () => {
     setShowSidebarTopbar(true);
@@ -53,12 +62,11 @@ const Presentation: React.FC<PresentationProps> = ({
       textAlign="center"
       px="4"
     >
-      <ParticlesBg
-        type="cobweb"
-        bg={true}
-        color={colorMode === "light" ? "#000000" : "#ffffff"}
-        zIndex={0}
-      />
+      {isDarkMode ? (
+        <ParticlesBg type="cobweb" bg={true} color="#ffffff" zIndex={0} />
+      ) : (
+        <ParticlesBg type="cobweb" bg={true} color="#000000" zIndex={0} />
+      )}
 
       <VStack spacing={8} zIndex={1}>
         <Box

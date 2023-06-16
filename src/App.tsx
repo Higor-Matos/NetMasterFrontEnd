@@ -11,8 +11,17 @@ const App = () => {
   const [isDarkMode] = useMediaQuery("(prefers-color-scheme: dark)");
 
   useEffect(() => {
-    setColorMode(isDarkMode ? "dark" : "light");
+    const localStorageColorMode = localStorage.getItem("colorMode");
+    if (localStorageColorMode) {
+      setColorMode(localStorageColorMode);
+    } else {
+      setColorMode(isDarkMode ? "dark" : "light");
+    }
   }, [isDarkMode, setColorMode]);
+
+  useEffect(() => {
+    localStorage.setItem("colorMode", colorMode);
+  }, [colorMode]);
 
   const handlePageChange = useCallback((page) => {
     setCurrentPage(page);

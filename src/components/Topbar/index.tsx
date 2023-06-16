@@ -27,6 +27,11 @@ interface Props {
 }
 
 const AvatarMenu = ({ colorMode, toggleColorMode, isLargerThan768 }: Props) => {
+  const handleToggleColorMode = () => {
+    const newColorMode = colorMode === "light" ? "dark" : "light";
+    toggleColorMode(newColorMode);
+    localStorage.setItem("colorMode", newColorMode);
+  };
   return (
     <Box display="flex" alignItems="center">
       <Menu>
