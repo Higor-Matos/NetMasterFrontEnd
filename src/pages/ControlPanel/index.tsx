@@ -35,8 +35,8 @@ interface ControlPanelProps {
 }
 
 const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
-  const [selectedComputerInstall, setSelectedComputerInstall] = useState("");
-  const [selectedComputerAction, setSelectedComputerAction] = useState("");
+  const [selectedComputer, setSelectedComputer] = useState("");
+  const [selectedComputer2, setSelectedComputer2] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showLoadingMessage, setShowLoadingMessage] = useState(false);
   const [error, setError] = useState("");
@@ -80,9 +80,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   );
 
   useEffect(() => {
-    console.log(selectedComputerInstall);
-    console.log(selectedComputerAction);
-  }, [selectedComputerInstall, selectedComputerAction]);
+    console.log(selectedComputer);
+  }, [selectedComputer]);
 
   const handleApiCall = async (
     endpoint: string,
@@ -111,57 +110,60 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
           response = await ApiService.restartPc(computer);
           break;
         default:
-          console.error("Endpoint não reconhecido");
+          console.error("Endpoint não reconhecido!");
           return;
       }
-      setApiResponse(response);
+      console.log(response);
+      setApiResponse(response.data.message);
       setIsLoading(false);
       clearTimeout(loadingTimeout);
     } catch (error) {
-      setError("Erro ao fazer a chamada de API");
+      console.error(error);
       setIsLoading(false);
       clearTimeout(loadingTimeout);
+      setError("Ocorreu um erro ao executar a operação.");
+      setApiResponse(error.response.data.message);
     }
   };
 
-  const handleComputerChangeInstall = (value: string) => {
-    setSelectedComputerInstall(value);
-    onComputerChange(value);
+  const handleBatchAction = async (endpoint: string) => {
+    for (const computer of computerOptions) {
+      await handleApiCall(endpoint, computer);
+    }
   };
 
-  const handleComputerChangeAction = (value: string) => {
-    setSelectedComputerAction(value);
+  const handleComputerChange = (value: string) => {
+    setSelectedComputer(value);
     onComputerChange(value);
   };
 
   const renderComputerOptions = () => {
-    return computerOptions.map((option, index) => {
-      return (
-        <option key={index} value={option}>
-          {option}
-        </option>
-      );
-    });
+    return computerOptions.map((option) => (
+      <option key={option} value={option}>
+        {option}
+      </option>
+    ));
   };
 
   const renderProgramOptions = () => {
-    return programOptions.map((option, index) => {
-      const Icon = option.icon;
-      return (
-        <ControlButtons
-          key={index}
-          label={option.label}
-          Icon={Icon}
-          handleClick={() =>
-            handleApiCall(
-              "installSoftware",
-              selectedComputerInstall || computerOptions[0],
-              option.software
-            )
-          }
-        />
-      );
-    });
+    return programOptions.map((program, index) => (
+      <SlideFade in offsetY="20px" key={program.label}>
+        {index !== 0 && <Box h="10px" />}
+        <Box w="100%">
+          <ControlButtons
+            label={program.label}
+            icon={program.icon}
+            onClick={() =>
+              handleApiCall(
+                "installSoftware",
+                selectedComputer || computerOptions[0],
+                program.software
+              )
+            }
+          />
+        </Box>
+      </SlideFade>
+    ));
   };
 
   return (
@@ -240,7 +242,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
                 <Box w="100%">
                   <Select
                     size="lg"
-                    value={selectedComputer}
+                    value={selectedComputer2}
                     onChange={(e) => handleComputerChange(e.target.value || "")}
                     boxShadow={`0 4px 6px ${boxShadowColor}`}
                   >
