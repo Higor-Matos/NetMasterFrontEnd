@@ -41,7 +41,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   const [showLoadingMessage, setShowLoadingMessage] = useState(false);
   const [error, setError] = useState("");
   const [apiResponse, setApiResponse] = useState("");
-  const computerOptions = ["RAMO-PC", "Erick-PC", "NoteGustavo"];
+  const computerOptions = ["RAMO-PC", "ERICK-PC", "NOTEGUSTAVO"];
   const programOptions = [
     {
       label: "Adobe Reader",
@@ -127,9 +127,17 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   };
 
   const handleBatchAction = async (endpoint: string) => {
-    for (const computer of computerOptions) {
-      await handleApiCall(endpoint, computer);
-    }
+    const requests = computerOptions.map((computer) =>
+      handleApiCall(endpoint, computer)
+    );
+    const results = await Promise.allSettled(requests);
+    results.forEach((result, i) => {
+      if (result.status === "rejected") {
+        console.error(
+          `A ação em lote para o computador ${computerOptions[i]} falhou.`
+        );
+      }
+    });
   };
 
   const handleComputerChange = (value: string) => {

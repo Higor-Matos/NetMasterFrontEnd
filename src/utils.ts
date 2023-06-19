@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 export const fetchComputers = async () => {
   try {
     const response = await axios.get(
-      "http://localhost:5018/powershell/listComputersNetwork"
+      "http://192.168.100.15:5018/powershell/listComputersNetwork"
     );
     return response.data.success.result.computers;
   } catch (error) {
@@ -17,7 +17,7 @@ export const fetchComputers = async () => {
 export const handleButtonClick = async (endpoint: string, ip: string) => {
   try {
     const response = await axios.post(
-      `http://localhost:5018/powershell/${endpoint}`,
+      `http://192.168.100.15:5018/powershell/${endpoint}`,
       { ip }
     );
     console.log(response);

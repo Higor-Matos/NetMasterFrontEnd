@@ -1,7 +1,7 @@
 // services/hardwareService.ts
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5018";
+const API_BASE_URL = "http://192.168.100.15:5018";
 
 export const fetchRamInfo = async (computerName: string) => {
   try {
