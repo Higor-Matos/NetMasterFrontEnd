@@ -100,7 +100,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
       let response;
       switch (endpoint) {
         case "installSoftware":
-          response = await ApiService.installSoftware(computer, software);
+          response = await ApiService.installSoftware(
+            computer,
+            software || "defaultSoftware"
+          ); // provide a default value
           break;
         case "shutdownPc":
           response = await ApiService.shutdownPc(computer);
@@ -109,19 +112,19 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
           response = await ApiService.restartPc(computer);
           break;
         default:
-          console.error("Endpoint não reconhecido!");
-          return;
+          break;
       }
-      console.log(response);
-      setApiResponse(response.data.message);
-      setIsLoading(false);
+      if (response) {
+        clearTimeout(loadingTimeout);
+        setApiResponse(response);
+        setIsLoading(false);
+        setShowLoadingMessage(false);
+      }
+    } catch (error) {
       clearTimeout(loadingTimeout);
-    } catch (error: any) {
-      console.error(error);
+      setError("Ops! Algo deu errado.");
       setIsLoading(false);
-      clearTimeout(loadingTimeout);
-      setError("Ocorreu um erro ao executar a operação.");
-      setApiResponse(error.response?.data.message || "");
+      setShowLoadingMessage(false);
     }
   };
 
