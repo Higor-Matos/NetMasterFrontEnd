@@ -49,6 +49,12 @@ docker-compose up
 
 Isso irá construir e iniciar os containers necessários para executar o Net Master Frontend.
 
+## Hospedagem na Vercel ☁️
+
+O front-end do Net Master está atualmente hospedado na plataforma Vercel. Você pode acessar a aplicação através do seguinte URL:
+
+https://net-master-front-end-higordeus.vercel.app/
+
 ## 🧪 Qualidade de Software
 
 A fim de garantir a qualidade do software, o projeto Net Master Frontend utilizou a ferramenta Sonar. O Sonar é uma plataforma de análise estática de código que realiza verificações automatizadas para identificar problemas de qualidade, como vulnerabilidades, bugs, dívidas técnicas e violações de boas práticas de programação.
