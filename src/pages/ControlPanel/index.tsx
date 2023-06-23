@@ -166,7 +166,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
               handleApiCall(
                 "installSoftware",
                 selectedComputer || Object.keys(computerOptions)[0],
-                program.software
+                program.software as string
               )
             }
           />
