@@ -29,7 +29,7 @@ interface Props {
 const AvatarMenu = ({ colorMode, toggleColorMode, isLargerThan768 }: Props) => {
   const handleToggleColorMode = () => {
     const newColorMode = colorMode === "light" ? "dark" : "light";
-    toggleColorMode(newColorMode);
+    toggleColorMode();
     localStorage.setItem("colorMode", newColorMode);
   };
   return (
@@ -143,7 +143,7 @@ const Topbar = ({ isVisible }: Props) => {
         )}
         <AvatarMenu
           colorMode={colorMode}
-          toggleColorMode={() => toggleColorMode()}
+          toggleColorMode={toggleColorMode}
           isLargerThan768={isLargerThan768}
           isVisible={isVisible}
         />

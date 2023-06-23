@@ -25,7 +25,7 @@ const Presentation: React.FC<PresentationProps> = ({
   handlePageChange,
   setShowSidebarTopbar,
 }) => {
-  const { colorMode, setColorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
   const backgroundColor = useColorModeValue(
     "rgba(255, 255, 255, 0.9)",
     "rgba(0, 0, 0, 0.9)"
@@ -63,12 +63,12 @@ const Presentation: React.FC<PresentationProps> = ({
       px="4"
     >
       {isDarkMode ? (
-        <ParticlesBg type="cobweb" bg={true} color="#ffffff" zIndex={0} />
+        <ParticlesBg type="cobweb" bg={true} color="#ffffff" />
       ) : (
-        <ParticlesBg type="cobweb" bg={true} color="#000000" zIndex={0} />
+        <ParticlesBg type="cobweb" bg={true} color="#000000" />
       )}
 
-      <VStack spacing={8} zIndex={1}>
+      <VStack spacing={8}>
         <Box
           bg={backgroundColor}
           p={6}
@@ -84,7 +84,6 @@ const Presentation: React.FC<PresentationProps> = ({
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
             textShadow="2px 2px 3px rgba(0, 0, 0, 0.2)"
-            zIndex={2}
             fontFamily="sans-serif"
           >
             Net Master
@@ -105,10 +104,9 @@ const Presentation: React.FC<PresentationProps> = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
             textShadow="1px 1px 2px rgba(0, 0, 0, 0.2)"
-            zIndex={2}
             fontFamily="sans-serif"
           >
-            O painel de administração para sua rede
+            O painel de admin istração para sua rede
           </MotionText>
         </Box>
         {startButtonVisible && (
@@ -131,7 +129,6 @@ const Presentation: React.FC<PresentationProps> = ({
             borderRadius="md"
             boxShadow="md"
             rightIcon={<AiOutlineArrowRight />}
-            zIndex={2}
             fontFamily="sans-serif"
             aria-label="Start"
           >

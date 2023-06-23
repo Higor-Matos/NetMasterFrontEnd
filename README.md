@@ -66,12 +66,13 @@ Confira uma entrevista sobre este projeto no YouTube: [Entrevista - Expotech](ht
 ## Imagens do Projeto
 
 <p align="center">
-  ![Imagem 1](imgs/img%20(1).png)
-  ![Imagem 2](imgs/img%20(2).png)
-  ![Imagem 3](imgs/img%20(3).png)
-  ![Imagem 5](imgs/img%20(5).png)
-  ![Imagem 6](imgs/img%20(6).png)
-  ![Imagem 7](imgs/img%20(7).png)
-  ![Imagem 8](imgs/img%20(8).png)
-  ![Work Gif](imgs/work.gif)
+  <img src="imgs/img%20(1).png" alt="Imagem 1">
+  <img src="imgs/img%20(2).png" alt="Imagem 2">
+  <img src="imgs/img%20(3).png" alt="Imagem 3">
+  <img src="imgs/img%20(5).png" alt="Imagem 5">
+  <img src="imgs/img%20(6).png" alt="Imagem 6">
+  <img src="imgs/img%20(7).png" alt="Imagem 7">
+  <img src="imgs/img%20(8).png" alt="Imagem 8">
+  <img src="imgs/work.gif" alt="Work Gif">
 </p>
+

@@ -30,7 +30,7 @@ const App = () => {
   const getPageContent = useCallback(() => {
     switch (currentPage) {
       case "control-panel":
-        return <ControlPanel />;
+        return <ControlPanel onComputerChange={() => {}} />;
       case "dashboard":
         return <Dashboard />;
       default:
