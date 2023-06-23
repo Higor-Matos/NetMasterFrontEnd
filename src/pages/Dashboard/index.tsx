@@ -54,7 +54,11 @@ const Dashboard = () => {
   const [error, setError] = useState("");
   const [lastUpdated, setLastUpdated] = useState<string>("");
 
-  const computerOptions = ["RAMO-PC", "ERICK-PC", "NOTEGUSTAVO"];
+  const computerOptions = {
+    "RAMO-PC": "Computador 1",
+    "ERICK-PC": "Computador 2",
+    NOTEGUSTAVO: "Computador 3",
+  };
 
   useEffect(() => {
     fetchData();
@@ -261,9 +265,9 @@ const Dashboard = () => {
         onChange={handleChangeComputer}
         boxShadow={`0 4px 6px ${boxShadowColor}`}
       >
-        {computerOptions.map((option) => (
-          <option key={option} value={option}>
-            {option}
+        {Object.entries(computerOptions).map(([realName, maskedName]) => (
+          <option key={realName} value={realName}>
+            {maskedName}
           </option>
         ))}
       </Select>

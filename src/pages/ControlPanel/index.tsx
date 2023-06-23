@@ -41,7 +41,11 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   const [showLoadingMessage, setShowLoadingMessage] = useState(false);
   const [error, setError] = useState("");
   const [apiResponse, setApiResponse] = useState("");
-  const computerOptions = ["RAMO-PC", "ERICK-PC", "NOTEGUSTAVO"];
+  const computerOptions = {
+    "RAMO-PC": "Computador 1",
+    "ERICK-PC": "Computador 2",
+    NOTEGUSTAVO: "Computador 3",
+  };
   const programOptions = [
     {
       label: "Adobe Reader",
@@ -127,14 +131,16 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   };
 
   const handleBatchAction = async (endpoint: string) => {
-    const requests = computerOptions.map((computer) =>
+    const requests = Object.keys(computerOptions).map((computer) =>
       handleApiCall(endpoint, computer)
     );
     const results = await Promise.allSettled(requests);
     results.forEach((result, i) => {
       if (result.status === "rejected") {
         console.error(
-          `A ação em lote para o computador ${computerOptions[i]} falhou.`
+          `A ação em lote para o computador ${
+            computerOptions[Object.keys(computerOptions)[i]]
+          } falhou.`
         );
       }
     });
@@ -146,9 +152,9 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   };
 
   const renderComputerOptions = () => {
-    return computerOptions.map((option) => (
-      <option key={option} value={option}>
-        {option}
+    return Object.entries(computerOptions).map(([realName, maskedName]) => (
+      <option key={realName} value={realName}>
+        {maskedName}
       </option>
     ));
   };
@@ -164,7 +170,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
             onClick={() =>
               handleApiCall(
                 "installSoftware",
-                selectedComputer || computerOptions[0],
+                selectedComputer || Object.keys(computerOptions)[0],
                 program.software
               )
             }
@@ -266,7 +272,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
                     onClick={() =>
                       handleApiCall(
                         "restartPc",
-                        selectedComputer || computerOptions[0]
+                        selectedComputer || Object.keys(computerOptions)[0]
                       )
                     }
                   />
@@ -280,7 +286,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
                     onClick={() =>
                       handleApiCall(
                         "shutdownPc",
-                        selectedComputer || computerOptions[0]
+                        selectedComputer || Object.keys(computerOptions)[0]
                       )
                     }
                   />
