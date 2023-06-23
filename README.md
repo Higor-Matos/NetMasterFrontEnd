@@ -62,3 +62,14 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir um "issue" ou en
 ## 🎙️ Entrevista sobre o projeto
 
 Confira uma entrevista sobre este projeto no YouTube: [Entrevista - Expotech](https://www.youtube.com/watch?v=dFQMuRxyf1c)
+
+## Imagens do Projeto
+
+![Imagem 1](imgs/img (1).png)
+![Imagem 2](imgs/img (2).png)
+![Imagem 3](imgs/img (3).png)
+![Imagem 4](imgs/img (4).png)
+![Imagem 5](imgs/img (5).png)
+![Imagem 6](imgs/img (6).png)
+![Imagem 7](imgs/img (7).png)
+![Imagem 8](imgs/img (8).png)
