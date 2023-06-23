@@ -54,7 +54,7 @@ const Dashboard = () => {
   const [error, setError] = useState("");
   const [lastUpdated, setLastUpdated] = useState<string>("");
 
-  const computerOptions = ["RAMO-PC", "Erick-PC", "NoteGustavo"];
+  const computerOptions = ["RAMO-PC", "ERICK-PC", "NOTEGUSTAVO"];
 
   useEffect(() => {
     fetchData();
