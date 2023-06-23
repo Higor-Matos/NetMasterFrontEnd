@@ -1,13 +1,20 @@
-FROM node:14.17.1 AS build
+# Use uma imagem do Node.js
+FROM node:16
+
+# Define o diretório de trabalho
 WORKDIR /app
 
+# Copia os arquivos package.json e package-lock.json para o diretório de trabalho
 COPY package*.json ./
+
+# Instala todas as dependências
 RUN npm install
+
+# Copia o resto dos arquivos para o diretório de trabalho
 COPY . .
 
-RUN npm run build
+# Expõe a porta 5173
+EXPOSE 5173
 
-FROM nginx:1.21.1-alpine
-COPY --from=build /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Comando para iniciar a aplicação
+CMD [ "npm", "run", "dev" ]

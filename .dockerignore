@@ -1,0 +1,17 @@
+# Arquivos e diretórios específicos do Vite
+node_modules/
+dist/
+build/
+vite.config.ts
+
+# Arquivos de desenvolvimento local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Outros arquivos e diretórios gerados durante o desenvolvimento
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
