@@ -4,8 +4,8 @@ import { Sidebar, Topbar, Footer, PageContent } from "./components";
 import { ControlPanel, Dashboard, Presentation } from "./pages";
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState("presentation");
-  const [showSidebarTopbar, setShowSidebarTopbar] = useState(false);
+  const [currentPage, setCurrentPage] = useState<string>("presentation");
+  const [showSidebarTopbar, setShowSidebarTopbar] = useState<boolean>(false);
   const { colorMode, setColorMode } = useColorMode();
 
   const [isDarkMode] = useMediaQuery("(prefers-color-scheme: dark)");
@@ -23,7 +23,7 @@ const App = () => {
     localStorage.setItem("colorMode", colorMode);
   }, [colorMode]);
 
-  const handlePageChange = useCallback((page) => {
+  const handlePageChange = useCallback((page: string) => {
     setCurrentPage(page);
   }, []);
 
@@ -56,7 +56,9 @@ const App = () => {
       <Topbar
         isVisible={showSidebarTopbar}
         colorMode={colorMode}
-        toggleColorMode={setColorMode}
+        toggleColorMode={() =>
+          setColorMode(colorMode === "light" ? "dark" : "light")
+        }
         isLargerThan768={false}
       />
       <PageContent showSidebarTopbar={showSidebarTopbar}>

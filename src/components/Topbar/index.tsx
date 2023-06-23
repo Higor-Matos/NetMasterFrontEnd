@@ -143,7 +143,7 @@ const Topbar = ({ isVisible }: Props) => {
         )}
         <AvatarMenu
           colorMode={colorMode}
-          toggleColorMode={toggleColorMode}
+          toggleColorMode={() => toggleColorMode()}
           isLargerThan768={isLargerThan768}
           isVisible={isVisible}
         />
