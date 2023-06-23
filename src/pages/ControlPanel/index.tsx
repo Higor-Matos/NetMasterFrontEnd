@@ -35,13 +35,13 @@ interface ControlPanelProps {
 }
 
 const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
-  const [selectedComputer, setSelectedComputer] = useState("");
-  const [selectedComputer2, setSelectedComputer2] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [showLoadingMessage, setShowLoadingMessage] = useState(false);
-  const [error, setError] = useState("");
-  const [apiResponse, setApiResponse] = useState("");
-  const computerOptions = {
+  const [selectedComputer, setSelectedComputer] = useState<string>("");
+  const [selectedComputer2, setSelectedComputer2] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showLoadingMessage, setShowLoadingMessage] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [apiResponse, setApiResponse] = useState<string>("");
+  const computerOptions: Record<string, string> = {
     "RAMO-PC": "Computador 1",
     "ERICK-PC": "Computador 2",
     "MAGNATI-10848-F": "Computador 3",
@@ -115,18 +115,19 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
           break;
         default:
           console.error("Endpoint não reconhecido!");
+
           return;
       }
       console.log(response);
       setApiResponse(response.data.message);
       setIsLoading(false);
       clearTimeout(loadingTimeout);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       setIsLoading(false);
       clearTimeout(loadingTimeout);
       setError("Ocorreu um erro ao executar a operação.");
-      setApiResponse(error.response.data.message);
+      setApiResponse(error.response?.data.message || "");
     }
   };
 
@@ -232,7 +233,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
             <VStack spacing={6} w="100%" h="100%" align="stretch">
               <SlideFade in offsetY="20px">
                 <Box w="100%">
-                  <ControlButtons
+                  <Control
+                    Buttons
                     label="Reiniciar"
                     icon={MdOutlineRestartAlt}
                     onClick={() => handleBatchAction("restartPc")}
