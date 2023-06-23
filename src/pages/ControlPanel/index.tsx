@@ -17,12 +17,7 @@ import {
   PopoverBody,
   Text,
 } from "@chakra-ui/react";
-import {
-  SiAdobe,
-  SiChocolatey,
-  SiFirefox,
-  SiGooglechrome,
-} from "react-icons/si";
+import { SiAdobe, SiFirefox, SiGooglechrome } from "react-icons/si";
 import { MdOutlineRestartAlt } from "react-icons/md";
 import { RiShutDownLine } from "react-icons/ri";
 import { BsFileEarmarkText, BsFillPlayFill } from "react-icons/bs";
@@ -115,7 +110,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
           break;
         default:
           console.error("Endpoint não reconhecido!");
-
           return;
       }
       console.log(response);
@@ -233,8 +227,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
             <VStack spacing={6} w="100%" h="100%" align="stretch">
               <SlideFade in offsetY="20px">
                 <Box w="100%">
-                  <Control
-                    Buttons
+                  <ControlButtons
                     label="Reiniciar"
                     icon={MdOutlineRestartAlt}
                     onClick={() => handleBatchAction("restartPc")}
