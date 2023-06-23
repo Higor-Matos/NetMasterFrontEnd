@@ -1,7 +1,7 @@
 // ApiService.ts
 import axios from "axios";
 
-const apiBase = "http://192.168.100.15:5018/";
+const apiBase = "http://localhost:5018/";
 
 export const ApiService = {
   async installSoftware(computer: string, softwareName: string) {

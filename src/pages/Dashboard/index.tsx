@@ -57,7 +57,7 @@ const Dashboard = () => {
   const computerOptions = {
     "RAMO-PC": "Computador 1",
     "ERICK-PC": "Computador 2",
-    NOTEGUSTAVO: "Computador 3",
+    "MAGNATI-10848-F": "Computador 3",
   };
 
   useEffect(() => {
