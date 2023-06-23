@@ -20,22 +20,22 @@ Antes de iniciar, você deve ter as seguintes ferramentas instaladas em sua máq
 
 1. Clone o repositório do projeto:
 
-   ```bash
-   git clone https://github.com/Higor-Matos/NetMasterFrontEnd.git
-   ```
+```bash
+git clone https://github.com/Higor-Matos/NetMasterFrontEnd.git
+```
 
 2. Acesse o diretório do projeto:
 
-   ```bash
-   cd NetMasterFrontEnd
-   ```
+```bash
+cd NetMasterFrontEnd
+```
 ## ▶️ Executando o projeto
 
 Para executar o projeto localmente, utilize o comando a seguir:
 
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
 Este comando iniciará o servidor de desenvolvimento e você poderá acessar o Net Master Frontend através do seu navegador em http:/localhost:5173/.
 
@@ -43,9 +43,9 @@ Este comando iniciará o servidor de desenvolvimento e você poderá acessar o N
 
 Se preferir utilizar o Docker, certifique-se de ter o Docker e o Docker Compose instalados em sua máquina. Em seguida, execute o seguinte comando:
 
-   ```bash
-   docker-compose up
-   ```
+```bash
+docker-compose up
+```
 
 Isso irá construir e iniciar os containers necessários para executar o Net Master Frontend.
 
