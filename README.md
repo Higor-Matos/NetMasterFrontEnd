@@ -1,17 +1,17 @@
 # 🌐 Net Master Frontend
 
-O Net Master Frontend é a parte front-end do projeto Net Master, um gerenciador de redes que permite gerenciar vários computadores, compartilhar arquivos entre eles e obter relatórios de uso de memória. Este projeto foi desenvolvido utilizando React, TypeScript e Vite.
+O Net Master Frontend é a interface do usuário do projeto Net Master. Este é um gerenciador de redes que permite gerenciar múltiplos computadores, compartilhar arquivos entre eles e gerar relatórios de uso de memória. O projeto foi desenvolvido usando as tecnologias React, TypeScript e Vite.
 
-## 🚀 Recursos
+## 🚀 Funcionalidades
 
-- Gerenciamento de vários computadores em rede.
-- Compartilhamento de arquivos entre os computadores.
-- Relatórios de uso de memória dos computadores.
-- Interface responsiva para acesso via celular.
+- Gerenciamento de vários computadores conectados em uma rede.
+- Compartilhamento de arquivos entre computadores em rede.
+- Criação de relatórios de uso de memória dos computadores.
+- Interface responsiva para acesso por dispositivos móveis.
 
 ## ✅ Pré-requisitos
 
-Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
+Antes de iniciar, você deve ter as seguintes ferramentas instaladas em sua máquina:
 
 - Node.js (versão 12 ou superior) ⚙️
 - npm (gerenciador de pacotes do Node.js) 📦
@@ -23,18 +23,19 @@ Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas em su
    ```bash
    git clone https://github.com/Higor-Matos/NetMasterFrontEnd.git
 
-Acesse o diretório do projeto:
+
+2. Acesse o diretório do projeto:
 
    ```bash
    cd NetMasterFrontEnd
 
 ## ▶️ Executando o projeto
 
-Para executar o projeto localmente, utilize o seguinte comando:
+Para executar o projeto localmente, utilize o comando a seguir:
 
    ```bash
    npm run dev
-
+   
 Este comando iniciará o servidor de desenvolvimento e você poderá acessar o Net Master Frontend através do seu navegador em http:/localhost:5173/.
 
 ## 🐳 Executando com Docker
