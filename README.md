@@ -72,4 +72,4 @@ Confira uma entrevista sobre este projeto no YouTube: [Entrevista - Expotech](ht
 ![Imagem 6](imgs/img%20(6).png)
 ![Imagem 7](imgs/img%20(7).png)
 ![Imagem 8](imgs/img%20(8).png)
-![Work Gif](work.gif)
+![Work Gif](imgs/work.gif)
