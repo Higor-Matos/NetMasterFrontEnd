@@ -106,7 +106,7 @@ const Presentation: React.FC<PresentationProps> = ({
             textShadow="1px 1px 2px rgba(0, 0, 0, 0.2)"
             fontFamily="sans-serif"
           >
-            O painel de admin istração para sua rede
+            O painel de administração para sua rede
           </MotionText>
         </Box>
         {startButtonVisible && (
