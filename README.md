@@ -41,7 +41,7 @@ Este comando iniciará o servidor de desenvolvimento e você poderá acessar o N
 
 ## 🐳 Executando com Docker
 
-Se preferir utilizar o Docker, certifique-se de ter o Docker e o Docker Compose instalados em sua máquina. Em seguida, execute o seguinte comando:
+Se preferir utilizar o Docker, certifique-se de ter o Docker instalados em sua máquina. Em seguida, execute o seguinte comando:
 
 ```bash
 docker-compose up
