@@ -49,11 +49,11 @@ docker-compose up
 
 Isso irá construir e iniciar os containers necessários para executar o Net Master Frontend.
 
-## ☁️ Hospedagem na Vercel 
+## ☁️ Hospedagem
 
-O front-end do Net Master está atualmente hospedado na plataforma Vercel. Você pode acessar a aplicação através do seguinte URL:
+Não há uma demonstração pública funcional validada para este frontend. A versão observada nos deployments da Vercel envia as requisições para uma API local e para um endereço privado da rede de desenvolvimento, que não atendem visitantes externos. Os deployments antigos não devem ser tratados como uma aplicação pública disponível.
 
-https://net-master-front-end-higordeus.vercel.app/
+Antes de publicar uma demonstração, configure um endereço acessível para a API e valide o fluxo completo de acesso à rede e envio de arquivos.
 
 ## 🧪 Qualidade de Software
 
