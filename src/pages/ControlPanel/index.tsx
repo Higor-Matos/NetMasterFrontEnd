@@ -23,6 +23,7 @@ import { RiShutDownLine } from "react-icons/ri";
 import { BsFileEarmarkText, BsFillPlayFill } from "react-icons/bs";
 import { IoIosFolderOpen } from "react-icons/io";
 import { ControlButtons, FileUpload, Section } from "../../components";
+import { API_CONFIGURATION_ERROR } from "../../services/apiConfig";
 import { ApiService } from "../../services/ApiService";
 
 interface ControlPanelProps {
@@ -75,7 +76,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   ];
   const boxShadowColor = useColorModeValue(
     "rgba(0, 0, 0, 0.1)",
-    "rgba(0, 0, 0, 0.3)"
+    "rgba(0, 0, 0, 0.3)",
   );
 
   useEffect(() => {
@@ -85,7 +86,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
   const handleApiCall = async (
     endpoint: string,
     computer: string,
-    software?: string
+    software?: string,
   ) => {
     setIsLoading(true);
     setShowLoadingMessage(false);
@@ -97,12 +98,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
     }, 15000);
 
     try {
-      let response;
+      let response: unknown;
       switch (endpoint) {
         case "installSoftware":
           response = await ApiService.installSoftware(
             computer,
-            software || "defaultSoftware"
+            software || "defaultSoftware",
           ); // provide a default value
           break;
         case "shutdownPc":
@@ -116,13 +117,19 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
       }
       if (response) {
         clearTimeout(loadingTimeout);
-        setApiResponse(response);
+        setApiResponse(
+          typeof response === "string" ? response : JSON.stringify(response),
+        );
         setIsLoading(false);
         setShowLoadingMessage(false);
       }
     } catch (error) {
       clearTimeout(loadingTimeout);
-      setError("Ops! Algo deu errado.");
+      setError(
+        error instanceof Error && error.message === API_CONFIGURATION_ERROR
+          ? error.message
+          : "Não foi possível concluir a ação no backend.",
+      );
       setIsLoading(false);
       setShowLoadingMessage(false);
     }
@@ -130,7 +137,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
 
   const handleBatchAction = async (endpoint: string) => {
     const requests = Object.keys(computerOptions).map((computer) =>
-      handleApiCall(endpoint, computer)
+      handleApiCall(endpoint, computer),
     );
     const results = await Promise.allSettled(requests);
     results.forEach((result, i) => {
@@ -138,7 +145,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
         console.error(
           `A ação em lote para o computador ${
             computerOptions[Object.keys(computerOptions)[i]]
-          } falhou.`
+          } falhou.`,
         );
       }
     });
@@ -169,7 +176,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
               handleApiCall(
                 "installSoftware",
                 selectedComputer || Object.keys(computerOptions)[0],
-                program.software || "defaultSoftware"
+                program.software || "defaultSoftware",
               )
             }
           />
@@ -270,7 +277,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
                     onClick={() =>
                       handleApiCall(
                         "restartPc",
-                        selectedComputer || Object.keys(computerOptions)[0]
+                        selectedComputer || Object.keys(computerOptions)[0],
                       )
                     }
                   />
@@ -284,7 +291,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ onComputerChange }) => {
                     onClick={() =>
                       handleApiCall(
                         "shutdownPc",
-                        selectedComputer || Object.keys(computerOptions)[0]
+                        selectedComputer || Object.keys(computerOptions)[0],
                       )
                     }
                   />

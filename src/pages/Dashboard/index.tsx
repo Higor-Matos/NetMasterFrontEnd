@@ -18,9 +18,9 @@ import {
   OSInfo,
   ProgramsInfo,
 } from "../../components";
+import { API_CONFIGURATION_ERROR } from "../../services/apiConfig";
 import * as HardwareService from "../../services/hardwareService";
 import * as SystemService from "../../services/systemService";
-import { AxiosError } from "axios";
 
 // Framer Motion Box
 const MotionBox = motion(Box);
@@ -103,7 +103,11 @@ const Dashboard = () => {
       setOsData(osResponse);
       setProgramsData(programsResponse.programs);
     } catch (error) {
-      setError((error as AxiosError).message);
+      setError(
+        error instanceof Error && error.message === API_CONFIGURATION_ERROR
+          ? error.message
+          : "Não foi possível consultar o backend.",
+      );
     } finally {
       setIsLoading(false);
       setLastUpdated(new Date().toLocaleString());
@@ -111,7 +115,7 @@ const Dashboard = () => {
   };
 
   const handleChangeComputer = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     setComputerName(event.target.value);
   };
@@ -123,7 +127,7 @@ const Dashboard = () => {
   const boxColor = useColorModeValue("white", "gray.700");
   const boxShadowColor = useColorModeValue(
     "rgba(0, 0, 0, 0.1)",
-    "rgba(0, 0, 0, 0.3)"
+    "rgba(0, 0, 0, 0.3)",
   );
 
   const boxVariants = {

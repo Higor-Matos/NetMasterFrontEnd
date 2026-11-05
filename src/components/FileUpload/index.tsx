@@ -3,6 +3,8 @@ import { Upload, message } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { Box, useColorModeValue } from "@chakra-ui/react";
 
+import { apiBaseUrl } from "../../services/apiConfig";
+
 const { Dragger } = Upload;
 
 const FileUpload: React.FC = () => {
@@ -14,7 +16,8 @@ const FileUpload: React.FC = () => {
   const props = {
     name: "file",
     multiple: false,
-    action: "http://192.168.100.15:5018/upload/file",
+    action: apiBaseUrl ? `${apiBaseUrl}/upload/file` : undefined,
+    disabled: !apiBaseUrl,
     onChange(info: any) {
       const { status } = info.file;
       if (status !== "uploading") {
@@ -48,7 +51,9 @@ const FileUpload: React.FC = () => {
           Clique ou arraste o arquivo para fazer o upload
         </p>
         <p className="ant-upload-hint">
-          Arquivos PNG, JPG, PDF e ZIP são permitidos.
+          {apiBaseUrl
+            ? "Arquivos PNG, JPG, PDF e ZIP são permitidos."
+            : "Envio indisponível: configure o backend para habilitar."}
         </p>
       </Dragger>
     </Box>
